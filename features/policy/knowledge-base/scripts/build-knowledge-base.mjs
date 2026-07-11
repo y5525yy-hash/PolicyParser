@@ -25,30 +25,56 @@ function isSectionHeading(block) {
 
 export function splitPolicySections(text) {
   const normalized = normalizePolicyText(text);
-  const blocks = normalized.split(/\n\s*\n/).filter(Boolean);
+  const lines = normalized.split("\n").filter(Boolean);
   const sections = [];
   let currentSection = "正文";
+  let currentBlock = null;
 
-  for (const block of blocks) {
-    if (isSectionHeading(block)) {
-      currentSection = block.split("\n", 1)[0];
+  const flushCurrentBlock = () => {
+    if (currentBlock) {
+      sections.push(currentBlock);
+      currentBlock = null;
+    }
+  };
+
+  for (const line of lines) {
+    if (isSectionHeading(line)) {
+      flushCurrentBlock();
+      currentSection = line;
       sections.push({
         section: currentSection,
-        text: block,
+        text: line,
         isHeading: true,
       });
       continue;
     }
 
-    const clauseMatch = block.match(CLAUSE_PATTERN);
-    const itemMatch = block.match(ITEM_PATTERN);
-    sections.push({
-      section: currentSection,
-      clauseNumber: clauseMatch?.[1] ?? itemMatch?.[1],
-      text: block,
-      isHeading: false,
-    });
+    const clauseMatch = line.match(CLAUSE_PATTERN);
+    const itemMatch = line.match(ITEM_PATTERN);
+
+    if (clauseMatch || itemMatch) {
+      flushCurrentBlock();
+      currentBlock = {
+        section: currentSection,
+        clauseNumber: clauseMatch?.[1] ?? itemMatch?.[1],
+        text: line,
+        isHeading: false,
+      };
+      continue;
+    }
+
+    if (!currentBlock) {
+      currentBlock = {
+        section: currentSection,
+        text: line,
+        isHeading: false,
+      };
+    } else {
+      currentBlock.text = `${currentBlock.text}\n${line}`;
+    }
   }
+
+  flushCurrentBlock();
 
   return sections;
 }
@@ -69,10 +95,6 @@ export function buildPolicyChunks(document, text, options = {}) {
 
   for (const policyId of [...document.policyIds].sort()) {
     for (const sourceSection of sourceSections) {
-      if (sourceSection.isHeading) {
-        continue;
-      }
-
       const chunkText = sourceSection.text;
       const oversizedCompleteClause = chunkText.length > targetChars;
 

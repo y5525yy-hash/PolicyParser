@@ -60,6 +60,16 @@ test("preserves restrictions and exceptions in one chunk", async () => {
   assert.match(restrictionChunk.text, /另有规定的除外/);
 });
 
+test("keeps Chinese-numbered provisions even when they resemble headings", () => {
+  const chunks = buildPolicyChunks(
+    document,
+    "一、本市低保标准调整为每人每月1450元。\n\n二、本通知自2024年7月起施行。",
+  );
+
+  assert.ok(chunks.some((chunk) => chunk.text.includes("每人每月1450元")));
+  assert.ok(chunks.some((chunk) => chunk.text.includes("2024年7月起施行")));
+});
+
 test("retains complete source lineage", async () => {
   const text = await readFile(sourceUrl, "utf8");
   const chunks = buildPolicyChunks(document, text);

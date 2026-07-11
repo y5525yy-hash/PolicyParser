@@ -1,0 +1,16 @@
+{
+  "policyId": "policy-005",
+  "documentIds": ["bj-2026-resident-medical"],
+  "sourceChunkIds": ["chunk-455dc60cfb940564", "chunk-dc0f6ffdd6d18e94", "chunk-4824cc1bb68054af"],
+  "extractionMethod": "manual",
+  "verificationStatus": "extracted",
+  "eligibility": [],
+  "applicablePopulation": [{"title": "缴费人群", "text": "官方答复分别列出城乡老年人、学生儿童和劳动年龄内居民三类缴费标准。", "sourceChunkIds": ["chunk-455dc60cfb940564", "chunk-dc0f6ffdd6d18e94", "chunk-4824cc1bb68054af"]}],
+  "benefits": [{"title": "2026年度个人缴费", "text": "城乡老年人460元，学生儿童435元，劳动年龄内居民795元。", "sourceChunkIds": ["chunk-455dc60cfb940564", "chunk-dc0f6ffdd6d18e94", "chunk-4824cc1bb68054af"]}],
+  "materials": [],
+  "procedures": [],
+  "restrictions": [],
+  "unresolvedQuestions": ["需补充正式政策文件及完整参保资格条件", "需补充等待期、待遇和特殊人群资助条件"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "aiDraft": "2026年居民医保按老年人、学生儿童和劳动年龄内居民分别缴费。"},
+  "extractedAt": "2026-07-11"
+}

@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { validateExtraction } from "../scripts/validate-manifest.mjs";
+import {
+  validateExtraction,
+  validateExtractionReferences,
+} from "../scripts/validate-manifest.mjs";
 
 function createValidExtraction() {
   return {
@@ -89,4 +92,17 @@ test("does not treat an AI draft as human verification", () => {
   extraction.plainLanguage.humanVerified = undefined;
 
   assert.deepEqual(validateExtraction(extraction), []);
+});
+
+test("rejects references to missing documents and chunks", () => {
+  const extraction = createValidExtraction();
+  const errors = validateExtractionReferences(extraction, {
+    policyIds: new Set(["policy-002"]),
+    documentIds: new Set(["another-document"]),
+    chunkIds: new Set(["chunk-another"]),
+  });
+
+  assert.ok(errors.some((error) => error.includes("unknown policyId")));
+  assert.ok(errors.some((error) => error.includes("unknown documentId")));
+  assert.ok(errors.some((error) => error.includes("unknown sourceChunkId")));
 });

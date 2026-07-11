@@ -1,0 +1,16 @@
+{
+  "policyId": "policy-004",
+  "documentIds": ["bj-2026-resident-pension"],
+  "sourceChunkIds": ["chunk-0cacd9f1b8b931fb"],
+  "extractionMethod": "manual",
+  "verificationStatus": "extracted",
+  "eligibility": [],
+  "applicablePopulation": [],
+  "benefits": [{"title": "2026年度缴费范围", "text": "最低年缴费标准为1000元，最高年缴费标准为9000元。", "sourceChunkIds": ["chunk-0cacd9f1b8b931fb"]}],
+  "materials": [],
+  "procedures": [],
+  "restrictions": [],
+  "unresolvedQuestions": ["需补充城乡居民养老保险基础参保资格文件", "需补充政府代缴完整条件原文"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/202603/t20260330_4570014.html"], "aiDraft": "2026年北京城乡居民养老保险可在1000元至9000元之间选择年度缴费档次。"},
+  "extractedAt": "2026-07-11"
+}

@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -206,6 +206,44 @@ export function validateExtraction(extraction) {
   return errors;
 }
 
+function collectSourceChunkIds(value, result = []) {
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectSourceChunkIds(item, result));
+  } else if (value && typeof value === "object") {
+    for (const [key, item] of Object.entries(value)) {
+      if (key === "sourceChunkIds" && Array.isArray(item)) {
+        result.push(...item);
+      } else {
+        collectSourceChunkIds(item, result);
+      }
+    }
+  }
+
+  return result;
+}
+
+export function validateExtractionReferences(extraction, references) {
+  const errors = [];
+
+  if (!references.policyIds.has(extraction.policyId)) {
+    errors.push(`unknown policyId: ${extraction.policyId}`);
+  }
+
+  for (const documentId of extraction.documentIds ?? []) {
+    if (!references.documentIds.has(documentId)) {
+      errors.push(`unknown documentId: ${documentId}`);
+    }
+  }
+
+  for (const chunkId of new Set(collectSourceChunkIds(extraction))) {
+    if (!references.chunkIds.has(chunkId)) {
+      errors.push(`unknown sourceChunkId: ${chunkId}`);
+    }
+  }
+
+  return errors;
+}
+
 export function validateManifest(manifest, options = {}) {
   const errors = [];
   const allowedPolicyIds = options.allowedPolicyIds;
@@ -371,6 +409,51 @@ async function validateSourceFiles(manifest, dataRoot) {
   return errors;
 }
 
+async function loadChunkIds(dataRoot) {
+  try {
+    const value = await readFile(path.join(dataRoot, "generated", "chunks.jsonl"), "utf8");
+    return new Set(
+      value
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => JSON.parse(line).chunkId),
+    );
+  } catch {
+    return new Set();
+  }
+}
+
+async function validateExtractionFiles(manifest, dataRoot) {
+  const extractionRoot = path.join(dataRoot, "extractions");
+  let filenames = [];
+
+  try {
+    filenames = (await readdir(extractionRoot)).filter((name) => name.endsWith(".json"));
+  } catch {
+    return [];
+  }
+
+  const references = {
+    policyIds: new Set(manifest.policies.map((policy) => policy.policyId)),
+    documentIds: new Set(manifest.documents.map((document) => document.documentId)),
+    chunkIds: await loadChunkIds(dataRoot),
+  };
+  const errors = [];
+
+  for (const filename of filenames.sort()) {
+    const extraction = JSON.parse(await readFile(path.join(extractionRoot, filename), "utf8"));
+    errors.push(
+      ...validateExtraction(extraction).map((error) => `${filename}: ${error}`),
+      ...validateExtractionReferences(extraction, references).map(
+        (error) => `${filename}: ${error}`,
+      ),
+    );
+  }
+
+  return errors;
+}
+
 async function runCli() {
   const scriptPath = fileURLToPath(import.meta.url);
   const knowledgeBaseRoot = path.resolve(path.dirname(scriptPath), "..");
@@ -384,6 +467,7 @@ async function runCli() {
   const errors = [
     ...validateManifest(manifest, { allowedPolicyIds }),
     ...(await validateSourceFiles(manifest, dataRoot)),
+    ...(await validateExtractionFiles(manifest, dataRoot)),
   ];
 
   if (errors.length > 0) {
