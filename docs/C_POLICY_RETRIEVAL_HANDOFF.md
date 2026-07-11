@@ -111,17 +111,23 @@ C 可以优先用以下政策测试“多条件、否定条件、待遇衔接和
 | `policy-028` | 公共租赁住房申请与配租 | 户籍、住房、收入和家庭结构条件 |
 | `policy-029` | 个体就业残疾人社会保险补贴 | 资格条件、材料、流程及不得重复享受 |
 
-其中 `policy-018`、`policy-023`、`policy-024` 已完成人工核验提取，可以读取：
+其中 `policy-018`、`policy-023`、`policy-024`、`policy-027`、`policy-028`、`policy-029` 已完成人工核验提取，可以读取：
 
 ```text
 features/policy/knowledge-base/data/extractions/policy-018.json
 features/policy/knowledge-base/data/extractions/policy-023.json
 features/policy/knowledge-base/data/extractions/policy-024.json
+features/policy/knowledge-base/data/extractions/policy-027.json
+features/policy/knowledge-base/data/extractions/policy-028.json
+features/policy/knowledge-base/data/extractions/policy-029.json
 ```
 
 - `policy-018`：目标人群是“任一类”，就业登记、收入和缴纳社保是“同时符合”。
 - `policy-023`：社会救助对象与因病致贫家庭属于不同资格分支，多重身份按就高不就低且不得重复享受。
 - `policy-024`：家庭成员、收入、财产必须同时符合，并保留车辆、住房等否定条件和例外。
+- `policy-027`：只用于法律援助经济困难告知承诺方式，不能据此直接认定法律援助事项符合受理范围。
+- `policy-028`：保障房轮候、本市户籍家庭、外省市来京人员是三个不同资格分支；2011年收入数值需核对当前动态标准。
+- `policy-029`：保留本市城镇户籍、残疾证、劳动年龄、就业形式、先缴后补及不得重复享受条件；当前补贴金额需按最新缴费口径核对。
 
 示例：
 
