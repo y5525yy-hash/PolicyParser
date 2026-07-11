@@ -104,26 +104,44 @@ function createChunkId(documentId, policyId, section, clauseNumber, text) {
   return `chunk-${digest}`;
 }
 
+function createDuplicateChunkId(baseChunkId, occurrence) {
+  const digest = createHash("sha256")
+    .update(`${baseChunkId}\n${occurrence}`)
+    .digest("hex")
+    .slice(0, 16);
+
+  return `chunk-${digest}`;
+}
+
 export function buildPolicyChunks(document, text, options = {}) {
   const targetChars = options.targetChars ?? 900;
   const sourceSections = splitPolicySections(text);
   const chunks = [];
+  const chunkIdOccurrences = new Map();
 
   for (const policyId of [...document.policyIds].sort()) {
     for (const sourceSection of sourceSections) {
       const chunkText = sourceSection.text;
       const oversizedCompleteClause = chunkText.length > targetChars;
 
+      const baseChunkId = createChunkId(
+        document.documentId,
+        policyId,
+        sourceSection.section,
+        sourceSection.clauseNumber,
+        chunkText,
+      );
+      const occurrence = (chunkIdOccurrences.get(baseChunkId) ?? 0) + 1;
+      chunkIdOccurrences.set(baseChunkId, occurrence);
+      const chunkId =
+        occurrence === 1
+          ? baseChunkId
+          : createDuplicateChunkId(baseChunkId, occurrence);
+
       chunks.push({
         policyId,
         documentId: document.documentId,
-        chunkId: createChunkId(
-          document.documentId,
-          policyId,
-          sourceSection.section,
-          sourceSection.clauseNumber,
-          chunkText,
-        ),
+        chunkId,
         policyName: document.officialName,
         section: sourceSection.section,
         clauseNumber: sourceSection.clauseNumber,

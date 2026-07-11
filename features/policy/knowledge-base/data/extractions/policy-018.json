@@ -1,0 +1,128 @@
+{
+  "policyId": "policy-018",
+  "documentIds": ["bj-2024-flexible-employment-subsidy"],
+  "sourceChunkIds": [
+    "chunk-819582174879f391",
+    "chunk-8b30bd7ceb0e5d46",
+    "chunk-ab369599c5e7b2bb",
+    "chunk-04f0ffb2ce403cb0",
+    "chunk-571716f81a9573ce",
+    "chunk-0a7bbc794346f9d7",
+    "chunk-265bd749707f3380",
+    "chunk-104c7d06eddfcb17",
+    "chunk-ecc1966895d85aa5"
+  ],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "申请人属于政策列明人员之一，并同时满足就业登记、劳动收入和以灵活就业人员身份缴纳社会保险费三个条件。",
+      "sourceChunkIds": ["chunk-819582174879f391", "chunk-8b30bd7ceb0e5d46"],
+      "conditions": [
+        {
+          "type": "anyOf",
+          "sourceText": "就业困难人员、离校2年内未就业的高校毕业生、登记失业的初次进京随军家属。",
+          "sourceChunkIds": ["chunk-819582174879f391"],
+          "conditions": [
+            {
+              "type": "condition",
+              "field": "employmentSupportIdentity",
+              "operator": "equals",
+              "value": "就业困难人员",
+              "sourceText": "就业困难人员",
+              "sourceChunkIds": ["chunk-819582174879f391"]
+            },
+            {
+              "type": "condition",
+              "field": "employmentSupportIdentity",
+              "operator": "equals",
+              "value": "离校2年内未就业的高校毕业生",
+              "sourceText": "离校2年内未就业的高校毕业生",
+              "sourceChunkIds": ["chunk-819582174879f391"]
+            },
+            {
+              "type": "condition",
+              "field": "employmentSupportIdentity",
+              "operator": "equals",
+              "value": "登记失业的初次进京随军家属",
+              "sourceText": "登记失业的初次进京随军家属",
+              "sourceChunkIds": ["chunk-819582174879f391"]
+            }
+          ]
+        },
+        {
+          "type": "condition",
+          "field": "personalEmploymentRegistrationDays",
+          "operator": "greater_than_or_equal",
+          "value": 30,
+          "unit": "日",
+          "sourceText": "实现灵活就业并办理个人就业登记30日及以上",
+          "sourceChunkIds": ["chunk-8b30bd7ceb0e5d46"]
+        },
+        {
+          "type": "condition",
+          "field": "hasLaborOrBusinessIncome",
+          "operator": "equals",
+          "value": true,
+          "sourceText": "通过劳动取得劳动报酬或经营收入",
+          "sourceChunkIds": ["chunk-8b30bd7ceb0e5d46"]
+        },
+        {
+          "type": "condition",
+          "field": "paysSocialInsuranceAsFlexibleWorker",
+          "operator": "equals",
+          "value": true,
+          "sourceText": "以灵活就业人员身份申报缴纳社会保险费",
+          "sourceChunkIds": ["chunk-8b30bd7ceb0e5d46"]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [
+    {
+      "title": "三类灵活就业人员",
+      "text": "就业困难人员、离校2年内未就业的高校毕业生、登记失业的初次进京随军家属，以个体经营、非全日制或新就业形态等方式实现灵活就业后，可以申请社会保险补贴。",
+      "sourceChunkIds": ["chunk-819582174879f391"]
+    }
+  ],
+  "benefits": [],
+  "materials": [
+    {
+      "title": "就业状况报告及证明",
+      "text": "应如实报告工作地点、工作时间、工作内容和劳动收入等就业状况，并提供相应证明材料。",
+      "sourceChunkIds": ["chunk-04f0ffb2ce403cb0"]
+    }
+  ],
+  "procedures": [
+    {
+      "title": "报告、审核和公示",
+      "text": "可通过就业地街道（乡镇）公共就业服务机构或市人力资源社会保障局政务网站、官方微信公众号等渠道报告就业状况；申请人员全部进行就业状况审核，完成资格认定和审核后公示5个工作日。",
+      "sourceChunkIds": ["chunk-571716f81a9573ce", "chunk-0a7bbc794346f9d7", "chunk-265bd749707f3380"]
+    }
+  ],
+  "restrictions": [
+    {
+      "title": "停止享受补贴的情形",
+      "text": "与用人单位建立劳动关系并签订劳动合同、停止灵活就业、补贴期满、达到法定退休年龄或享受基本养老保险待遇，以及法律法规规定的其他不得享受情形之一出现时，停止享受补贴。",
+      "sourceChunkIds": ["chunk-ab369599c5e7b2bb"]
+    },
+    {
+      "title": "持续报告和真实性要求",
+      "text": "享受补贴期间每3个月应至少报告一次就业状况；未按时报告的暂停发放，真实性核查不符合条件的停止发放并追回被骗取的补贴。",
+      "sourceChunkIds": ["chunk-04f0ffb2ce403cb0", "chunk-104c7d06eddfcb17", "chunk-ecc1966895d85aa5"]
+    }
+  ],
+  "unresolvedQuestions": [
+    "申请人是否已由相关部门认定为就业困难人员等三类对象之一",
+    "个人就业登记是否已满30日",
+    "劳动报酬或经营收入及相应证明材料是否真实完整",
+    "社会保险补贴金额、补贴期限和首次申请材料需结合基础补贴政策及当前经办口径核对"
+  ],
+  "plainLanguage": {
+    "officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/202411/t20241120_3946155.html"],
+    "humanVerified": "这项政策不是所有灵活就业人员都能申请。申请人首先要属于就业困难人员、离校2年内未就业高校毕业生或登记失业的初次进京随军家属之一；还要同时满足已办理个人就业登记满30日、确实取得劳动或经营收入、以灵活就业人员身份缴纳社保三个条件。享受期间要持续报告就业情况，建立劳动关系、停止灵活就业或达到退休条件等情形会停止补贴。"
+  },
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

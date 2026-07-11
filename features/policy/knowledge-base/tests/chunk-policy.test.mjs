@@ -127,3 +127,18 @@ test("produces stable chunk ids and byte-equivalent rows", async () => {
   assert.equal(JSON.stringify(first), JSON.stringify(second));
   assert.ok(first.every((chunk) => /^chunk-[a-f0-9]{16}$/.test(chunk.chunkId)));
 });
+
+test("assigns unique stable ids to repeated official fragments", () => {
+  const text = [
+    "第一章 总则",
+    "第一条 条件相同。",
+    "第一章 总则",
+    "第一条 条件相同。",
+  ].join("\n");
+  const first = buildPolicyChunks(document, text);
+  const second = buildPolicyChunks(document, text);
+  const ids = first.map((chunk) => chunk.chunkId);
+
+  assert.equal(new Set(ids).size, ids.length);
+  assert.deepEqual(ids, second.map((chunk) => chunk.chunkId));
+});
