@@ -50,6 +50,26 @@ test("does not split a clause containing eligibility logic", async () => {
   assert.ok(eligibilityChunk.text.length > 40);
 });
 
+test("keeps a simultaneous-condition lead-in with all nested items", () => {
+  const chunks = buildPolicyChunks(
+    document,
+    [
+      "第一条 申请人需同时符合下列条件：",
+      "（一）具有北京市户籍；",
+      "（二）年满四十周岁；",
+      "（三）未享受基本养老保险待遇。",
+      "第二条 有下列情形之一的，停止享受补贴。",
+    ].join("\n"),
+  );
+  const eligibilityChunk = chunks.find((chunk) => chunk.clauseNumber === "第一条");
+
+  assert.ok(eligibilityChunk);
+  assert.match(eligibilityChunk.text, /需同时符合下列条件/);
+  assert.match(eligibilityChunk.text, /（一）具有北京市户籍/);
+  assert.match(eligibilityChunk.text, /（二）年满四十周岁/);
+  assert.match(eligibilityChunk.text, /（三）未享受基本养老保险待遇/);
+});
+
 test("preserves restrictions and exceptions in one chunk", async () => {
   const text = await readFile(sourceUrl, "utf8");
   const chunks = buildPolicyChunks(document, text, { targetChars: 40 });

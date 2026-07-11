@@ -52,11 +52,27 @@ export function splitPolicySections(text) {
     const clauseMatch = line.match(CLAUSE_PATTERN);
     const itemMatch = line.match(ITEM_PATTERN);
 
-    if (clauseMatch || itemMatch) {
+    if (clauseMatch) {
       flushCurrentBlock();
       currentBlock = {
         section: currentSection,
-        clauseNumber: clauseMatch?.[1] ?? itemMatch?.[1],
+        clauseNumber: clauseMatch[1],
+        text: line,
+        isHeading: false,
+      };
+      continue;
+    }
+
+    if (itemMatch) {
+      if (currentBlock?.clauseNumber?.startsWith("第")) {
+        currentBlock.text = `${currentBlock.text}\n${line}`;
+        continue;
+      }
+
+      flushCurrentBlock();
+      currentBlock = {
+        section: currentSection,
+        clauseNumber: itemMatch[1],
         text: line,
         isHeading: false,
       };
