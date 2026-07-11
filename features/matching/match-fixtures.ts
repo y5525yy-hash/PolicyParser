@@ -2,8 +2,8 @@ import type { MatchResult, Policy, Resident } from "@/shared/types";
 import { DEMO_IDS } from "@/shared/demo-constants";
 
 /**
- * C 模块唯一模拟数据源（P0 范围：高龄老年人津贴）。
- * 页面和规则/服务都从这里导入，不要另建 mock-policies.ts / mock-residents.ts。
+ * C 模块的演示 Policy、Resident 和预期公共 MatchResult 数据源。
+ * 模拟政策原文证据由 mock-providers.ts 提供，二者职责不重叠。
  */
 
 const elderlyAllowance: Policy = {

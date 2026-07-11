@@ -1,11 +1,12 @@
 import type { MatchResidentsByPolicy, MatchPoliciesByResident } from "@/shared/contracts";
 import { demoPolicies, demoResidents } from "./match-fixtures";
+import { mockPolicyEvidenceProvider, mockResidentFactProvider } from "./mock-providers";
+import { patternPolicyCriterionExtractor } from "./policy-criterion-extractor";
 import { evaluatePolicyForResident } from "./matching-rules";
 
 /**
- * 只负责按 ID 找数据、调用 matching-rules.ts 的规则，不在这里重复资格判断。
- * 当前数据来源是 match-fixtures.ts；后续接入真实政策/居民数据时，
- * 只替换这里的数据查找方式，不改变函数签名和调用方式。
+ * 编排 A/B provider、条件抽取器和纯规则内核，不在 service 中判断资格。
+ * 接入真实模块时只替换 provider，公共函数签名和页面保持不变。
  */
 
 export const matchResidentsByPolicy: MatchResidentsByPolicy = async (
@@ -15,8 +16,18 @@ export const matchResidentsByPolicy: MatchResidentsByPolicy = async (
   if (!policy) {
     throw new Error(`未找到政策：${policyId}`);
   }
-  return demoResidents.map((resident) =>
-    evaluatePolicyForResident(policy, resident),
+  const evidence = await mockPolicyEvidenceProvider.retrievePolicyEvidence({
+    policyId,
+  });
+  const criteria = await patternPolicyCriterionExtractor.extractCriteria(
+    policyId,
+    evidence,
+  );
+  return Promise.all(
+    demoResidents.map(async (resident) => {
+      const facts = await mockResidentFactProvider.getResidentFacts(resident.id);
+      return await evaluatePolicyForResident(policy, resident, criteria, facts);
+    }),
   );
 };
 
@@ -27,7 +38,17 @@ export const matchPoliciesByResident: MatchPoliciesByResident = async (
   if (!resident) {
     throw new Error(`未找到居民：${residentId}`);
   }
-  return demoPolicies.map((policy) =>
-    evaluatePolicyForResident(policy, resident),
+  const facts = await mockResidentFactProvider.getResidentFacts(residentId);
+  return Promise.all(
+    demoPolicies.map(async (policy) => {
+      const evidence = await mockPolicyEvidenceProvider.retrievePolicyEvidence({
+        policyId: policy.id,
+      });
+      const criteria = await patternPolicyCriterionExtractor.extractCriteria(
+        policy.id,
+        evidence,
+      );
+      return await evaluatePolicyForResident(policy, resident, criteria, facts);
+    }),
   );
 };
