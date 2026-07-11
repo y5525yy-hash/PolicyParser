@@ -120,8 +120,20 @@ export function ResidentDirectoryTable({
 }: ResidentDirectoryTableProps) {
   const [query, setQuery] = useState(initialQuery);
   const [searchInput, setSearchInput] = useState(initialQuery.search);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(
+    initialQuery.gender !== "all" ||
+      initialQuery.political !== "" ||
+      initialQuery.workUnit !== "",
+  );
   const initialListUrl = useMemo(() => buildListUrl(initialQuery), [initialQuery]);
   const currentListUrl = buildListUrl(query);
+  const activeFilterCount = [
+    query.gender !== "all",
+    query.age !== "all",
+    query.political !== "",
+    query.workUnit !== "",
+    query.grid !== "",
+  ].filter(Boolean).length;
 
   useEffect(() => {
     const savedPosition = window.sessionStorage.getItem(
@@ -299,21 +311,70 @@ export function ResidentDirectoryTable({
       </div>
 
       <div className={styles.toolbar}>
-        <form className={styles.searchForm} onSubmit={handleSearch}>
-          <input
-            aria-label="按居民姓名搜索"
-            className={styles.searchInput}
-            onChange={(event) => setSearchInput(event.target.value)}
-            placeholder="输入居民姓名"
-            type="search"
-            value={searchInput}
-          />
-          <button className={styles.primaryButton} type="submit">
-            搜索
-          </button>
-        </form>
+        <div className={styles.toolbarPrimary}>
+          <form className={styles.searchForm} onSubmit={handleSearch}>
+            <input
+              aria-label="按居民姓名搜索"
+              className={styles.searchInput}
+              onChange={(event) => setSearchInput(event.target.value)}
+              placeholder="输入居民姓名"
+              type="search"
+              value={searchInput}
+            />
+            <button className={styles.primaryButton} type="submit">
+              搜索
+            </button>
+          </form>
 
-        <div className={styles.filters}>
+          <div className={styles.quickFilters}>
+            <div className={styles.filterField}>
+              <label htmlFor="age-filter">年龄</label>
+              <select
+                className={styles.select}
+                id="age-filter"
+                onChange={(event) =>
+                  updateQuery({ age: event.target.value as AgeFilter })
+                }
+                value={query.age}
+              >
+                <option value="all">全部年龄</option>
+                <option value="under-60">60 岁以下</option>
+                <option value="60-79">60–79 岁</option>
+                <option value="80-plus">80 岁及以上</option>
+                <option value="unknown">年龄待核实</option>
+              </select>
+            </div>
+
+            <div className={styles.filterField}>
+              <label htmlFor="grid-filter">乡村网格</label>
+              <select
+                className={styles.select}
+                id="grid-filter"
+                onChange={(event) => updateQuery({ grid: event.target.value })}
+                value={query.grid}
+              >
+                <option value="">全部乡村网格</option>
+                {ruralGridOptions.map((grid) => (
+                  <option key={grid} value={grid}>{grid}</option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              aria-expanded={showAdvancedFilters}
+              className={styles.secondaryButton}
+              onClick={() => setShowAdvancedFilters((current) => !current)}
+              type="button"
+            >
+              更多筛选{activeFilterCount > 0 ? `（${activeFilterCount}）` : ""}
+            </button>
+            <button className={styles.secondaryButton} onClick={clearFilters} type="button">
+              清空
+            </button>
+          </div>
+        </div>
+
+        {showAdvancedFilters ? <div className={styles.filters}>
           <div className={styles.filterField}>
             <label htmlFor="gender-filter">性别</label>
             <select
@@ -327,24 +388,6 @@ export function ResidentDirectoryTable({
               <option value="all">全部性别</option>
               <option value="女">女</option>
               <option value="男">男</option>
-            </select>
-          </div>
-
-          <div className={styles.filterField}>
-            <label htmlFor="age-filter">年龄</label>
-            <select
-              className={styles.select}
-              id="age-filter"
-              onChange={(event) =>
-                updateQuery({ age: event.target.value as AgeFilter })
-              }
-              value={query.age}
-            >
-              <option value="all">全部年龄</option>
-              <option value="under-60">60 岁以下</option>
-              <option value="60-79">60–79 岁</option>
-              <option value="80-plus">80 岁及以上</option>
-              <option value="unknown">年龄待核实</option>
             </select>
           </div>
 
@@ -384,31 +427,7 @@ export function ResidentDirectoryTable({
             </select>
           </div>
 
-          <div className={styles.filterField}>
-            <label htmlFor="grid-filter">乡村网格</label>
-            <select
-              className={styles.select}
-              id="grid-filter"
-              onChange={(event) => updateQuery({ grid: event.target.value })}
-              value={query.grid}
-            >
-              <option value="">全部乡村网格</option>
-              {ruralGridOptions.map((grid) => (
-                <option key={grid} value={grid}>
-                  {grid}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            className={styles.secondaryButton}
-            onClick={clearFilters}
-            type="button"
-          >
-            清空筛选
-          </button>
-        </div>
+        </div> : null}
       </div>
 
       <div className={styles.resultBar}>

@@ -1,5 +1,5 @@
 .directoryPage {
-  width: min(1560px, calc(100vw - 40px));
+  width: min(1500px, calc(100vw - 40px));
   margin-left: 50%;
   transform: translateX(-50%);
   color: #1f2937;
@@ -79,30 +79,36 @@
 }
 
 .pageHeader {
-  margin-bottom: 22px;
+  margin-bottom: 16px;
+  padding: 18px 22px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
+  border: 1px solid #dbe2e9;
+  border-left: 5px solid #bd1731;
+  background: white;
+  box-shadow: 0 2px 8px rgba(30, 55, 80, 0.04);
 }
 
 .pageHeader h1 {
-  margin: 6px 0 8px;
-  color: #15345b;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  letter-spacing: -0.035em;
+  margin: 5px 0 6px;
+  color: #22364b;
+  font-size: clamp(1.55rem, 2.2vw, 2rem);
+  letter-spacing: -0.02em;
 }
 
 .pageHeader p:last-child {
   max-width: 760px;
   margin: 0;
   color: #64748b;
-  line-height: 1.75;
+  font-size: 0.86rem;
+  line-height: 1.65;
 }
 
 .eyebrow {
   margin: 0;
-  color: #2563a6;
+  color: #bd1731;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -132,14 +138,21 @@
   border: 1px solid #d8e1eb;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 8px 28px rgba(30, 64, 100, 0.07);
+  box-shadow: 0 4px 16px rgba(30, 64, 100, 0.07);
   overflow: hidden;
 }
 
 .toolbar {
-  padding: 18px;
+  padding: 14px 18px;
   border-bottom: 1px solid #dfe7ef;
   background: #f7f9fc;
+}
+
+.toolbarPrimary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .searchForm {
@@ -148,7 +161,7 @@
 }
 
 .searchInput {
-  width: min(420px, 100%);
+  width: min(360px, 100%);
   min-height: 40px;
   padding: 9px 12px;
   border: 1px solid #b9c8d8;
@@ -176,10 +189,12 @@
 }
 
 .primaryButton {
+  min-width: 66px;
   padding: 8px 18px;
   border: 1px solid #1d5f99;
   background: #256da9;
   color: white;
+  white-space: nowrap;
 }
 
 .primaryButton:hover {
@@ -201,11 +216,24 @@
 }
 
 .filters {
-  margin-top: 14px;
+  margin-top: 12px;
+  padding-top: 12px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(140px, 1fr)) auto;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
   gap: 12px;
   align-items: end;
+  border-top: 1px dashed #d5dee7;
+}
+
+.quickFilters {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.quickFilters .filterField {
+  min-width: 160px;
 }
 
 .gridView {
@@ -709,6 +737,16 @@
 
   .filters {
     grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+
+  .toolbarPrimary,
+  .quickFilters {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .quickFilters .filterField {
+    min-width: 0;
   }
 
   .gridSummary {

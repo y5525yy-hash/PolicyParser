@@ -1,15 +1,15 @@
 .profileWorkspace {
-  width: min(1420px, calc(100vw - 28px));
+  width: min(1500px, calc(100vw - 40px));
   height: calc(100vh - 106px);
   min-height: 740px;
-  margin: -30px 0 0 50%;
+  margin: -24px 0 0 50%;
   transform: translateX(-50%);
   display: grid;
   grid-template-rows: 48px minmax(0, 1fr);
   border: 1px solid #d5dfe9;
   background: #edf2f6;
   color: #263647;
-  box-shadow: 0 10px 30px rgba(37, 67, 96, 0.08);
+  box-shadow: 0 4px 18px rgba(37, 67, 96, 0.08);
   overflow: hidden;
 }
 
@@ -20,6 +20,7 @@
   justify-content: space-between;
   gap: 18px;
   border-bottom: 1px solid #d5dfe9;
+  border-left: 5px solid #bd1731;
   background: #ffffff;
 }
 
@@ -77,6 +78,7 @@
 .rightPanel {
   min-height: 0;
   border: 1px solid #d7e0e8;
+  border-radius: 4px;
   background: white;
   overflow-y: auto;
 }
@@ -84,6 +86,10 @@
 .leftPanel,
 .rightPanel {
   padding: 16px;
+}
+
+.leftPanel {
+  background: #f8fbfd;
 }
 
 .centerPanel {
@@ -247,6 +253,7 @@
   flex: 1;
   padding: 10px 12px;
   border: 1px solid #d8e1e9;
+  border-top: 3px solid #6b9fc8;
   background: #f8fafc;
 }
 
@@ -293,6 +300,7 @@
 
 .policyCard {
   border: 1px solid #d6e0e9;
+  border-radius: 4px;
   background: white;
 }
 
@@ -431,6 +439,9 @@
 }
 
 .fixedDisclaimer {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
   margin-top: 10px;
   padding: 8px 10px;
   border: 1px solid #cad7e2;
@@ -587,4 +598,3 @@
     overflow: visible;
   }
 }
-

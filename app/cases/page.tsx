@@ -3,12 +3,14 @@ import styles from "@/features/case-task/case-task.module.css";
 
 export default function CasesPage() {
   return (
-    <section>
+    <section className={styles.casePage}>
       <header className={styles.heading}>
-        <p className={styles.eyebrow}>代办台账</p>
-        <h1>把发现的问题跟进到底</h1>
+        <div>
+          <p className={styles.eyebrow}>核实任务管理</p>
+          <h1>核实任务台账</h1>
+        </div>
         <p>
-          集中查看居民办理事项、缺失材料、负责人和下一次跟进时间，并更新当前办理进度。
+          集中跟进居民政策核实事项、缺失材料、责任人和办理进度。
         </p>
       </header>
 
@@ -20,4 +22,3 @@ export default function CasesPage() {
     </section>
   );
 }
-
