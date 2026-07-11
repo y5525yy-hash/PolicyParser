@@ -17,7 +17,7 @@ export function TopNavigation() {
       <div className="navigation-shell">
         <div className="brand-area">
           <Link className="brand" href="/policies">
-            西红门民生政策助手
+            政解
           </Link>
         </div>
         <nav aria-label="主导航" className="top-navigation">
@@ -45,6 +45,13 @@ export function TopNavigation() {
           <span aria-hidden="true">匹</span>
           开始智能匹配
         </Link>
+        <div className="user-summary" aria-label="当前登录用户">
+          <div className="user-avatar" aria-label="网格员头像" role="img" />
+          <div className="user-identity">
+            <span>已登录</span>
+            <strong>西红门一村网格员</strong>
+          </div>
+        </div>
       </div>
     </header>
   );

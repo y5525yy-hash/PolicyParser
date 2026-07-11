@@ -1,5 +1,5 @@
 .directoryPage {
-  width: min(1500px, calc(100vw - 40px));
+  width: min(1200px, calc(100vw - 32px));
   margin-left: 50%;
   transform: translateX(-50%);
   color: #1f2937;
@@ -289,33 +289,8 @@
   font-size: var(--font-size-sm);
 }
 
-.hierarchyHeader {
-  margin-top: 16px;
-  padding: 18px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border: 1px solid #bbcee0;
-  border-left: 5px solid #d0ae2c;
-  background: #fff9dc;
-}
-
-.hierarchyHeader h2,
-.hierarchyHeader p,
 .villageHeading h3 {
   margin: 0;
-}
-
-.hierarchyHeader h2 {
-  margin-top: 4px;
-  color: #173f66;
-}
-
-.hierarchyHeader p {
-  margin-top: 6px;
-  color: #617386;
-  font-size: var(--font-size-base);
 }
 
 .levelMark {
@@ -326,17 +301,8 @@
   letter-spacing: 0.06em;
 }
 
-.totalBadge {
-  padding: 7px 11px;
-  border: 1px solid #9fbed7;
-  border-radius: 4px;
-  background: white;
-  color: #245f93;
-  font-weight: 800;
-}
-
 .villageTree {
-  margin-top: 14px;
+  margin-top: 16px;
   display: grid;
   gap: 14px;
 }

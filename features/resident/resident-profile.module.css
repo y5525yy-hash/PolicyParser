@@ -1,5 +1,5 @@
 .profileWorkspace {
-  width: min(1500px, calc(100vw - 40px));
+  width: min(1200px, calc(100vw - 32px));
   height: calc(100vh - 106px);
   min-height: 740px;
   margin: -16px auto 0;
