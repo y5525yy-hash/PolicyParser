@@ -1,5 +1,25 @@
 .casePage {
-  color: #1f2937;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-lg: 20px;
+  --line-height-base: 1.55;
+  --radius-sm: 4px;
+  --control-height: 36px;
+  width: min(1200px, calc(100vw - 32px));
+  margin-left: calc((100% - min(1200px, calc(100vw - 32px))) / 2);
+  color: #111111;
+}
+
+.casePage * {
+  color: #111111 !important;
+}
+
+.casePage :where(a, button, select, p, span, strong, li, td) {
+  font-weight: 400 !important;
+}
+
+.casePage :where(h1, h2, h3, th) {
+  font-weight: 700 !important;
 }
 
 .button {
@@ -33,6 +53,7 @@
 .feedback a {
   margin-left: 8px;
   color: #1f5f96;
+  text-decoration: underline;
   text-underline-offset: 3px;
 }
 
@@ -188,7 +209,8 @@
 .policyLink {
   color: #1f5f96;
   font-weight: 800;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .residentLink:hover,

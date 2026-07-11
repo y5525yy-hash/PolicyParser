@@ -1,15 +1,38 @@
 .profileWorkspace {
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --line-height-tight: 1.35;
+  --line-height-base: 1.55;
+  --line-height-loose: 1.7;
+  --radius-sm: 4px;
+  --control-height: 36px;
   width: min(1200px, calc(100vw - 32px));
   height: calc(100vh - 106px);
   min-height: 740px;
-  margin: -16px auto 0;
+  margin: -16px 0 0 calc((100% - min(1200px, calc(100vw - 32px))) / 2);
   display: grid;
   grid-template-rows: 48px minmax(0, 1fr);
   border: 1px solid #d5dfe9;
   background: #edf2f6;
-  color: #263647;
+  color: #111111;
   box-shadow: 0 4px 18px rgba(37, 67, 96, 0.08);
   overflow: hidden;
+}
+
+.profileWorkspace * {
+  color: #111111 !important;
+}
+
+.profileWorkspace :where(a, button, p, span, strong, li, dt, dd) {
+  font-weight: 400 !important;
+}
+
+.profileWorkspace :where(h1, h2, h3),
+.policyTitle {
+  font-weight: 700 !important;
 }
 
 .topbar {
@@ -42,7 +65,8 @@
 .textLink {
   color: #215f95;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .backLink:hover,
@@ -410,6 +434,8 @@
   font: inherit;
   font-size: var(--font-size-sm);
   font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .actionButton:hover {
@@ -487,7 +513,8 @@
   color: #245d8a;
   font-size: var(--font-size-sm);
   font-weight: 800;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .similarMeta {

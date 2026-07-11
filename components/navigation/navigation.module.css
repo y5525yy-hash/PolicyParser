@@ -1,0 +1,306 @@
+.siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 3px solid #b99922;
+  background: linear-gradient(90deg, #efd052, #f8df70);
+  color: #111111;
+  box-shadow: 0 2px 10px rgba(91, 73, 13, 0.16);
+}
+
+.navigationShell {
+  width: min(1200px, calc(100% - 32px));
+  min-height: 72px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(300px, 1fr) auto auto;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.brandArea {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  color: #111111;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topNavigation {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 4px;
+}
+
+.topNavigation a {
+  min-width: 96px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid transparent;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.topNavigation a:hover {
+  background: rgba(92, 72, 4, 0.08);
+}
+
+.topNavigation .active {
+  border-bottom-color: #5f4a00;
+  background: rgba(92, 72, 4, 0.1);
+}
+
+.matchingAction {
+  align-self: center;
+  min-height: 36px;
+  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #9d8011;
+  border-radius: 4px;
+  background: #fff5bd;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(96, 76, 8, 0.16);
+}
+
+.matchingAction:hover,
+.matchingActionActive {
+  background: #f5d95f;
+}
+
+.matchingAction span {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #7a6200;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.userSummary {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #111111;
+  white-space: nowrap;
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(82, 64, 7, 0.42);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 35%, #8a7b43 0 18%, transparent 19%),
+    radial-gradient(ellipse at 50% 105%, #8a7b43 0 42%, transparent 43%),
+    rgba(255, 255, 255, 0.5);
+}
+
+.userIdentity {
+  display: flex;
+  flex-direction: column;
+  color: #111111;
+  line-height: 1.35;
+}
+
+.userIdentity span {
+  font-size: 12px;
+}
+
+.userIdentity strong {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.floatingNavigation {
+  position: fixed;
+  top: 50%;
+  right: 12px;
+  z-index: 30;
+  width: 92px;
+  transform: translateY(-42%);
+  border: 1px solid #cfd8e1;
+  border-top: 4px solid #f8df70;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.97);
+  color: #111111;
+  box-shadow: 0 8px 24px rgba(28, 48, 68, 0.16);
+  overflow: visible;
+  transition: width 160ms ease;
+}
+
+.floatingTitle {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e0e6ec;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.floatingToggle {
+  position: absolute;
+  top: 7px;
+  left: -23px;
+  width: 23px;
+  height: 30px;
+  border: 1px solid #cfd8e1;
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+  background: white;
+  color: #111111;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.floatingNavigation nav {
+  display: grid;
+}
+
+.floatingNavigation nav a {
+  min-height: 62px;
+  padding: 7px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-bottom: 1px solid #e5eaf0;
+  color: #111111;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.floatingNavigation nav a:last-child {
+  border-bottom: 0;
+}
+
+.floatingNavigation nav a:hover {
+  background: #fff8d8;
+}
+
+.floatingNavigation nav .active {
+  background: #fff4bd;
+}
+
+.floatingNavigation nav a span {
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+}
+
+.floatingNavigation nav a em {
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.collapsed {
+  width: 42px;
+}
+
+.collapsed .floatingTitle,
+.collapsed nav a em {
+  display: none;
+}
+
+.collapsed nav a {
+  min-height: 45px;
+  padding: 5px;
+}
+
+.siteHeader a:focus-visible,
+.floatingNavigation a:focus-visible,
+.floatingNavigation button:focus-visible {
+  outline: 3px solid rgba(122, 98, 0, 0.32);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1080px) {
+  .navigationShell {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 12px;
+  }
+
+  .brandArea,
+  .topNavigation,
+  .userSummary {
+    justify-content: center;
+  }
+
+  .matchingAction,
+  .userSummary {
+    margin: 0 auto 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  .navigationShell {
+    width: min(100% - 24px, 1200px);
+  }
+
+  .topNavigation {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .topNavigation a {
+    min-width: auto;
+    padding: 0 14px;
+    white-space: nowrap;
+  }
+
+  .floatingNavigation {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+    transform: none;
+  }
+
+  .floatingTitle,
+  .floatingToggle,
+  .floatingNavigation nav a em {
+    display: none;
+  }
+
+  .floatingNavigation nav {
+    display: flex;
+  }
+
+  .floatingNavigation nav a,
+  .collapsed nav a {
+    min-width: 44px;
+    min-height: 42px;
+    border-right: 1px solid #e5eaf0;
+    border-bottom: 0;
+  }
+}

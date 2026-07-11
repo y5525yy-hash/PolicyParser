@@ -1,8 +1,27 @@
 .directoryPage {
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 20px;
+  --line-height-base: 1.55;
+  --radius-md: 6px;
+  --control-height: 36px;
   width: min(1200px, calc(100vw - 32px));
   margin-left: 50%;
   transform: translateX(-50%);
-  color: #1f2937;
+  color: #111111;
+}
+
+.directoryPage * {
+  color: #111111 !important;
+}
+
+.directoryPage :where(a, button, input, select, label, p, span, strong, li, td) {
+  font-weight: 400 !important;
+}
+
+.directoryPage :where(h1, h2, h3, th) {
+  font-weight: 700 !important;
 }
 
 .viewTabs,
@@ -546,7 +565,8 @@ th.actionColumn {
   color: #164e84;
   font-size: var(--font-size-base);
   font-weight: 800;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .residentName:hover,
@@ -638,7 +658,8 @@ th.actionColumn {
 .policyLink {
   color: #1f5f96;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .verificationItem {
@@ -656,6 +677,8 @@ th.actionColumn {
   background: transparent;
   color: #1f66a2;
   font-size: var(--font-size-xs);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .actions {
@@ -666,7 +689,8 @@ th.actionColumn {
 .actionLink {
   color: #1f5f96;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   white-space: nowrap;
 }
 

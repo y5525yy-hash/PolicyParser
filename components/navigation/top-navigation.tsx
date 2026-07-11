@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import styles from "@/components/navigation/navigation.module.css";
+
 const navigationItems = [
   { href: "/policies", label: "政策库" },
   { href: "/residents", label: "居民档案" },
@@ -13,14 +15,14 @@ export function TopNavigation() {
   const pathname = usePathname();
 
   return (
-    <header className="site-header">
-      <div className="navigation-shell">
-        <div className="brand-area">
-          <Link className="brand" href="/policies">
+    <header className={styles.siteHeader}>
+      <div className={styles.navigationShell}>
+        <div className={styles.brandArea}>
+          <Link className={styles.brand} href="/policies">
             政解
           </Link>
         </div>
-        <nav aria-label="主导航" className="top-navigation">
+        <nav aria-label="主导航" className={styles.topNavigation}>
           {navigationItems.map((item) => {
             const itemPath = item.href.split("?")[0];
             const isActive = pathname === itemPath || pathname.startsWith(`${itemPath}/`);
@@ -28,7 +30,7 @@ export function TopNavigation() {
             return (
               <Link
                 aria-current={isActive ? "page" : undefined}
-                className={isActive ? "active" : undefined}
+                className={isActive ? styles.active : undefined}
                 href={item.href}
                 key={item.href}
               >
@@ -39,15 +41,15 @@ export function TopNavigation() {
         </nav>
         <Link
           aria-current={pathname === "/matching" ? "page" : undefined}
-          className="matching-action"
+          className={`${styles.matchingAction} ${pathname === "/matching" ? styles.matchingActionActive : ""}`}
           href="/matching?policyId=policy-001"
         >
           <span aria-hidden="true">匹</span>
           开始智能匹配
         </Link>
-        <div className="user-summary" aria-label="当前登录用户">
-          <div className="user-avatar" aria-label="网格员头像" role="img" />
-          <div className="user-identity">
+        <div className={styles.userSummary} aria-label="当前登录用户">
+          <div className={styles.userAvatar} aria-label="网格员头像" role="img" />
+          <div className={styles.userIdentity}>
             <span>已登录</span>
             <strong>西红门一村网格员</strong>
           </div>

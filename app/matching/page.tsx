@@ -4,21 +4,6 @@ interface MatchingPageProps {
 
 export default async function MatchingPage({ searchParams }: MatchingPageProps) {
   const { policyId = "policy-001" } = await searchParams;
-  return (
-    <section className="module-placeholder matching-shell">
-      <div className="matching-context">
-        <div>
-          <strong>当前政策：{policyId}</strong>
-          <span>　匹配范围：西红门镇模拟居民档案</span>
-        </div>
-        <span>数据结果仅用于工作人员辅助核查</span>
-      </div>
-
-      <div className="matching-empty">
-        <strong>匹配规则结果接入中</strong>
-        <p>结果将在此处按“高度匹配、待核实、暂不匹配”分组展示。</p>
-      </div>
-    </section>
-  );
+  return <section className="module-placeholder"><p className="eyebrow">政策编号 {policyId}</p><h1>居民匹配结果</h1><p>匹配入口和参数契约已就绪，规则结果由 C 在 feature/matching 分支实现。</p></section>;
 }
 
