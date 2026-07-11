@@ -1,25 +1,25 @@
 {
   "policyId": "policy-007",
   "documentIds": ["bj-2016-disability-two-subsidies"],
-  "sourceChunkIds": ["chunk-4d4bdbf5d419ddf6", "chunk-da1f86f7632110d1", "chunk-18d2c5aae26d8242", "chunk-46808f8cea5f5199", "chunk-354d5c4213164b10", "chunk-8a4ef56f9080ef99", "chunk-94ba0a185376705e"],
+  "sourceChunkIds": ["chunk-7a7dba858d110ebd", "chunk-a9ea2f874e002367", "chunk-eafc509cd1031f28", "chunk-3fd661fb828a7df2"],
   "extractionMethod": "manual",
   "verificationStatus": "human_verified",
   "eligibility": [
     {
       "type": "anyOf",
       "sourceText": "困难残疾人生活补贴和重度残疾人护理补贴分别适用不同条件。",
-      "sourceChunkIds": ["chunk-4d4bdbf5d419ddf6", "chunk-da1f86f7632110d1"],
+      "sourceChunkIds": ["chunk-7a7dba858d110ebd"],
       "conditions": [
-        {"type": "condition", "field": "disabilityLivingSubsidyQualification", "operator": "exists", "value": true, "sourceText": "具有本市户籍、持有效残疾人证并符合困难残疾人生活补贴规定条件之一", "sourceChunkIds": ["chunk-4d4bdbf5d419ddf6"]},
-        {"type": "condition", "field": "disabilityCareSubsidyQualification", "operator": "exists", "value": true, "sourceText": "具有本市户籍、持有效残疾人证、需要长期照护且残疾等级符合规定", "sourceChunkIds": ["chunk-da1f86f7632110d1"]}
+        {"type": "condition", "field": "disabilityLivingSubsidyQualification", "operator": "exists", "value": true, "sourceText": "具有本市户籍、持有效残疾人证并符合困难残疾人生活补贴规定条件之一", "sourceChunkIds": ["chunk-7a7dba858d110ebd"]},
+        {"type": "condition", "field": "disabilityCareSubsidyQualification", "operator": "exists", "value": true, "sourceText": "具有本市户籍、持有效残疾人证、需要长期照护且残疾等级符合规定", "sourceChunkIds": ["chunk-7a7dba858d110ebd"]}
       ]
     }
   ],
-  "applicablePopulation": [{"title": "困难或重度残疾人", "text": "北京户籍、持有效残疾人证或服务一卡通，并符合生活补贴困难条件或护理补贴残疾等级条件的残疾人。", "sourceChunkIds": ["chunk-4d4bdbf5d419ddf6", "chunk-da1f86f7632110d1"]}],
-  "benefits": [{"title": "分档补贴", "text": "生活补贴按困难类型、残疾类别和等级分档；护理补贴常见档位为每月300元或100元。", "sourceChunkIds": ["chunk-18d2c5aae26d8242", "chunk-46808f8cea5f5199"]}],
-  "materials": [{"title": "基本申请材料", "text": "需申请审批表、经济状况登记授权材料、残疾人证或一卡通、身份证或户口簿，并按生活补贴类别补充证明。", "sourceChunkIds": ["chunk-8a4ef56f9080ef99", "chunk-94ba0a185376705e"]}],
-  "procedures": [{"title": "户籍地申请", "text": "由本人、监护人或受托人向户籍所在地街道乡镇社会救助申请窗口提交。", "sourceChunkIds": ["chunk-8a4ef56f9080ef99"]}],
-  "restrictions": [{"title": "待遇衔接", "text": "符合条件者可以同时申领残疾人生活补贴和护理补贴，但与老年人、工伤、特困供养等同类型待遇按规定衔接。", "sourceChunkIds": ["chunk-354d5c4213164b10"]}],
+  "applicablePopulation": [{"title": "困难或重度残疾人", "text": "北京户籍、持有效残疾人证或服务一卡通，并符合生活补贴困难条件或护理补贴残疾等级条件的残疾人。", "sourceChunkIds": ["chunk-7a7dba858d110ebd"]}],
+  "benefits": [{"title": "分档补贴", "text": "生活补贴按困难类型、残疾类别和等级分档；护理补贴常见档位为每月300元或100元。", "sourceChunkIds": ["chunk-a9ea2f874e002367"]}],
+  "materials": [{"title": "基本申请材料", "text": "需申请审批表、经济状况登记授权材料、残疾人证或一卡通、身份证或户口簿，并按生活补贴类别补充证明。", "sourceChunkIds": ["chunk-3fd661fb828a7df2"]}],
+  "procedures": [{"title": "户籍地申请", "text": "由本人、监护人或受托人向户籍所在地街道乡镇社会救助申请窗口提交。", "sourceChunkIds": ["chunk-3fd661fb828a7df2"]}],
+  "restrictions": [{"title": "待遇衔接", "text": "符合条件者可以同时申领残疾人生活补贴和护理补贴，但与老年人、工伤、特困供养等同类型待遇按规定衔接。", "sourceChunkIds": ["chunk-eafc509cd1031f28"]}],
   "unresolvedQuestions": ["残疾证类别和等级是否仍然有效", "是否领取同类型老年或工伤护理待遇"],
   "plainLanguage": {"officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/201905/t20190523_77844.html"], "humanVerified": "北京户籍残疾人需要先看残疾证类别、等级以及家庭困难情况，生活补贴和护理补贴条件不同；符合条件时两项可以同时申请，但不能与部分同类型待遇重复领取。"},
   "extractedAt": "2026-07-11",
