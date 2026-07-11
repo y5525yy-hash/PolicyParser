@@ -1,8 +1,9 @@
+import { DEMO_IDS } from "@/shared/demo-constants";
 import type { Policy } from "@/shared/types";
 
 export const mockPolicies: Policy[] = [
   {
-    id: "policy-001",
+    id: DEMO_IDS.policies.elderlyAllowance,
     name: "高龄老年人津贴",
     originalName: "北京市老年人养老服务补贴津贴管理实施办法（演示摘录）",
     region: "北京市大兴区西红门镇",
@@ -16,7 +17,7 @@ export const mockPolicies: Policy[] = [
     updatedAt: "2026-07-11",
   },
   {
-    id: "policy-002",
+    id: DEMO_IDS.policies.elderlyCareSupport,
     name: "困难老年人养老服务补贴",
     originalName: "北京市困难老年人养老服务补贴政策（演示数据）",
     region: "北京市大兴区西红门镇",
@@ -29,7 +30,7 @@ export const mockPolicies: Policy[] = [
     updatedAt: "2026-07-11",
   },
   {
-    id: "policy-003",
+    id: DEMO_IDS.policies.disabilityCareSupport,
     name: "失能老年人护理补贴",
     originalName: "北京市失能老年人护理补贴政策（演示数据）",
     region: "北京市大兴区西红门镇",
@@ -46,4 +47,3 @@ export const mockPolicies: Policy[] = [
 export function getMockPolicy(policyId: string) {
   return mockPolicies.find((policy) => policy.id === policyId) ?? null;
 }
-
