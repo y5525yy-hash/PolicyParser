@@ -37,23 +37,6 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
 
   return (
     <section>
-      <div className="page-heading">
-        <p className="eyebrow">北京市大兴区 · 西红门镇便民服务</p>
-        <h1>西红门镇政策知识库</h1>
-        <p>按民生领域快速查找政策，用大白话查看适用对象、待遇标准、办理材料和官方出处。</p>
-      </div>
-
-      <div className="knowledge-summary" aria-label="政策库收录概况">
-        <div className="summary-number">
-          <strong>{mockPolicies.length}</strong>
-          <span>项已核验政策</span>
-        </div>
-        <div>
-          <strong>{policyCategories.length} 个政府主题分类</strong>
-          <p>分类沿用政府网站主题分类，覆盖民政救助、就业社保、医疗、住房、教育和司法援助等领域。</p>
-        </div>
-      </div>
-
       <form className="policy-search" method="get">
         {activeCategory ? <input name="category" type="hidden" value={activeCategory} /> : null}
         <label htmlFor="policy-query">搜索政策名称、对象或资格条件原文</label>
@@ -68,7 +51,6 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
           <button type="submit">本地检索</button>
           {query ? <Link href={activeCategory ? `/policies?category=${activeCategory}` : "/policies"}>清除</Link> : null}
         </div>
-        <p>检索只读取本地已核验政策原文，不上传居民信息，也不自动认定申请资格。</p>
       </form>
 
       {query && visibleRetrievalResults.length > 0 ? (
