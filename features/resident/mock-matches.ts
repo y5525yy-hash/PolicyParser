@@ -1,0 +1,96 @@
+import { DEMO_IDS } from "@/shared/demo-constants";
+import type { MatchResult } from "@/shared/types";
+
+export const mockResidentMatches: MatchResult[] = [
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: DEMO_IDS.residents.zhangNainai,
+    status: "matched",
+    reasons: ["年龄已满 80 周岁", "具有北京市户籍"],
+    missingFields: ["是否已经领取高龄津贴", "补贴津贴发放账户信息"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyCareSupport,
+    residentId: DEMO_IDS.residents.zhangNainai,
+    status: "matched",
+    reasons: ["已登记为低保老人", "具有北京市户籍"],
+    missingFields: ["是否已享受同类型养老服务补贴"],
+  },
+  {
+    policyId: DEMO_IDS.policies.disabilityCareSupport,
+    residentId: DEMO_IDS.residents.zhangNainai,
+    status: "pending",
+    reasons: ["年龄和户籍信息已满足基础核查条件"],
+    missingFields: ["老年人能力综合评估结果", "是否持有符合条件的残疾证"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: DEMO_IDS.residents.liShu,
+    status: "unmatched",
+    reasons: ["当前年龄未达到 80 周岁"],
+    missingFields: [],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: DEMO_IDS.residents.wangNainai,
+    status: "pending",
+    reasons: ["年龄已满 80 周岁"],
+    missingFields: ["北京市户籍信息", "是否已经领取高龄津贴"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyCareSupport,
+    residentId: "resident-004",
+    status: "matched",
+    reasons: ["已登记为低收入家庭", "具有北京市户籍"],
+    missingFields: ["低收入家庭认定有效期"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: "resident-004",
+    status: "unmatched",
+    reasons: ["当前年龄未达到 80 周岁"],
+    missingFields: [],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: "resident-005",
+    status: "matched",
+    reasons: ["年龄已满 80 周岁", "具有北京市户籍"],
+    missingFields: ["是否已经领取高龄津贴"],
+  },
+  {
+    policyId: DEMO_IDS.policies.disabilityCareSupport,
+    residentId: "resident-005",
+    status: "pending",
+    reasons: ["已登记残疾相关信息"],
+    missingFields: ["残疾证类别和等级", "能力综合评估结果"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyCareSupport,
+    residentId: "resident-006",
+    status: "pending",
+    reasons: ["独居情况已登记"],
+    missingFields: ["家庭收入证明", "困难家庭认定结果"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: "resident-007",
+    status: "matched",
+    reasons: ["年龄已满 80 周岁", "具有北京市户籍"],
+    missingFields: ["津贴领取账户信息"],
+  },
+  {
+    policyId: DEMO_IDS.policies.disabilityCareSupport,
+    residentId: "resident-007",
+    status: "pending",
+    reasons: ["已记录轻度失能情况"],
+    missingFields: ["最新能力综合评估结果"],
+  },
+  {
+    policyId: DEMO_IDS.policies.elderlyAllowance,
+    residentId: "resident-008",
+    status: "unmatched",
+    reasons: ["年龄未达到政策要求", "当前登记为外省户籍"],
+    missingFields: [],
+  },
+];
