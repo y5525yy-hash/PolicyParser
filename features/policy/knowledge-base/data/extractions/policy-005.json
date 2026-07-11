@@ -1,16 +1,11 @@
 {
-  "policyId": "policy-005",
-  "documentIds": ["bj-2026-resident-medical"],
-  "sourceChunkIds": ["chunk-455dc60cfb940564", "chunk-dc0f6ffdd6d18e94", "chunk-4824cc1bb68054af"],
-  "extractionMethod": "manual",
-  "verificationStatus": "extracted",
-  "eligibility": [],
-  "applicablePopulation": [{"title": "缴费人群", "text": "官方答复分别列出城乡老年人、学生儿童和劳动年龄内居民三类缴费标准。", "sourceChunkIds": ["chunk-455dc60cfb940564", "chunk-dc0f6ffdd6d18e94", "chunk-4824cc1bb68054af"]}],
-  "benefits": [{"title": "2026年度个人缴费", "text": "城乡老年人460元，学生儿童435元，劳动年龄内居民795元。", "sourceChunkIds": ["chunk-455dc60cfb940564", "chunk-dc0f6ffdd6d18e94", "chunk-4824cc1bb68054af"]}],
-  "materials": [],
-  "procedures": [],
-  "restrictions": [],
-  "unresolvedQuestions": ["需补充正式政策文件及完整参保资格条件", "需补充等待期、待遇和特殊人群资助条件"],
-  "plainLanguage": {"officialInterpretationSourceIds": [], "aiDraft": "2026年居民医保按老年人、学生儿童和劳动年龄内居民分别缴费。"},
-  "extractedAt": "2026-07-11"
+  "policyId":"policy-005","documentIds":["bj-2017-resident-medical-base","bj-2026-resident-medical"],"sourceChunkIds":["chunk-724db7b28c271a1a","chunk-18f4950034e6f965","chunk-cc24737a6a2cc8a9","chunk-de9cea3c0e342909","chunk-206a7bf80f81b907","chunk-6f9459f11d2f5402","chunk-81e24762bd24fc63","chunk-0c5681557f0688a1","chunk-ebad04e896e4359b","chunk-455dc60cfb940564","chunk-dc0f6ffdd6d18e94","chunk-4824cc1bb68054af"],"extractionMethod":"manual","verificationStatus":"human_verified",
+  "eligibility":[{"type":"anyOf","sourceText":"参保范围包括符合年龄和无其他基本医疗保障要求的本市户籍城乡老年人、劳动年龄内居民、学生儿童，以及实施细则列明的外埠配偶、永久居留外国人和人才家属等特定人员。","sourceChunkIds":["chunk-724db7b28c271a1a"],"conditions":[{"type":"condition","field":"residentMedicalPopulationBranch","operator":"equals","value":"本市户籍城乡老年人且无其他基本医疗保障","sourceText":"男年满60周岁和女年满50周岁，且无其它基本医疗保障的本市户籍城乡居民及列明人员","sourceChunkIds":["chunk-724db7b28c271a1a"]},{"type":"condition","field":"residentMedicalPopulationBranch","operator":"equals","value":"本市户籍劳动年龄内居民且无其他基本医疗保障","sourceText":"男年满16周岁不满60周岁，女年满16周岁不满50周岁，且无其它基本医疗保障的本市户籍城乡居民","sourceChunkIds":["chunk-724db7b28c271a1a"]},{"type":"condition","field":"residentMedicalPopulationBranch","operator":"equals","value":"符合实施细则的学生儿童","sourceText":"本市户籍在校学生、少年儿童和文件列明的非京籍学生儿童等对象","sourceChunkIds":["chunk-724db7b28c271a1a"]},{"type":"condition","field":"residentMedicalPopulationBranch","operator":"equals","value":"实施细则列明的其他特定人员","sourceText":"本市户籍人员外埠配偶、离休干部无工作配偶、永久居留外国人及列明人才家属等","sourceChunkIds":["chunk-724db7b28c271a1a"]}]}],
+  "applicablePopulation":[{"title":"城乡老年人、劳动年龄内居民、学生儿童和特定人员","text":"各分支的户籍、年龄、学籍和“无其他基本医疗保障”要求不同，必须读取完整第二条原文判断。","sourceChunkIds":["chunk-724db7b28c271a1a"]}],
+  "benefits":[{"title":"2026年度个人缴费","text":"城乡老年人460元、学生儿童435元、劳动年龄内居民795元。","sourceChunkIds":["chunk-455dc60cfb940564","chunk-dc0f6ffdd6d18e94","chunk-4824cc1bb68054af"]}],
+  "materials":[{"title":"基础及分支证明材料","text":"通常提交电子照片、户口簿和身份证；特殊分支还需无基本医疗保障证明、就读证明、出生证明、结婚证、工作居住证或人才证明等对应材料。","sourceChunkIds":["chunk-18f4950034e6f965"]}],
+  "procedures":[{"title":"集中参保期和日常新增参保","text":"实施细则规定按年度集中办理；在校学生由学校办理，其他人员到户籍地或居住地社保所办理。新取得资格人员及新生儿在90日内办理可按规定从当月或出生日起享受待遇。","sourceChunkIds":["chunk-cc24737a6a2cc8a9","chunk-206a7bf80f81b907"]}],
+  "restrictions":[{"title":"逾期参保等待期","text":"符合条件但未在规定参保期办理的，缴费后需等待3个月再享受待遇。","sourceChunkIds":["chunk-6f9459f11d2f5402"]},{"title":"职工医保衔接和排除","text":"就业参加职工医保后不再享受居民医保；已按灵活就业政策参加职工医保的人员不纳入居民医保参保范围。","sourceChunkIds":["chunk-0c5681557f0688a1","chunk-81e24762bd24fc63"]},{"title":"基金不支付范围","text":"非定点或非本人定点就医、责任事故、违法行为、自伤酗酒、境外就医等规定费用不纳入基金支付。","sourceChunkIds":["chunk-ebad04e896e4359b"]}],
+  "unresolvedQuestions":["2026年度集中参保时间是否调整","申请人是否已有其他基本医疗保障","具体身份分支所需证明是否齐全","当前门诊住院支付标准是否有后续调整"],
+  "plainLanguage":{"officialInterpretationSourceIds":["https://ybj.beijing.gov.cn/zwgk/2024zcjd/202406/t20240612_3710813.html"],"humanVerified":"北京居民医保不是只有老年人和儿童能参加。政策按城乡老年人、劳动年龄内居民、学生儿童以及若干特定人员分支规定条件，很多分支还要求没有其他基本医疗保障。要先确定属于哪个分支，再核对户籍、年龄、学籍和证明材料；逾期参保可能有等待期，参加职工医保后不能继续重复享受居民医保。"},"extractedAt":"2026-07-11","verifiedAt":"2026-07-11"
 }
