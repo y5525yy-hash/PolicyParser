@@ -10,6 +10,12 @@ export const DEMO_IDS = {
     minimumLivingAllowance: "policy-006",
     disabilityTwoSubsidies: "policy-007",
     temporaryAssistance: "policy-008",
+    specialHardshipSupport: "policy-009",
+    orphanBasicLivingSupport: "policy-010",
+    deFactoUnsupportedChildren: "policy-011",
+    disabledChildrenRehabilitation: "policy-012",
+    elderlyHomeAdaptation: "policy-013",
+    marketRentalSubsidy: "policy-014",
   },
   residents: {
     zhangNainai: "resident-001",
