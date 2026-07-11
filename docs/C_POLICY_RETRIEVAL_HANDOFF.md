@@ -9,7 +9,7 @@
 - 已生成 1241 个包含来源链路的政策切片，其中 1226 个进入默认有效政策检索。
 - 默认检索只读取当前有效且已核验的官方原文切片。
 - 切片已将“需同时符合下列条件”与其全部分项保留在同一片段中，避免丢失“且/或/不得/例外”等资格逻辑。
-- 已有 16 项政策完成人工确认的资格条件提取：`policy-001`、`policy-002`、`policy-003`、`policy-006`、`policy-007`、`policy-008`、`policy-015`、`policy-016`、`policy-017`、`policy-018`、`policy-023`、`policy-024`、`policy-027`、`policy-028`、`policy-029`、`policy-030`。
+- 31 项政策均已建立人工核验的结构化提取文件，覆盖适用对象、资格条件、待遇、材料、流程、限制、原文切片和大白话说明；原政策未写明的内容保留为待核问题，没有由 AI 补造。
 - `policy-004` 和 `policy-005` 目前只有年度缴费官方文件，基础参保资格文件仍在补采，不应据此编写完整资格规则。
 
 ## C 可以读取的文件
@@ -18,26 +18,25 @@
 features/policy/knowledge-base/data/generated/active-chunks.jsonl
 features/policy/knowledge-base/data/generated/chunks.jsonl
 features/policy/knowledge-base/data/extractions/policy-001.json
-features/policy/knowledge-base/data/extractions/policy-002.json
-features/policy/knowledge-base/data/extractions/policy-003.json
-features/policy/knowledge-base/data/extractions/policy-006.json
-features/policy/knowledge-base/data/extractions/policy-007.json
-features/policy/knowledge-base/data/extractions/policy-008.json
-features/policy/knowledge-base/data/extractions/policy-015.json
-features/policy/knowledge-base/data/extractions/policy-016.json
-features/policy/knowledge-base/data/extractions/policy-017.json
-features/policy/knowledge-base/data/extractions/policy-018.json
-features/policy/knowledge-base/data/extractions/policy-023.json
-features/policy/knowledge-base/data/extractions/policy-024.json
-features/policy/knowledge-base/data/extractions/policy-027.json
-features/policy/knowledge-base/data/extractions/policy-028.json
-features/policy/knowledge-base/data/extractions/policy-029.json
-features/policy/knowledge-base/data/extractions/policy-030.json
+...
+features/policy/knowledge-base/data/extractions/policy-031.json
 ```
 
 - `active-chunks.jsonl`：默认检索数据。
 - `chunks.jsonl`：包含历史和失效版本，C 默认不要读取。
 - `extractions/*.json`：结构化资格条件和人工确认的大白话解释。
+
+## 全量核验完成后的重点注意事项
+
+- `policy-004`、`policy-005`：当前入库文件是年度缴费标准，不能替代完整参保资格政策。
+- `policy-013`：适老化改造文件主要规定申请、评估和实施管理；政府资助范围需核对大兴区当前口径。
+- `policy-014`：2015 年市场租房补贴文件已被 2020 年文件取代，默认匹配必须使用当前版本条件。
+- `policy-016`：2026 年文件主要调整困境儿童对象清单和金额，基础身份认定仍需结合基础政策。
+- `policy-017`、`policy-028`：住房政策包含较早的收入、资产数值，正式判断前需核对动态标准。
+- `policy-021`、`policy-030`：教育资助包含多个待遇分支，不能用一个困难标签认定全部项目。
+- `policy-022`：大病保险按参保、定点就医、政策范围费用和年度自付累计触发，不按疾病名称直接认定。
+- `policy-026`：现有文件只调整特别扶助金金额，完整基础资格仍需补查原政策。
+- `policy-031`：居民5元就餐补贴与助餐点3元运营补贴必须分开；居民资格以基本养老服务对象身份为准。
 
 ## 临时检索命令
 

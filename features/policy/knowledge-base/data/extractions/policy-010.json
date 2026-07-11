@@ -1,0 +1,11 @@
+{
+  "policyId":"policy-010","documentIds":["bj-2011-orphan-basic-living"],"sourceChunkIds":["chunk-cace9bb79e21d9ac","chunk-4eead436fefd66fd","chunk-593defa3e5689cec","chunk-566520832f8c4120","chunk-1968b6d80479e8a4"],"extractionMethod":"manual","verificationStatus":"human_verified",
+  "eligibility":[{"type":"allOf","sourceText":"具有北京市户籍、未满18周岁，并属于孤儿或文件规定的视同孤儿情形；满18周岁后仍在中学或中职就读的可延续至毕业。","sourceChunkIds":["chunk-cace9bb79e21d9ac","chunk-4eead436fefd66fd"],"conditions":[{"type":"condition","field":"hukou","operator":"equals","value":"北京市","sourceText":"具有北京市户籍","sourceChunkIds":["chunk-cace9bb79e21d9ac"]},{"type":"condition","field":"age","operator":"less_than","value":18,"unit":"周岁","sourceText":"未满18周岁","sourceChunkIds":["chunk-cace9bb79e21d9ac"]},{"type":"anyOf","sourceText":"失去父母且查找不到生父母，或父母双方同时出现死亡、失踪、服刑、重度残疾等规定情形。","sourceChunkIds":["chunk-cace9bb79e21d9ac","chunk-4eead436fefd66fd"],"conditions":[{"type":"condition","field":"orphanIdentity","operator":"equals","value":"失去父母且查找不到生父母","sourceText":"失去父母、查找不到生父母","sourceChunkIds":["chunk-cace9bb79e21d9ac"]},{"type":"condition","field":"orphanIdentity","operator":"equals","value":"父母双方同时出现文件列明的死亡、失踪、服刑或重度残疾情形","sourceText":"父母双方同时出现死亡、失踪、服刑、重度残疾等任意一种情况","sourceChunkIds":["chunk-4eead436fefd66fd"]}]}]}],
+  "applicablePopulation":[{"title":"北京户籍孤儿和视同孤儿儿童","text":"原则上未满18周岁；满18周岁仍在中学或中职就读的，可继续享受至毕业。","sourceChunkIds":["chunk-cace9bb79e21d9ac","chunk-4eead436fefd66fd"]}],
+  "benefits":[{"title":"孤儿基本生活费","text":"集中养育和社会散居分别按文件标准保障；散居孤儿领取后不再享受原城乡低保，历史金额需按当前标准核对。","sourceChunkIds":["chunk-593defa3e5689cec"]}],
+  "materials":[{"title":"散居孤儿申请材料","text":"儿童福利证申请表、孤儿及监护人身份证和户口簿、父母死亡失踪等证明、监护资格证明及孤儿本人银行账户等。","sourceChunkIds":["chunk-566520832f8c4120"]}],
+  "procedures":[{"title":"户籍地申请","text":"孤儿本人或监护人向户籍所在地街道乡镇申请，经调查核实后报区民政部门审批并办理儿童福利证。","sourceChunkIds":["chunk-566520832f8c4120"]}],
+  "restrictions":[{"title":"动态停止和待遇衔接","text":"身份、年龄、收养等情况变化符合文件停止情形时注销儿童福利证并停发；散居孤儿生活费与原低保不得重复。","sourceChunkIds":["chunk-1968b6d80479e8a4","chunk-593defa3e5689cec"]}],
+  "unresolvedQuestions":["当前孤儿基本生活费标准","父母死亡、失踪、服刑或重度残疾证明是否仍有效","儿童是否已被收养或出现其他停发情形"],
+  "plainLanguage":{"officialInterpretationSourceIds":[],"humanVerified":"北京户籍、未满18周岁的孤儿或符合文件所列父母双方特殊情形的儿童，可以申请孤儿基本生活保障。满18周岁后仍在中学或中职读书的可延续到毕业。文件中的2011年金额不能直接作为当前金额，实际办理要核对最新标准和儿童福利证状态。"},"extractedAt":"2026-07-11","verifiedAt":"2026-07-11"
+}
