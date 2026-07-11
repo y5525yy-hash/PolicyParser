@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "documents": [
+    {
+      "documentId": "bj-2019-elderly-subsidy",
+      "policyIds": ["policy-001"],
+      "officialName": "北京市老年人养老服务补贴津贴管理实施办法",
+      "documentNumber": "京民养老发〔2019〕160号",
+      "officialCategory": "民政、扶贫、救灾/社会福利",
+      "issuingAuthorities": ["北京市民政局"],
+      "region": "北京市",
+      "publishedAt": "2019-10-25",
+      "effectiveFrom": "2019-10-01",
+      "status": "active",
+      "replacesDocumentIds": [],
+      "officialUrl": "https://www.beijing.gov.cn/example.html",
+      "interpretationUrls": [],
+      "sourceTextPath": "sources/bj-2019-elderly-subsidy.txt",
+      "contentSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "collectedAt": "2026-07-11",
+      "verifiedAt": "2026-07-11",
+      "verificationStatus": "human_verified",
+      "tags": ["scope:beijing", "locality:general", "audience:elderly"]
+    }
+  ],
+  "policies": [
+    {
+      "policyId": "policy-001",
+      "documentIds": ["bj-2019-elderly-subsidy"],
+      "name": "高龄老年人津贴",
+      "region": "北京市",
+      "tags": ["scope:beijing", "locality:general", "audience:elderly"],
+      "status": "active",
+      "verificationStatus": "human_verified"
+    }
+  ]
+}
