@@ -76,7 +76,7 @@ a {
   min-height: 72px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: auto minmax(420px, 1fr);
+  grid-template-columns: auto minmax(340px, 1fr) auto;
   align-items: stretch;
   gap: 28px;
 }
@@ -106,7 +106,7 @@ a {
 .top-navigation {
   display: flex;
   align-items: stretch;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 4px;
 }
 
@@ -132,6 +132,41 @@ a {
   border-bottom-color: #5f4a00;
   background: rgba(92, 72, 4, 0.1);
   color: #292305;
+}
+
+.matching-action {
+  align-self: center;
+  min-height: var(--control-height);
+  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #163f68;
+  border-radius: var(--radius-sm);
+  background: #174f83;
+  color: white;
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(23, 79, 131, 0.2);
+}
+
+.matching-action:hover,
+.matching-action[aria-current="page"] {
+  background: #0f3e68;
+}
+
+.matching-action span {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 3px;
+  font-size: var(--font-size-xs);
 }
 
 .operator-summary {
@@ -648,6 +683,10 @@ a {
 
   .top-navigation a {
     min-height: 46px;
+  }
+
+  .matching-action {
+    margin: 0 auto 12px;
   }
 
   .card-grid {

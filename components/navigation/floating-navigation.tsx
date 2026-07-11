@@ -7,7 +7,6 @@ import { useState } from "react";
 const navigationItems = [
   { href: "/policies", icon: "政", label: "政策库" },
   { href: "/residents", icon: "居", label: "居民档案" },
-  { href: "/matching?policyId=policy-001", icon: "匹", label: "智能匹配" },
   { href: "/cases", icon: "办", label: "任务台账" },
 ];
 

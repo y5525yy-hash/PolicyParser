@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const navigationItems = [
   { href: "/policies", label: "政策库" },
   { href: "/residents", label: "居民档案" },
-  { href: "/matching?policyId=policy-001", label: "智能匹配" },
   { href: "/cases", label: "任务台账" },
 ];
 
@@ -38,6 +37,14 @@ export function TopNavigation() {
             );
           })}
         </nav>
+        <Link
+          aria-current={pathname === "/matching" ? "page" : undefined}
+          className="matching-action"
+          href="/matching?policyId=policy-001"
+        >
+          <span aria-hidden="true">匹</span>
+          开始智能匹配
+        </Link>
       </div>
     </header>
   );
