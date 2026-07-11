@@ -5,6 +5,11 @@ export const DEMO_IDS = {
     elderlyAllowance: "policy-001",
     elderlyCareSupport: "policy-002",
     disabilityCareSupport: "policy-003",
+    residentPension: "policy-004",
+    residentMedicalInsurance: "policy-005",
+    minimumLivingAllowance: "policy-006",
+    disabilityTwoSubsidies: "policy-007",
+    temporaryAssistance: "policy-008",
   },
   residents: {
     zhangNainai: "resident-001",
@@ -28,4 +33,3 @@ export const CASE_STATUS_LABELS: Record<CaseStatus, string> = {
 };
 
 export const CASE_STORAGE_KEY = "shenicest.caseTasks.v1";
-

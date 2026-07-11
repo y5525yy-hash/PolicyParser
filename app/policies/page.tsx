@@ -37,7 +37,7 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
         </div>
         <div>
           <strong>{policyCategories.length} 个民生分类</strong>
-          <p>当前优先收录老年福利，养老保障和医疗保障政策将按官方来源逐步接入。</p>
+          <p>覆盖老年福利、养老医保、社会救助和残疾人保障，内容均链接至官方来源。</p>
         </div>
       </div>
 
@@ -112,11 +112,11 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
                   </div>
                   <dl className="card-meta">
                     <div>
-                      <dt>补贴标准</dt>
+                      <dt>待遇/缴费标准</dt>
                       <dd>{policy.benefitText}</dd>
                     </div>
                     <div>
-                      <dt>生效日期</dt>
+                      <dt>适用/施行时间</dt>
                       <dd>{policy.effectiveDate}</dd>
                     </div>
                   </dl>
@@ -142,7 +142,7 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
       </div>
 
       <p className="policy-disclaimer">
-        页面用于政策初筛和代办准备，不替代西红门镇受理窗口及大兴区民政部门的正式审核。
+        页面用于政策初筛和代办准备，不替代西红门镇受理窗口及相关主管部门的正式审核。
       </p>
     </section>
   );
