@@ -36,16 +36,16 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
           <span>项已核验政策</span>
         </div>
         <div>
-          <strong>{policyCategories.length} 个民生分类</strong>
-          <p>覆盖老年福利、养老医保、社会救助和残疾人保障，内容均链接至官方来源。</p>
+          <strong>{policyCategories.length} 个政府主题分类</strong>
+          <p>分类沿用政府网站主题分类，覆盖民政救助、就业社保、医疗、住房、教育和司法援助等领域。</p>
         </div>
       </div>
 
       <div className="policy-browser">
         <aside className="category-panel" aria-label="政策分类">
           <div className="category-panel-heading">
-            <p className="eyebrow">政策分类</p>
-            <h2>按领域查看</h2>
+            <p className="eyebrow">官方主题分类</p>
+            <h2>按政府分类查看</h2>
           </div>
           <nav className="category-navigation">
             <Link
@@ -105,7 +105,7 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
                           (item) => item.id === getPolicyCategoryId(policy.id),
                         )?.name}
                       </span>
-                      <span className="region-badge">{policy.region}</span>
+                      <span className="region-badge">北京市通用</span>
                     </div>
                     <h2>{policy.name}</h2>
                     <p>{policy.summary}</p>

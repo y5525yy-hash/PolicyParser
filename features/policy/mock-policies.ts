@@ -1,7 +1,11 @@
 import { DEMO_IDS } from "@/shared/demo-constants";
 import type { Policy } from "@/shared/types";
 
+import manifestJson from "@/features/policy/knowledge-base/data/manifest.json";
+import type { PolicyManifest } from "@/features/policy/knowledge-base/schema";
 import { getPolicySource } from "@/features/policy/policy-source";
+
+const manifest = manifestJson as unknown as PolicyManifest;
 
 const elderlySubsidySource = getPolicySource(DEMO_IDS.policies.elderlyAllowance);
 
@@ -9,7 +13,7 @@ if (!elderlySubsidySource) {
   throw new Error("Missing elderly subsidy source metadata");
 }
 
-export const mockPolicies: Policy[] = [
+const curatedPolicies: Policy[] = [
   {
     id: DEMO_IDS.policies.elderlyAllowance,
     name: "高龄老年人津贴",
@@ -207,6 +211,53 @@ export const mockPolicies: Policy[] = [
     updatedAt: "2020-07-27",
   },
 ];
+
+const curatedPolicyIds = new Set(curatedPolicies.map((policy) => policy.id));
+const activeDocumentsById = new Map(
+  manifest.documents
+    .filter((document) => document.status === "active")
+    .map((document) => [document.documentId, document]),
+);
+
+const catalogPolicies: Policy[] = manifest.policies
+  .filter(
+    (policy) => policy.status === "active" && !curatedPolicyIds.has(policy.policyId),
+  )
+  .map((policy) => {
+    const document = policy.documentIds
+      .map((documentId) => activeDocumentsById.get(documentId))
+      .find(Boolean);
+
+    if (!document) {
+      throw new Error(`Missing active source document for ${policy.policyId}`);
+    }
+
+    return {
+      id: policy.policyId,
+      name: policy.name,
+      originalName: document.officialName,
+      region: `${policy.region}（西红门镇按属地和主管部门口径办理）`,
+      summary: `该政策归入政府网站“${document.officialCategory}”分类。知识库已保存完整官方原文，页面仅辅助查找政策和核对条件，不自动认定申请资格。`,
+      applicableTo: [
+        "适用对象、年龄、户籍、收入或身份条件以官方原文为准",
+        "涉及多项条件时需完整核对“同时符合”“任一情形”和例外条款",
+        "最终资格由对应主管部门或受理窗口审核",
+      ],
+      benefitText: "待遇、补贴或缴费标准以官方原文及主管部门当前执行口径为准。",
+      materials: [
+        "身份证明和户籍信息（如政策要求）",
+        "与申请条件对应的收入、财产、参保、残疾或家庭情况材料",
+        "受理窗口根据具体政策要求补充的材料",
+      ],
+      officialUrl: document.officialUrl,
+      effectiveDate: document.effectiveFrom ?? "现行有效",
+      updatedAt: document.publishedAt ?? "待核对",
+    };
+  });
+
+export const mockPolicies: Policy[] = [...curatedPolicies, ...catalogPolicies].sort(
+  (left, right) => left.id.localeCompare(right.id, "en"),
+);
 
 export function getMockPolicy(policyId: string) {
   return mockPolicies.find((policy) => policy.id === policyId) ?? null;

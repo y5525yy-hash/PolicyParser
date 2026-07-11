@@ -1,5 +1,10 @@
 import { DEMO_IDS } from "@/shared/demo-constants";
 
+import manifestJson from "@/features/policy/knowledge-base/data/manifest.json";
+import type { PolicyManifest } from "@/features/policy/knowledge-base/schema";
+
+const manifest = manifestJson as unknown as PolicyManifest;
+
 export interface PolicySourceDetail {
   documentName: string;
   documentNumber?: string;
@@ -84,7 +89,30 @@ const policySourceMap: Record<string, PolicySourceDetail> = {
 };
 
 export function getPolicySource(policyId: string) {
-  return policySourceMap[policyId] ?? null;
+  const curatedSource = policySourceMap[policyId];
+  if (curatedSource) {
+    return curatedSource;
+  }
+
+  const policy = manifest.policies.find((item) => item.policyId === policyId);
+  const document = policy?.documentIds
+    .map((documentId) => manifest.documents.find((item) => item.documentId === documentId))
+    .find((item) => item?.status === "active");
+
+  if (!document) {
+    return null;
+  }
+
+  return {
+    documentName: document.officialName,
+    documentNumber: document.documentNumber,
+    issuingAuthorities: document.issuingAuthorities.join("、"),
+    publishedAt: document.publishedAt ?? "待核对",
+    effectiveDate: document.effectiveFrom ?? "现行有效",
+    officialUrl: document.officialUrl,
+    interpretationUrl: document.interpretationUrls[0],
+    verifiedAt: document.verifiedAt ?? document.collectedAt,
+  };
 }
 
 export const commonApplicationSteps = [
