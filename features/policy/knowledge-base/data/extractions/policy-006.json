@@ -1,0 +1,28 @@
+{
+  "policyId": "policy-006",
+  "documentIds": ["bj-2018-dibao-rules", "bj-2024-minimum-living-allowance"],
+  "sourceChunkIds": ["chunk-d1b0c503f48c4225", "chunk-4d493ff3e77da322", "chunk-88719905261f1147", "chunk-b41fa128cc04964d"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "本市户籍居民组成的家庭，共同生活的家庭成员月人均收入低于本市当年城乡低保标准，且符合本市城乡低保家庭财产状况规定。",
+      "sourceChunkIds": ["chunk-d1b0c503f48c4225"],
+      "conditions": [
+        {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市", "sourceText": "本市户籍居民组成的家庭", "sourceChunkIds": ["chunk-d1b0c503f48c4225"]},
+        {"type": "condition", "field": "familyMonthlyIncomePerCapita", "operator": "less_than", "value": 1450, "unit": "元/月", "sourceText": "共同生活的家庭成员月人均收入低于本市当年城乡低保标准", "sourceChunkIds": ["chunk-d1b0c503f48c4225", "chunk-88719905261f1147"]},
+        {"type": "condition", "field": "familyPropertyStatus", "operator": "equals", "value": "符合本市城乡低保家庭财产状况规定", "sourceText": "且符合本市城乡低保家庭财产状况规定", "sourceChunkIds": ["chunk-d1b0c503f48c4225"]}
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "困难家庭", "text": "家庭收入和财产状况同时符合本市低保规定的本市户籍家庭；部分婚姻家庭和特定重度残疾人另有规定。", "sourceChunkIds": ["chunk-d1b0c503f48c4225"]}],
+  "benefits": [{"title": "当前低保标准", "text": "自2024年7月起为每人每月1450元，具体家庭保障金额按实施细则计算。", "sourceChunkIds": ["chunk-88719905261f1147"]}],
+  "materials": [{"title": "家庭经济状况材料", "text": "申请人需按规定提交材料，声明家庭收入和财产状况并授权民政部门核查。", "sourceChunkIds": ["chunk-b41fa128cc04964d"]}],
+  "procedures": [{"title": "申请与调查", "text": "向乡镇人民政府或街道办事处申请，接受家庭经济状况核对、入户调查及审批。", "sourceChunkIds": ["chunk-b41fa128cc04964d"]}],
+  "restrictions": [{"title": "排除对象", "text": "非北京市户籍因就学迁入学校集体户口的学生、采取规避法律行为造成困难的人员及民政部门认定的其他人员不属于低保范围。", "sourceChunkIds": ["chunk-4d493ff3e77da322"]}],
+  "unresolvedQuestions": ["家庭财产是否符合当前认定标准", "共同生活家庭成员范围是否确认完整"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "humanVerified": "北京低保不是只看收入，还要同时核查户籍、共同生活家庭成员和家庭财产。当前标准是每人每月1450元，实际领取金额按家庭收入差额计算。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

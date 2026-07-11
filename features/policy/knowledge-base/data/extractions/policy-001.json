@@ -1,0 +1,27 @@
+{
+  "policyId": "policy-001",
+  "documentIds": ["bj-2019-elderly-subsidy"],
+  "sourceChunkIds": ["chunk-f5efebffb50e7f2f", "chunk-fb6a8b39902b3e42", "chunk-7e8a1e6980220a3d", "chunk-32d3f5404e0360fc", "chunk-c3f88c6bfeb00a53", "chunk-dc56599e70065704", "chunk-6820d6dd21d8e050"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "老年人养老服务补贴津贴发放给具有本市户口且符合相应条件的老年人；高龄老年人津贴发放给80周岁及以上的老年人。",
+      "sourceChunkIds": ["chunk-f5efebffb50e7f2f", "chunk-fb6a8b39902b3e42"],
+      "conditions": [
+        {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市", "sourceText": "具有本市户口", "sourceChunkIds": ["chunk-f5efebffb50e7f2f"]},
+        {"type": "condition", "field": "age", "operator": "greater_than_or_equal", "value": 80, "unit": "周岁", "sourceText": "80周岁及以上", "sourceChunkIds": ["chunk-fb6a8b39902b3e42"]}
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "高龄老年人", "text": "具有北京市户籍且年满80周岁的老年人。", "sourceChunkIds": ["chunk-f5efebffb50e7f2f", "chunk-fb6a8b39902b3e42"]}],
+  "benefits": [{"title": "分年龄档津贴", "text": "80至89周岁每月100元，90至99周岁每月500元，100周岁及以上每月800元。", "sourceChunkIds": ["chunk-7e8a1e6980220a3d", "chunk-32d3f5404e0360fc", "chunk-c3f88c6bfeb00a53"]}],
+  "materials": [{"title": "申请身份材料", "text": "可在窗口出示居民身份证或户口簿原件；线上申请按系统要求填报。", "sourceChunkIds": ["chunk-6820d6dd21d8e050"]}],
+  "procedures": [{"title": "自愿申请", "text": "由本人、委托代理人或监护人提出申请，可线上办理或到街道乡镇窗口办理。", "sourceChunkIds": ["chunk-6820d6dd21d8e050"]}],
+  "restrictions": [{"title": "待遇衔接", "text": "符合条件的三类老年补贴可以同时申领，其他福利待遇仍需按政策衔接条款核实。", "sourceChunkIds": ["chunk-dc56599e70065704"]}],
+  "unresolvedQuestions": ["是否已经领取高龄津贴", "发放账户是否有效"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/201910/t20191028_454234.html"], "humanVerified": "北京户籍老人年满80周岁后，可以申请高龄津贴，金额按80至89岁、90至99岁和100岁以上三个年龄档发放。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

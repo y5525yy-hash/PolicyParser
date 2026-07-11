@@ -1,0 +1,36 @@
+{
+  "policyId": "policy-002",
+  "documentIds": ["bj-2019-elderly-subsidy"],
+  "sourceChunkIds": ["chunk-9a174b048ae081f3", "chunk-9bcaecfa5bbaa097", "chunk-7f4bbd4da5750629", "chunk-406d6a953fa796ce", "chunk-aaa4f9c2875f690a", "chunk-cbc14818a21b1eeb", "chunk-6820d6dd21d8e050"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "具有本市户口，且属于低保、低收入或计划生育特殊家庭等困难老年人。",
+      "sourceChunkIds": ["chunk-9a174b048ae081f3", "chunk-9bcaecfa5bbaa097"],
+      "conditions": [
+        {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市", "sourceText": "具有本市户口", "sourceChunkIds": ["chunk-9a174b048ae081f3"]},
+        {
+          "type": "anyOf",
+          "sourceText": "低保、低收入、计划生育特殊家庭等困难老年人",
+          "sourceChunkIds": ["chunk-7f4bbd4da5750629", "chunk-406d6a953fa796ce", "chunk-aaa4f9c2875f690a"],
+          "conditions": [
+            {"type": "condition", "field": "lowIncomeStatus", "operator": "equals", "value": "低保", "sourceText": "享受低保待遇的老年人", "sourceChunkIds": ["chunk-7f4bbd4da5750629"]},
+            {"type": "condition", "field": "lowIncomeStatus", "operator": "equals", "value": "低收入但未享受低保", "sourceText": "低收入家庭中未享受低保待遇的老年人", "sourceChunkIds": ["chunk-406d6a953fa796ce"]},
+            {"type": "condition", "field": "familyStatus", "operator": "equals", "value": "计划生育特殊家庭", "sourceText": "属于本市计划生育特殊家庭且不符合前述低保、低收入条件", "sourceChunkIds": ["chunk-aaa4f9c2875f690a"]}
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "困难老年人", "text": "北京户籍的低保、低收入或符合条件的计划生育特殊家庭老年人。", "sourceChunkIds": ["chunk-9a174b048ae081f3", "chunk-9bcaecfa5bbaa097"]}],
+  "benefits": [{"title": "分困难类型补贴", "text": "低保老年人每月300元，低收入未享受低保的老年人每月200元，其他符合条件的计划生育特殊家庭老年人每月100元。", "sourceChunkIds": ["chunk-7f4bbd4da5750629", "chunk-406d6a953fa796ce", "chunk-aaa4f9c2875f690a"]}],
+  "materials": [{"title": "申请身份材料", "text": "窗口申请可出示居民身份证或户口簿，相关困难身份原则上通过政府信息共享核验。", "sourceChunkIds": ["chunk-6820d6dd21d8e050"]}],
+  "procedures": [{"title": "自愿申请", "text": "本人、委托代理人或监护人可线上申请或到街道乡镇窗口申请。", "sourceChunkIds": ["chunk-6820d6dd21d8e050"]}],
+  "restrictions": [{"title": "不得重复享受", "text": "困难老年人养老服务补贴、失能老年人护理补贴与残疾人对应生活或护理补贴不得重复享受，应按规定自主选择。", "sourceChunkIds": ["chunk-cbc14818a21b1eeb"]}],
+  "unresolvedQuestions": ["困难身份是否仍然有效", "是否已领取同类型残疾人生活补贴"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/201910/t20191028_454234.html"], "humanVerified": "北京户籍的困难老年人可以按低保、低收入或计划生育特殊家庭身份申请养老服务补贴，不同身份对应不同金额。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

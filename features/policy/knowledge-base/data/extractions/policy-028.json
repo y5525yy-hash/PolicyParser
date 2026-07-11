@@ -1,0 +1,51 @@
+{
+  "policyId": "policy-028",
+  "documentIds": ["bj-2011-public-rental-housing-application"],
+  "sourceChunkIds": ["chunk-8b550a217e7823f9", "chunk-93e6d38b499d01ce", "chunk-187f5acda66735ff", "chunk-a626074ef53a9701", "chunk-acd62315d9131eca", "chunk-858009b2bc4d7172", "chunk-baf11512dc729c03", "chunk-9d7f5a888ce27873", "chunk-da1ff8e2337078b2", "chunk-a2faa9c8f9e42433", "chunk-061cadf79b6c65b9"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "anyOf",
+      "sourceText": "符合保障性住房轮候家庭、本市城镇户籍中低收入住房困难家庭、或各区确定条件的外省市来京工作人员分支之一，可以申请公共租赁住房。",
+      "sourceChunkIds": ["chunk-8b550a217e7823f9"],
+      "conditions": [
+        {"type": "condition", "field": "housingQueueIdentity", "operator": "in", "value": ["廉租住房轮候家庭", "经济适用住房轮候家庭", "限价商品住房轮候家庭"], "sourceText": "廉租住房、经济适用住房、限价商品住房轮候家庭", "sourceChunkIds": ["chunk-8b550a217e7823f9"]},
+        {
+          "type": "allOf",
+          "sourceText": "本市城镇户籍家庭需同时满足户籍、住房面积和家庭收入条件。",
+          "sourceChunkIds": ["chunk-8b550a217e7823f9"],
+          "conditions": [
+            {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市城镇户籍", "sourceText": "申请人具有本市城镇户籍", "sourceChunkIds": ["chunk-8b550a217e7823f9"]},
+            {"type": "condition", "field": "housingUseAreaPerCapita", "operator": "less_than_or_equal", "value": 15, "unit": "平方米", "sourceText": "家庭人均住房使用面积15平方米（含）以下", "sourceChunkIds": ["chunk-8b550a217e7823f9"]},
+            {"type": "condition", "field": "householdAnnualIncome", "operator": "less_than_or_equal", "value": "3口及以下10万元；4口及以上13万元", "unit": "元/年", "sourceText": "3口及以下家庭年收入10万元（含）以下、4口及以上家庭年收入13万元（含）以下", "sourceChunkIds": ["chunk-8b550a217e7823f9"]}
+          ]
+        },
+        {
+          "type": "allOf",
+          "sourceText": "外省市来京工作人员需满足稳定工作、完全民事行为能力、收入、暂住和缴纳公积金或社保证明、本人及家庭无住房等条件，具体条件由区政府确定。",
+          "sourceChunkIds": ["chunk-8b550a217e7823f9"],
+          "conditions": [
+            {"type": "condition", "field": "stableWorkInBeijing", "operator": "equals", "value": true, "sourceText": "外省市来京连续稳定工作一定年限", "sourceChunkIds": ["chunk-8b550a217e7823f9"]},
+            {"type": "condition", "field": "fullCivilCapacity", "operator": "equals", "value": true, "sourceText": "具有完全民事行为能力", "sourceChunkIds": ["chunk-8b550a217e7823f9"]},
+            {"type": "condition", "field": "temporaryResidenceAndContributionProof", "operator": "exists", "value": true, "sourceText": "能够提供同期暂住证明、缴纳住房公积金证明或社会保险证明", "sourceChunkIds": ["chunk-8b550a217e7823f9"]},
+            {"type": "condition", "field": "familyHasHousingInBeijing", "operator": "equals", "value": false, "sourceText": "本人及家庭成员在本市均无住房", "sourceChunkIds": ["chunk-8b550a217e7823f9"]}
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "城市中低收入住房困难家庭等对象", "text": "主要包括保障性住房轮候家庭、符合本市城镇户籍住房和收入条件的家庭，以及符合各区具体规定的外省市来京工作人员。", "sourceChunkIds": ["chunk-8b550a217e7823f9"]}],
+  "benefits": [{"title": "取得公租房轮候和配租资格", "text": "符合条件的家庭进入轮候配租，房源配租通常采用公开摇号、顺序选房；部分老人、大病、重度残疾、优抚等家庭优先配租。", "sourceChunkIds": ["chunk-858009b2bc4d7172", "chunk-9d7f5a888ce27873"]}],
+  "materials": [{"title": "申请核定表和身份条件材料", "text": "政策附件包括保障性住房轮候家庭申请登记表和公共租赁住房申请家庭情况核定表；具体还需按申请分支提供户籍、收入、住房、暂住、住房公积金或社会保险等证明。", "sourceChunkIds": ["chunk-06c189e013870912", "chunk-8b550a217e7823f9"]}],
+  "procedures": [{"title": "按身份向对应街道申请", "text": "保障性住房轮候家庭到原申请街道登记；本市城镇户籍家庭向户籍所在地街道乡镇申请；外省市来京工作人员向工作单位所在地街道乡镇住房保障部门申请，执行三级审核、两级公示。", "sourceChunkIds": ["chunk-187f5acda66735ff", "chunk-a626074ef53a9701"]}],
+  "restrictions": [
+    {"title": "家庭和住房限制", "text": "一个家庭只能承租一套公共租赁住房；原住房按规定需要腾退的，应办理腾退；取得其他住房后不再符合条件的，应退出公租房。", "sourceChunkIds": ["chunk-acd62315d9131eca", "chunk-baf11512dc729c03", "chunk-a2faa9c8f9e42433"]},
+    {"title": "动态复核", "text": "轮候期间收入、人口、住房、资产变化应在60日内报告；续租前需复核，已不符合申请条件的不再续租。", "sourceChunkIds": ["chunk-858009b2bc4d7172", "chunk-061cadf79b6c65b9"]},
+    {"title": "收入标准可能动态调整", "text": "文件明确市住房城乡建设主管部门可根据人均可支配收入变化动态调整收入标准，实际办理需核对当前口径。", "sourceChunkIds": ["chunk-8b550a217e7823f9"]}
+  ],
+  "unresolvedQuestions": ["2011年文件中的家庭收入标准是否已按当前口径调整", "申请家庭的住房、收入和资产核定结果", "外省市来京工作人员所在区的具体准入年限和审核标准", "当前可配租项目、房源和登记期限"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "humanVerified": "公租房申请不是所有家庭使用同一套条件：保障房轮候家庭、本市城镇户籍住房困难家庭、外省市来京工作人员分别走不同资格分支。本市户籍家庭要同时核对户籍、住房面积和家庭收入；外地来京人员还要看稳定工作、暂住或社保公积金证明以及家庭无房情况。文件允许收入线动态调整，因此页面中的2011年数值必须再核对当前受理口径。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

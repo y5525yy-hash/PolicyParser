@@ -1,0 +1,36 @@
+{
+  "policyId": "policy-015",
+  "documentIds": ["bj-2018-orphan-medical"],
+  "sourceChunkIds": ["chunk-702d1870fbff2ec2", "chunk-121e772f5382a4ac", "chunk-5a0b55cd98d2c117", "chunk-2ffe37cc4309e283", "chunk-4b0be5f579aabc6c", "chunk-4bef6b5f638cf05b", "chunk-d00953e026016cbf", "chunk-ef5d6db661b384c6", "chunk-ceabcf92485200fd", "chunk-b9f40d421d082e69", "chunk-8d0bc5a6cd05e0dd", "chunk-3e88b4452eb835c2", "chunk-cb67966df44ba856", "chunk-e49c39618e269676", "chunk-d3a1d5475c71cc92", "chunk-8b18781a42d8b804", "chunk-5ac9ecedee9680ea", "chunk-971d1f4a303019ec"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "anyOf",
+      "sourceText": "保障对象为儿童福利机构抚养的孤弃儿童、父母双亡的社会散居孤儿，或纳入本市困境儿童生活保障范围的事实无人抚养儿童。",
+      "sourceChunkIds": ["chunk-702d1870fbff2ec2"],
+      "conditions": [
+        {"type": "condition", "field": "childWelfareIdentity", "operator": "in", "value": ["儿童福利机构抚养的孤弃儿童", "父母双亡的社会散居孤儿"], "sourceText": "儿童福利机构抚养的孤弃儿童和父母双亡的社会散居孤儿", "sourceChunkIds": ["chunk-702d1870fbff2ec2"]},
+        {"type": "condition", "field": "childWelfareIdentity", "operator": "equals", "value": "纳入本市困境儿童生活保障范围的事实无人抚养儿童", "sourceText": "纳入本市困境儿童生活保障范围的事实无人抚养儿童", "sourceChunkIds": ["chunk-702d1870fbff2ec2"]}
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "孤儿和事实无人抚养儿童", "text": "儿童福利机构抚养的孤弃儿童、父母双亡的社会散居孤儿，以及已纳入本市困境儿童生活保障范围的事实无人抚养儿童。", "sourceChunkIds": ["chunk-702d1870fbff2ec2"]}],
+  "benefits": [
+    {"title": "孤儿医疗保障", "text": "城乡居民基本医保个人缴费由财政全额补贴；在医保定点机构门诊和住院，经基本医保和商业保险报销后的个人负担部分由民政部门实报实销。", "sourceChunkIds": ["chunk-121e772f5382a4ac", "chunk-5a0b55cd98d2c117"]},
+    {"title": "事实无人抚养儿童医疗保障", "text": "医保个人缴费由区财政全额补贴；门诊个人负担部分报销80%，年度不超过0.6万元；住院报销80%，年度不超过6万元；重大疾病个人负担部分报销85%，年度不超过12万元。", "sourceChunkIds": ["chunk-2ffe37cc4309e283", "chunk-4bef6b5f638cf05b", "chunk-d00953e026016cbf", "chunk-ef5d6db661b384c6"]}
+  ],
+  "materials": [
+    {"title": "住院即时结算材料", "text": "定点医疗机构住院通知单复印件；重大疾病需二级及以上医保定点机构诊断证明书复印件；儿童本人银行账户信息。", "sourceChunkIds": ["chunk-ceabcf92485200fd", "chunk-b9f40d421d082e69", "chunk-8d0bc5a6cd05e0dd", "chunk-3e88b4452eb835c2"]},
+    {"title": "诊后报销材料", "text": "门诊或住院收费票据复印件、医保定点机构诊断证明书，重大疾病需二级及以上定点机构诊断证明，以及儿童本人银行账户信息。", "sourceChunkIds": ["chunk-cb67966df44ba856", "chunk-e49c39618e269676", "chunk-d3a1d5475c71cc92", "chunk-8b18781a42d8b804"]}
+  ],
+  "procedures": [{"title": "户籍地申请和审核", "text": "由儿童福利机构或监护人按相应路径办理参保、即时结算证明或诊后费用报销，经街道乡镇查验、儿童福利保护部门申报和区民政部门审核。", "sourceChunkIds": ["chunk-ceabcf92485200fd", "chunk-cb67966df44ba856"]}],
+  "restrictions": [
+    {"title": "与社会救助医疗政策不得同时享受", "text": "享受本市低保或低收入救助待遇的事实无人抚养儿童，可由监护人自愿选择本政策或城乡社会救助对象医疗救助政策，不同时享受。", "sourceChunkIds": ["chunk-5ac9ecedee9680ea"]},
+    {"title": "不合理费用和骗取资金不予保障", "text": "不按规定用药、诊疗产生的费用不予结算；监护人违反承诺骗取资金的依法追回，构成犯罪的移送司法机关。", "sourceChunkIds": ["chunk-971d1f4a303019ec"]}
+  ],
+  "unresolvedQuestions": ["儿童身份是否仍在民政部门有效名单内", "是否已参加城乡居民基本医疗保险", "是否同时享受低保或低收入医疗救助并需要二选一", "年度内已报销金额和剩余限额"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/201905/t20190523_78782.html"], "humanVerified": "这项政策分别保障孤儿和已经纳入困境儿童生活保障的事实无人抚养儿童。两类儿童的医保个人缴费都由财政补贴，但门诊、住院和重大疾病的报销方式及额度不同。事实无人抚养儿童如果同时享受低保或低收入医疗救助，需要由监护人在两种政策中选择，不能同时报销。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

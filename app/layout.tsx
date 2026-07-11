@@ -13,10 +13,14 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="zh-CN">
       <body>
+        <a className="skip-link" href="#main-content">
+          跳到主要内容
+        </a>
         <TopNavigation />
-        <main className="page-shell">{children}</main>
+        <main className="page-shell" id="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </body>
     </html>
   );
 }
-

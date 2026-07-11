@@ -1,0 +1,34 @@
+{
+  "policyId": "policy-027",
+  "documentIds": ["bj-2022-legal-aid-commitment"],
+  "sourceChunkIds": ["chunk-fdbae058aa4504c8", "chunk-9f1e6e23897467f8", "chunk-78d37e2de4b576f2", "chunk-d40d89251d259684", "chunk-380335d3791bcd01", "chunk-154c6b1f66f70eec", "chunk-695f7c229f02ba1a", "chunk-4853320deb5466b0", "chunk-c36767e239313efa", "chunk-204f51ac865944f1"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "因经济困难申请法律援助、如实说明并承诺符合经济困难条件，且不属于信用惩戒名单未修复人员。",
+      "sourceChunkIds": ["chunk-fdbae058aa4504c8", "chunk-9f1e6e23897467f8", "chunk-78d37e2de4b576f2"],
+      "conditions": [
+        {"type": "condition", "field": "legalAidApplicationReason", "operator": "equals", "value": "经济困难", "sourceText": "市、区法律援助机构受理的因经济困难申请法律援助", "sourceChunkIds": ["chunk-fdbae058aa4504c8"]},
+        {"type": "condition", "field": "truthfullyCommitsEconomicDifficulty", "operator": "equals", "value": true, "sourceText": "如实说明经济困难状况并承诺符合法律援助经济困难条件", "sourceChunkIds": ["chunk-9f1e6e23897467f8"]},
+        {"type": "condition", "field": "householdIncomePerCapita", "operator": "less_than", "value": "本市当年最低工资标准", "unit": "家庭月人均收入", "sourceText": "家庭月人均收入低于本市当年最低工资标准", "sourceChunkIds": ["chunk-78d37e2de4b576f2"]},
+        {"type": "condition", "field": "monetaryPropertyPerCapita", "operator": "less_than_or_equal", "value": "本市低收入家庭人均财产货币总额限制金额", "unit": "人均货币财产", "sourceText": "家庭拥有的人均货币财产总额在本市低收入家庭人均财产货币总额限制金额内", "sourceChunkIds": ["chunk-78d37e2de4b576f2"]},
+        {"type": "condition", "field": "disqualifyingSocialAssistanceProperty", "operator": "equals", "value": false, "sourceText": "家庭财产不存在不符合给予社会救助条件之情形", "sourceChunkIds": ["chunk-78d37e2de4b576f2"]},
+        {"type": "condition", "field": "unrepairedCreditDisciplinaryStatus", "operator": "equals", "value": false, "sourceText": "列入国家、北京市信用信息服务平台信用惩戒名单的，在信用修复前不适用告知承诺制", "sourceChunkIds": ["chunk-9f1e6e23897467f8"]}
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "因经济困难申请法律援助的申请人", "text": "市、区法律援助机构受理的因经济困难申请法律援助人员，可自主选择是否采用告知承诺制；不愿或无法选择的，依法提交规定材料。", "sourceChunkIds": ["chunk-fdbae058aa4504c8", "chunk-9f1e6e23897467f8"]}],
+  "benefits": [{"title": "可选择告知承诺方式办理", "text": "申请人可通过如实说明和签署承诺材料接受经济困难核查；该方式是办理方式选择，不代表自动获得法律援助。", "sourceChunkIds": ["chunk-9f1e6e23897467f8", "chunk-380335d3791bcd01"]}],
+  "materials": [{"title": "告知承诺相关材料", "text": "法律援助申请告知承诺书、法律援助申请人家庭成员和经济困难说明表、告知承诺情况核查授权书，以及法律法规规章规定的其他材料。", "sourceChunkIds": ["chunk-d40d89251d259684", "chunk-380335d3791bcd01"]}],
+  "procedures": [{"title": "申请、决定和核查", "text": "申请人签署并提交承诺书、家庭成员和经济困难说明表及核查授权书；法律援助机构在法定时限内决定，并通过在线核查或信函索证等方式核查。", "sourceChunkIds": ["chunk-d40d89251d259684", "chunk-380335d3791bcd01", "chunk-695f7c229f02ba1a"]}],
+  "restrictions": [
+    {"title": "信用惩戒人员暂不适用", "text": "列入国家或北京市信用信息服务平台信用惩戒名单的，在完成信用修复前不适用告知承诺制。", "sourceChunkIds": ["chunk-9f1e6e23897467f8"]},
+    {"title": "撤回和虚假承诺后果", "text": "撤回承诺后未在规定期限补齐材料的，申请或法律援助可能终止；虚假承诺可能导致终止援助、支付已实施援助费用、罚款、信用记录，构成犯罪的依法追责。", "sourceChunkIds": ["chunk-154c6b1f66f70eec", "chunk-4853320deb5466b0", "chunk-c36767e239313efa", "chunk-204f51ac865944f1"]}
+  ],
+  "unresolvedQuestions": ["申请事项本身是否属于法律援助法定范围", "申请人家庭收入和财产的当前核查数值", "申请人是否处于尚未修复的信用惩戒状态"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "humanVerified": "这项政策解决的是经济困难证明怎么核验，不是承诺后就一定获得法律援助。因经济困难申请法律援助的人可以自愿选择告知承诺方式，但收入、财产仍要符合标准，法律援助机构会核查；尚未完成信用修复的惩戒人员不能使用这种方式，虚假承诺会被终止援助并承担相应责任。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

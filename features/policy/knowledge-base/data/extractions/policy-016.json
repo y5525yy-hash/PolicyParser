@@ -1,0 +1,39 @@
+{
+  "policyId": "policy-016",
+  "documentIds": ["bj-2026-distressed-children-living"],
+  "sourceChunkIds": ["chunk-47d014f66d4a0d96", "chunk-826433355199b046", "chunk-59fbf2e81fc77fc1", "chunk-e92991ddd56ea238", "chunk-23715d86065a92ae", "chunk-1d5aea338e6c7e6d", "chunk-4ad7a2e333b0c485", "chunk-2065e405f4a5d174", "chunk-fee8e3581d8c020d", "chunk-d0ed40daf1e19aad", "chunk-acc43e5e6af5df63"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "具有本市户籍，并属于文件列明的六类困境儿童之一。",
+      "sourceChunkIds": ["chunk-47d014f66d4a0d96"],
+      "conditions": [
+        {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市", "sourceText": "具有本市户籍", "sourceChunkIds": ["chunk-47d014f66d4a0d96"]},
+        {
+          "type": "anyOf",
+          "sourceText": "孤儿弃婴、事实无人抚养儿童、被收养残疾孤儿、艾滋病病毒感染儿童、特定机构集中养育儿童、城乡低保家庭重病或残疾儿童之一。",
+          "sourceChunkIds": ["chunk-826433355199b046", "chunk-59fbf2e81fc77fc1", "chunk-e92991ddd56ea238", "chunk-23715d86065a92ae", "chunk-1d5aea338e6c7e6d", "chunk-4ad7a2e333b0c485"],
+          "conditions": [
+            {"type": "condition", "field": "distressedChildIdentity", "operator": "in", "value": ["孤儿", "弃婴", "事实无人抚养儿童", "被收养的残疾孤儿", "艾滋病病毒感染儿童"], "sourceText": "孤儿、弃婴、事实无人抚养儿童、被收养的残疾孤儿、艾滋病病毒感染儿童", "sourceChunkIds": ["chunk-826433355199b046", "chunk-59fbf2e81fc77fc1", "chunk-e92991ddd56ea238", "chunk-23715d86065a92ae"]},
+            {"type": "condition", "field": "distressedChildIdentity", "operator": "equals", "value": "文件列明的儿童福利机构集中养育儿童", "sourceText": "儿童福利机构集中养育且已办理集体户口的流浪乞讨生活无着儿童、打拐解救儿童、由人民法院指定民政部门作为监护人的儿童", "sourceChunkIds": ["chunk-1d5aea338e6c7e6d"]},
+            {"type": "condition", "field": "distressedChildIdentity", "operator": "equals", "value": "城乡低保家庭中的重病儿童或残疾儿童", "sourceText": "城乡低保家庭中的重病儿童和残疾儿童", "sourceChunkIds": ["chunk-4ad7a2e333b0c485"]}
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "北京户籍六类困境儿童", "text": "具有北京市户籍，并属于孤儿弃婴、事实无人抚养、被收养残疾孤儿、艾滋病病毒感染、特定机构集中养育、低保家庭重病或残疾儿童等列明范围。", "sourceChunkIds": ["chunk-47d014f66d4a0d96", "chunk-826433355199b046", "chunk-59fbf2e81fc77fc1", "chunk-e92991ddd56ea238", "chunk-23715d86065a92ae", "chunk-1d5aea338e6c7e6d", "chunk-4ad7a2e333b0c485"]}],
+  "benefits": [
+    {"title": "孤儿等对象生活费", "text": "孤儿、弃婴每人每月2850元；被收养残疾孤儿按孤儿标准；文件列明的机构集中养育儿童、事实无人抚养儿童和艾滋病病毒感染儿童参照孤儿标准。", "sourceChunkIds": ["chunk-2065e405f4a5d174", "chunk-fee8e3581d8c020d", "chunk-d0ed40daf1e19aad"]},
+    {"title": "低保家庭重病或残疾儿童", "text": "在继续享受城乡低保分类救助待遇基础上，按困境儿童生活费标准的40%发放；享受低保分类救助的事实无人抚养儿童按困境儿童生活费标准补齐。", "sourceChunkIds": ["chunk-acc43e5e6af5df63"]}
+  ],
+  "materials": [],
+  "procedures": [],
+  "restrictions": [{"title": "身份资格需依据基础政策确认", "text": "本文件主要调整对象和金额，孤儿、事实无人抚养儿童、低保家庭重病或残疾儿童等身份的具体认定，应结合其基础保障政策和民政部门名单核对。", "sourceChunkIds": ["chunk-47d014f66d4a0d96", "chunk-4ad7a2e333b0c485"]}],
+  "unresolvedQuestions": ["儿童当前是否具有北京市户籍", "具体困境儿童身份是否经民政部门有效认定", "生活费办理材料、发放流程和账户信息需按基础政策及当前经办口径补充"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["http://mzj.beijing.gov.cn/art/2026/1/14/art_10690_1694.html"], "humanVerified": "这份2026年文件主要更新哪些儿童按什么标准领取生活费。申请人首先必须是北京户籍，并且已经被认定为文件列明的困境儿童类型。孤儿、事实无人抚养儿童等多数对象参照每月2850元标准，低保家庭中的重病或残疾儿童按标准的40%发放；具体身份认定和办理材料仍要结合基础政策核对。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}
