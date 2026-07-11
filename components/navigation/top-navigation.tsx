@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navigationItems = [
-  { href: "/policies", label: "政策管理" },
+  { href: "/policies", label: "政策库" },
   { href: "/residents", label: "居民档案" },
   { href: "/matching?policyId=policy-001", label: "智能匹配" },
-  { href: "/cases", label: "核实任务" },
+  { href: "/cases", label: "任务台账" },
 ];
 
 export function TopNavigation() {
@@ -20,7 +20,6 @@ export function TopNavigation() {
           <Link className="brand" href="/policies">
             西红门民生政策助手
           </Link>
-          <span className="system-label">基层政务工作台</span>
         </div>
         <nav aria-label="主导航" className="top-navigation">
           {navigationItems.map((item) => {
@@ -39,10 +38,6 @@ export function TopNavigation() {
             );
           })}
         </nav>
-        <div className="operator-summary">
-          <span>北京市大兴区</span>
-          <strong>西红门镇工作人员</strong>
-        </div>
       </div>
     </header>
   );

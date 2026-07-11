@@ -29,9 +29,7 @@ export default async function PolicyDetailPage({ params }: PolicyDetailPageProps
       <Link className="back-link" href="/policies">
         ← 返回政策知识库
       </Link>
-      <p className="eyebrow">{policy.region}</p>
       <h1>{policy.name}</h1>
-      <p className="official-name">政策原文名称：{policy.originalName}</p>
 
       <div className="verification-banner">
         <span>可能符合</span>
@@ -75,7 +73,6 @@ export default async function PolicyDetailPage({ params }: PolicyDetailPageProps
 
       <section className="application-section">
         <div>
-          <p className="eyebrow">办理路径</p>
           <h2>申请与审核怎么走</h2>
         </div>
         <ol>
