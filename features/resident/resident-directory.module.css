@@ -41,16 +41,16 @@
 }
 
 .segmentArea {
-  padding: 14px 18px;
+  padding: 10px 16px;
   display: grid;
-  gap: 12px;
+  gap: 8px;
   border-bottom: 1px solid #dfe7ef;
   background: white;
 }
 
 .segmentRow {
   display: grid;
-  grid-template-columns: 88px minmax(0, 1fr);
+  grid-template-columns: 78px minmax(0, 1fr);
   align-items: center;
   gap: 12px;
 }
@@ -62,7 +62,7 @@
 }
 
 .segmentTab {
-  padding: 7px 12px;
+  padding: 5px 10px;
   border: 1px solid transparent;
   border-radius: 5px;
 }
@@ -79,8 +79,8 @@
 }
 
 .pageHeader {
-  margin-bottom: 16px;
-  padding: 18px 22px;
+  margin-bottom: 12px;
+  padding: 14px 18px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -116,7 +116,7 @@
 
 .headerStat {
   min-width: 150px;
-  padding: 14px 18px;
+  padding: 10px 14px;
   border: 1px solid #dbe5f0;
   border-radius: 8px;
   background: #f8fbff;
@@ -143,7 +143,7 @@
 }
 
 .toolbar {
-  padding: 14px 18px;
+  padding: 11px 16px;
   border-bottom: 1px solid #dfe7ef;
   background: #f7f9fc;
 }
@@ -162,8 +162,8 @@
 
 .searchInput {
   width: min(360px, 100%);
-  min-height: 40px;
-  padding: 9px 12px;
+  min-height: 36px;
+  padding: 7px 10px;
   border: 1px solid #b9c8d8;
   border-radius: 6px;
   background: white;
@@ -181,7 +181,7 @@
 .secondaryButton,
 .textButton,
 .pageButton {
-  min-height: 38px;
+  min-height: 34px;
   border-radius: 6px;
   cursor: pointer;
   font: inherit;
@@ -440,8 +440,8 @@
 }
 
 .select {
-  min-height: 40px;
-  padding: 8px 32px 8px 10px;
+  min-height: 36px;
+  padding: 6px 30px 6px 9px;
   border: 1px solid #c6d2df;
   border-radius: 6px;
   background: white;
@@ -450,7 +450,7 @@
 }
 
 .resultBar {
-  padding: 11px 18px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -472,17 +472,17 @@
 
 .table {
   width: 100%;
-  min-width: 1780px;
+  min-width: 1520px;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.86rem;
+  font-size: 0.81rem;
 }
 
 .table th {
   position: sticky;
   top: 0;
   z-index: 2;
-  padding: 13px 12px;
+  padding: 10px 9px;
   border-bottom: 1px solid #cbd7e3;
   background: #edf3f8;
   color: #294966;
@@ -493,11 +493,48 @@
 }
 
 .table td {
-  padding: 15px 12px;
+  padding: 11px 9px;
   border-bottom: 1px solid #e5ebf1;
   color: #334155;
   line-height: 1.55;
   vertical-align: top;
+}
+
+.residentColumn {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  width: 112px;
+  min-width: 112px;
+  background: white;
+  box-shadow: 1px 0 0 #dfe6ed;
+}
+
+th.residentColumn {
+  z-index: 5;
+  background: #edf3f8;
+}
+
+.actionColumn {
+  position: sticky;
+  right: 0;
+  z-index: 3;
+  width: 92px;
+  min-width: 92px;
+  background: white;
+  box-shadow: -1px 0 0 #dfe6ed;
+}
+
+th.actionColumn {
+  z-index: 5;
+  background: #edf3f8;
+}
+
+.table tbody tr:hover > .residentColumn,
+.table tbody tr:hover > .actionColumn,
+.expandedMainRow > .residentColumn,
+.expandedMainRow > .actionColumn {
+  background: #f8fbfe;
 }
 
 .table tbody tr:hover > td {

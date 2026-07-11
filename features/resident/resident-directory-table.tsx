@@ -449,7 +449,7 @@ export function ResidentDirectoryTable({
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>居民</th>
+              <th className={styles.residentColumn}>居民</th>
               <th>村组</th>
               <th>户籍与人户状态</th>
               <th>家庭情况</th>
@@ -458,7 +458,7 @@ export function ResidentDirectoryTable({
               <th>匹配到的政策</th>
               <th>待核实信息</th>
               <th>更新时间</th>
-              <th>操作</th>
+              <th className={styles.actionColumn}>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -495,7 +495,7 @@ export function ResidentDirectoryTable({
                     <tr
                       className={isExpanded ? styles.expandedMainRow : undefined}
                     >
-                      <td>
+                      <td className={styles.residentColumn}>
                         <Link
                           className={styles.residentName}
                           href={detailUrl}
@@ -612,7 +612,7 @@ export function ResidentDirectoryTable({
                         )}
                       </td>
                       <td>{metadata.updatedAt}</td>
-                      <td>
+                      <td className={styles.actionColumn}>
                         <div className={styles.actions}>
                           <Link
                             className={styles.actionLink}

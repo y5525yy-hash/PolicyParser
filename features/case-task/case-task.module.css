@@ -37,8 +37,8 @@
 }
 
 .heading {
-  margin-bottom: 16px;
-  padding: 18px 22px;
+  margin-bottom: 12px;
+  padding: 14px 18px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -74,8 +74,8 @@
 }
 
 .notice {
-  margin: 0 0 16px;
-  padding: 11px 15px;
+  margin: 0 0 12px;
+  padding: 9px 13px;
   border: 1px solid #e8ca8f;
   border-left: 4px solid #c77708;
   background: #fff8e8;
@@ -100,7 +100,7 @@
 }
 
 .summaryGrid div {
-  padding: 15px 18px;
+  padding: 10px 15px;
   border-left: 1px solid #e0e7ee;
 }
 
@@ -111,7 +111,7 @@
 .summaryGrid strong {
   display: block;
   color: #174f83;
-  font-size: 1.45rem;
+  font-size: 1.25rem;
 }
 
 .summaryGrid span {
@@ -129,7 +129,7 @@
 }
 
 .statusTabs button {
-  padding: 13px 15px 10px;
+  padding: 10px 13px 8px;
   border: 0;
   border-bottom: 3px solid transparent;
   background: transparent;
@@ -162,7 +162,7 @@
 }
 
 .taskTable th {
-  padding: 12px 14px;
+  padding: 9px 12px;
   border-bottom: 1px solid #cbd7e3;
   background: #edf3f8;
   color: #294966;
@@ -173,7 +173,7 @@
 }
 
 .taskTable td {
-  padding: 14px;
+  padding: 10px 12px;
   border-bottom: 1px solid #e5ebf1;
   color: #415264;
   line-height: 1.55;

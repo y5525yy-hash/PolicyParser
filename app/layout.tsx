@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import { FloatingNavigation } from "@/components/navigation/floating-navigation";
 import { TopNavigation } from "@/components/navigation/top-navigation";
 import "@/styles/globals.css";
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         <TopNavigation />
         <main className="page-shell">{children}</main>
+        <FloatingNavigation />
       </body>
     </html>
   );
