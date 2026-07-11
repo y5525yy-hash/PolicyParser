@@ -9,7 +9,7 @@
 - 已生成 1241 个包含来源链路的政策切片，其中 1226 个进入默认有效政策检索。
 - 默认检索只读取当前有效且已核验的官方原文切片。
 - 切片已将“需同时符合下列条件”与其全部分项保留在同一片段中，避免丢失“且/或/不得/例外”等资格逻辑。
-- `policy-001`、`policy-002`、`policy-003`、`policy-006`、`policy-007`、`policy-008` 已完成人工确认的资格条件提取。
+- 已有 16 项政策完成人工确认的资格条件提取：`policy-001`、`policy-002`、`policy-003`、`policy-006`、`policy-007`、`policy-008`、`policy-015`、`policy-016`、`policy-017`、`policy-018`、`policy-023`、`policy-024`、`policy-027`、`policy-028`、`policy-029`、`policy-030`。
 - `policy-004` 和 `policy-005` 目前只有年度缴费官方文件，基础参保资格文件仍在补采，不应据此编写完整资格规则。
 
 ## C 可以读取的文件
@@ -23,6 +23,16 @@ features/policy/knowledge-base/data/extractions/policy-003.json
 features/policy/knowledge-base/data/extractions/policy-006.json
 features/policy/knowledge-base/data/extractions/policy-007.json
 features/policy/knowledge-base/data/extractions/policy-008.json
+features/policy/knowledge-base/data/extractions/policy-015.json
+features/policy/knowledge-base/data/extractions/policy-016.json
+features/policy/knowledge-base/data/extractions/policy-017.json
+features/policy/knowledge-base/data/extractions/policy-018.json
+features/policy/knowledge-base/data/extractions/policy-023.json
+features/policy/knowledge-base/data/extractions/policy-024.json
+features/policy/knowledge-base/data/extractions/policy-027.json
+features/policy/knowledge-base/data/extractions/policy-028.json
+features/policy/knowledge-base/data/extractions/policy-029.json
+features/policy/knowledge-base/data/extractions/policy-030.json
 ```
 
 - `active-chunks.jsonl`：默认检索数据。
@@ -107,27 +117,33 @@ C 可以优先用以下政策测试“多条件、否定条件、待遇衔接和
 | `policy-018` | 灵活就业社会保险补贴 | “需同时符合”及停止享受条件 |
 | `policy-023` | 重特大疾病医疗救助 | 多类救助对象、就高不就低、不得重复享受 |
 | `policy-024` | 因病致贫重病患者家庭医疗救助 | 户籍、家庭成员、收入和财产同时认定 |
+| `policy-015` | 孤儿和事实无人抚养儿童医疗保障 | 两类儿童资格分支、报销顺序和待遇择一 |
+| `policy-016` | 困境儿童生活费调整 | 对象范围与待遇标准，基础身份认定仍需结合原办法 |
+| `policy-017` | 公共租赁住房租金补贴 | 户籍、承租、收入和资产四项同时满足 |
 | `policy-027` | 法律援助经济困难告知承诺 | 适用对象、不适用情形和失信后果 |
 | `policy-028` | 公共租赁住房申请与配租 | 户籍、住房、收入和家庭结构条件 |
 | `policy-029` | 个体就业残疾人社会保险补贴 | 资格条件、材料、流程及不得重复享受 |
+| `policy-030` | 北京市学生资助政策 | 多学段、多项目分别判断，不能合并待遇 |
 
-其中 `policy-018`、`policy-023`、`policy-024`、`policy-027`、`policy-028`、`policy-029` 已完成人工核验提取，可以读取：
+以上政策均已完成人工核验提取，可以读取对应的 `data/extractions/policy-*.json`。本批新增文件为：
 
 ```text
-features/policy/knowledge-base/data/extractions/policy-018.json
-features/policy/knowledge-base/data/extractions/policy-023.json
-features/policy/knowledge-base/data/extractions/policy-024.json
-features/policy/knowledge-base/data/extractions/policy-027.json
-features/policy/knowledge-base/data/extractions/policy-028.json
-features/policy/knowledge-base/data/extractions/policy-029.json
+features/policy/knowledge-base/data/extractions/policy-015.json
+features/policy/knowledge-base/data/extractions/policy-016.json
+features/policy/knowledge-base/data/extractions/policy-017.json
+features/policy/knowledge-base/data/extractions/policy-030.json
 ```
 
 - `policy-018`：目标人群是“任一类”，就业登记、收入和缴纳社保是“同时符合”。
 - `policy-023`：社会救助对象与因病致贫家庭属于不同资格分支，多重身份按就高不就低且不得重复享受。
 - `policy-024`：家庭成员、收入、财产必须同时符合，并保留车辆、住房等否定条件和例外。
+- `policy-015`：孤儿与事实无人抚养儿童是不同资格分支；医疗费用按规定顺序报销，与城乡低收入人员医疗救助待遇需择一享受。
+- `policy-016`：2026 年文件主要调整保障对象清单和金额；基础身份认定、申请材料及办理程序仍需结合原办法，不能仅凭本文件作完整资格结论。
+- `policy-017`：申请家庭须同时满足本市城镇户籍、已承租公租房、收入和资产条件；文件中的 2015 年收入资产标准使用前需核对当前动态标准。
 - `policy-027`：只用于法律援助经济困难告知承诺方式，不能据此直接认定法律援助事项符合受理范围。
 - `policy-028`：保障房轮候、本市户籍家庭、外省市来京人员是三个不同资格分支；2011年收入数值需核对当前动态标准。
 - `policy-029`：保留本市城镇户籍、残疾证、劳动年龄、就业形式、先缴后补及不得重复享受条件；当前补贴金额需按最新缴费口径核对。
+- `policy-030`：属于覆盖多个学段和项目的学生资助汇总政策；各资助项目应分别匹配，不得因一个“家庭经济困难”标签同时认定全部待遇。
 
 示例：
 

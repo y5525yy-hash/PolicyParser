@@ -1,0 +1,39 @@
+{
+  "policyId": "policy-030",
+  "documentIds": ["bj-2020-student-aid-funds"],
+  "sourceChunkIds": ["chunk-ce5d4ec69db47d62", "chunk-52e0ef71aae6c3e1", "chunk-ddb2acc13a96a1a6", "chunk-fb1f62e6a1c4276d", "chunk-c83d6d38976e1dee", "chunk-f094b95e070fbf20", "chunk-fa0e50249be33a19", "chunk-f5ab7929a69a1233", "chunk-3a27edd3d8008b93"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "anyOf",
+      "sourceText": "本办法包含普通高校、中等职业教育和普通高中多个资助项目，每个项目分别核对学籍、年级、成绩、家庭经济困难身份、专业或其他条件。",
+      "sourceChunkIds": ["chunk-52e0ef71aae6c3e1", "chunk-ddb2acc13a96a1a6", "chunk-fb1f62e6a1c4276d"],
+      "conditions": [
+        {"type": "condition", "field": "higherEducationAidProgramEligibility", "operator": "exists", "value": true, "sourceText": "普通高校资助包括本专科和研究生奖学金、助学金、服兵役教育资助及基层就业补偿代偿，各项目按对应条件申请", "sourceChunkIds": ["chunk-52e0ef71aae6c3e1"]},
+        {"type": "condition", "field": "secondaryVocationalAidProgramEligibility", "operator": "exists", "value": true, "sourceText": "中等职业教育按正式学籍、优秀表现、农村或涉农专业、家庭经济困难等不同条件分别享受奖学金、免学费或助学金", "sourceChunkIds": ["chunk-ddb2acc13a96a1a6"]},
+        {"type": "condition", "field": "highSchoolAidProgramEligibility", "operator": "exists", "value": true, "sourceText": "普通高中按本市正式注册学籍、家庭经济困难身份及宏志项目条件分别享受奖学金、助学金和费用减免", "sourceChunkIds": ["chunk-fb1f62e6a1c4276d"]}
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "高校、中职和普通高中不同资助项目学生", "text": "本办法是学生资助资金总办法，不是单一补贴。申请人需先确定教育阶段和具体项目，再核对正式学籍、年级、成绩、家庭经济困难、专业、服兵役或基层就业等项目条件。", "sourceChunkIds": ["chunk-ce5d4ec69db47d62", "chunk-52e0ef71aae6c3e1", "chunk-ddb2acc13a96a1a6", "chunk-fb1f62e6a1c4276d"]}],
+  "benefits": [
+    {"title": "普通高校资助", "text": "包括本专科和研究生国家奖学金、励志奖学金、国家助学金、服兵役教育资助和基层就业学费补偿贷款代偿等，金额和上限按具体项目执行。", "sourceChunkIds": ["chunk-52e0ef71aae6c3e1"]},
+    {"title": "中等职业教育资助", "text": "国家奖学金每年6000元、政府奖学金每年2000元；符合条件的学生免学费，最高补助每年2800元；国家助学金分每年2500元和1800元两档。", "sourceChunkIds": ["chunk-ddb2acc13a96a1a6"]},
+    {"title": "普通高中资助", "text": "宏志奖学金2000元并免当年学费；国家助学金一般每年2000元，烈士子女、孤儿、事实无人抚养儿童和因公牺牲民警子女每年3000元；享受助学金学生按规定免相关费用。", "sourceChunkIds": ["chunk-fb1f62e6a1c4276d"]}
+  ],
+  "materials": [{"title": "家庭经济困难身份证明", "text": "根据身份提供低保证、特困供养证、孤儿或事实无人抚养儿童证明、残疾证、低收入家庭救助证、低收入农户登记卡、烈士或因公牺牲民警相关证明等；外地生源无法提供时，可采用本人或监护人承诺与学校核实结合认定。", "sourceChunkIds": ["chunk-c83d6d38976e1dee"]}],
+  "procedures": [
+    {"title": "高校项目申请", "text": "学生按具体项目规定向学校提出申请并递交申请表，由学校组织评审、公示和发放。", "sourceChunkIds": ["chunk-f094b95e070fbf20"]},
+    {"title": "中职和高中申请评定", "text": "中职免学费和助学金原则上按学期申请评定；普通高中助学金和费用减免原则上按学年申请，每学期动态调整，学校审核并公示不少于5个工作日。", "sourceChunkIds": ["chunk-fa0e50249be33a19", "chunk-f5ab7929a69a1233"]}
+  ],
+  "restrictions": [
+    {"title": "必须先确定具体资助项目", "text": "不同教育阶段和项目的资格条件、金额、年级、学籍、成绩和困难身份要求不同，不能仅凭“家庭经济困难”认定符合本办法全部资助。", "sourceChunkIds": ["chunk-52e0ef71aae6c3e1", "chunk-ddb2acc13a96a1a6", "chunk-fb1f62e6a1c4276d"]},
+    {"title": "部分待遇不得重复或存在排除对象", "text": "中职一、二等国家助学金不可重复享受；普通高中部分项目排除宏志中学、宏志班或民族班学生，新入学宏志班学生自2021年秋季起不再享受国家助学金。", "sourceChunkIds": ["chunk-fa0e50249be33a19", "chunk-fb1f62e6a1c4276d"]},
+    {"title": "标准动态调整", "text": "资助范围和标准会根据政策、经济发展、财力、物价和学校收费标准动态调整，实际金额需核对当前年度政策。", "sourceChunkIds": ["chunk-3a27edd3d8008b93"]}
+  ],
+  "unresolvedQuestions": ["学生所在教育阶段、学校性质、正式学籍和年级", "具体申请的奖学金、助学金、免学费或补偿代偿项目", "家庭经济困难身份和证明材料", "成绩、专业、服兵役或基层就业等项目特定条件", "当前年度金额和学校申请期限"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["https://jw.beijing.gov.cn/xxgk/2024zcjd/202407/t20240710_3742646.html"], "humanVerified": "这不是一项统一发放的补贴，而是一组覆盖高校、中职和普通高中的资助项目。先要确认学生处在哪个教育阶段、准备申请哪一种奖学金、助学金或费用减免，再分别核对学籍、年级、成绩、家庭困难身份、专业等条件。C模块不能把“家庭经济困难”一个标签直接解释成符合所有学生资助项目。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}
