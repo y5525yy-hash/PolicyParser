@@ -21,4 +21,3 @@ export const commonApplicationSteps = [
 
 export const policyNotice =
   "本页面用于辅助发现可能符合的政策，不构成正式资格认定。西红门镇受理窗口和大兴区民政部门将根据户籍、年龄、经济状况、评估结果及待遇衔接情况进行审核。";
-
