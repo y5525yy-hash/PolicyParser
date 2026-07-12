@@ -15,6 +15,7 @@ import {
   getMatchingRuntimeInfo,
   matchResidentsByPolicy,
 } from "@/features/matching/matching-service";
+import styles from "@/features/matching/matching.module.css";
 
 interface MatchingPageProps {
   searchParams: Promise<{ policyId?: string }>;
@@ -43,9 +44,9 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
   }
 
   return (
-    <section>
-      <div className="page-heading">
-        <p className="eyebrow">政策编号 {policyId}</p>
+    <section className={styles.matchingPage}>
+      <div className={styles.heading}>
+        <p className={styles.eyebrow}>政策编号 {policyId}</p>
         <h1>{policy ? `${policy.name} · 居民匹配结果` : "居民匹配结果"}</h1>
         <p>
           根据已录入的居民信息进行初步匹配，结果仅供代办员核查参考，最终资格以经办部门审核为准。
@@ -59,11 +60,11 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
       </div>
 
       {loadError ? (
-        <p>{loadError}</p>
+        <p className={styles.errorState}>{loadError}</p>
       ) : (
         <>
           {policyEvidence.length > 0 ? (
-            <section className="policy-card">
+            <section className={styles.evidencePanel}>
               <h2>本次匹配使用的政策依据</h2>
               <ul>
                 {policyEvidence.map((chunk) => (
@@ -80,20 +81,22 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
               </ul>
             </section>
           ) : null}
-          <p>
+          <p className={styles.resultSummary}>
             共核查 {results.length} 名居民，建议联系或补充核实{" "}
             {results.filter((result) => result.status !== "unmatched").length} 人；明确不符合者不进入走访名单。
           </p>
-          <div className="card-grid">
+          <div className={styles.resultGrid}>
           {results.map((result) => {
             const resident = mockResidents.find((item) => item.id === result.residentId);
             const directoryRecord = residentDirectoryRecords.find(
               (record) => record.resident.id === result.residentId,
             );
             return (
-              <article className="policy-card" key={result.residentId}>
+              <article className={styles.resultCard} key={result.residentId}>
                 <div>
-                  <span className="region-badge">{MATCH_STATUS_LABELS[result.status]}</span>
+                  <span className={styles.statusBadge} data-status={result.status}>
+                    {MATCH_STATUS_LABELS[result.status]}
+                  </span>
                   <h2>{resident?.name ?? result.residentId}</h2>
                   {resident?.labels && resident.labels.length > 0 ? (
                     <p>{resident.labels.join(" · ")}</p>
@@ -106,7 +109,7 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
                     </p>
                   ) : null}
                 </div>
-                <dl className="card-meta">
+                <dl className={styles.resultMeta}>
                   <div>
                     <dt>本次用于匹配的居民数据</dt>
                     <dd>
@@ -145,7 +148,7 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
                   ) : null}
                 </dl>
                 <Link
-                  className="primary-link"
+                  className={styles.primaryLink}
                   href={`/residents/${result.residentId}`}
                 >
                   查看居民档案
