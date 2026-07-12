@@ -4,6 +4,18 @@ import { mockResidents } from "@/features/resident/mock-residents";
 
 export type ResidentGender = "女" | "男";
 
+export interface ResidentPolicyFacts {
+  isStudent: boolean | null;
+  isGovernmentOrPublicInstitutionStaff: boolean | null;
+  coveredByEmployeePensionInsurance: boolean | null;
+  contributionYears: number | null;
+  receivesOtherBasicPensionBenefit: boolean | null;
+  hukouType: string | null;
+  householdMonthlyIncomePerCapitaPrevious12Months: number | null;
+  householdHasHousingInBeijing: boolean | null;
+  householdNetAssets: number | null;
+}
+
 export interface ResidentDirectoryMetadata {
   residentId: string;
   gender: ResidentGender;
@@ -23,6 +35,7 @@ export interface ResidentDirectoryMetadata {
   recordSource: string;
   verificationStatus: "已核实" | "部分核实" | "待核实";
   updatedAt: string;
+  policyFacts: ResidentPolicyFacts;
 }
 
 export interface ResidentDirectoryRecord {
@@ -50,6 +63,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "村级走访台账",
     verificationStatus: "部分核实",
     updatedAt: "2026-07-11 18:20",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: false,
+      contributionYears: 18,
+      receivesOtherBasicPensionBenefit: false,
+      hukouType: "北京市城镇户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: 2800,
+      householdHasHousingInBeijing: false,
+      householdNetAssets: 120000,
+    },
   },
   {
     residentId: "resident-002",
@@ -70,6 +94,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "人口基础台账",
     verificationStatus: "已核实",
     updatedAt: "2026-07-11 17:45",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: true,
+      contributionYears: null,
+      receivesOtherBasicPensionBenefit: true,
+      hukouType: "北京市城镇户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: 6500,
+      householdHasHousingInBeijing: true,
+      householdNetAssets: 800000,
+    },
   },
   {
     residentId: "resident-003",
@@ -90,6 +125,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "网格员入户摸排",
     verificationStatus: "待核实",
     updatedAt: "2026-07-11 16:32",
+    policyFacts: {
+      isStudent: null,
+      isGovernmentOrPublicInstitutionStaff: null,
+      coveredByEmployeePensionInsurance: null,
+      contributionYears: null,
+      receivesOtherBasicPensionBenefit: null,
+      hukouType: null,
+      householdMonthlyIncomePerCapitaPrevious12Months: null,
+      householdHasHousingInBeijing: null,
+      householdNetAssets: null,
+    },
   },
   {
     residentId: "resident-004",
@@ -110,6 +156,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "困难家庭摸排台账",
     verificationStatus: "部分核实",
     updatedAt: "2026-07-10 15:10",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: false,
+      contributionYears: 12,
+      receivesOtherBasicPensionBenefit: false,
+      hukouType: "北京市城镇户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: 3600,
+      householdHasHousingInBeijing: false,
+      householdNetAssets: 260000,
+    },
   },
   {
     residentId: "resident-005",
@@ -130,6 +187,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "残疾人服务台账",
     verificationStatus: "部分核实",
     updatedAt: "2026-07-10 11:36",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: true,
+      contributionYears: null,
+      receivesOtherBasicPensionBenefit: true,
+      hukouType: "北京市城镇户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: 4800,
+      householdHasHousingInBeijing: true,
+      householdNetAssets: 600000,
+    },
   },
   {
     residentId: "resident-006",
@@ -150,6 +218,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "独居人员走访记录",
     verificationStatus: "待核实",
     updatedAt: "2026-07-09 14:08",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: false,
+      contributionYears: 8,
+      receivesOtherBasicPensionBenefit: false,
+      hukouType: "北京市城镇户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: null,
+      householdHasHousingInBeijing: false,
+      householdNetAssets: 180000,
+    },
   },
   {
     residentId: "resident-007",
@@ -170,6 +249,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "高龄老人关爱台账",
     verificationStatus: "部分核实",
     updatedAt: "2026-07-09 10:21",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: false,
+      contributionYears: 20,
+      receivesOtherBasicPensionBenefit: false,
+      hukouType: "北京市城镇户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: 5200,
+      householdHasHousingInBeijing: true,
+      householdNetAssets: 700000,
+    },
   },
   {
     residentId: "resident-008",
@@ -190,6 +280,17 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
     recordSource: "流动人口登记",
     verificationStatus: "待核实",
     updatedAt: "2026-07-08 09:50",
+    policyFacts: {
+      isStudent: false,
+      isGovernmentOrPublicInstitutionStaff: false,
+      coveredByEmployeePensionInsurance: true,
+      contributionYears: null,
+      receivesOtherBasicPensionBenefit: false,
+      hukouType: "外省户籍家庭",
+      householdMonthlyIncomePerCapitaPrevious12Months: 5000,
+      householdHasHousingInBeijing: false,
+      householdNetAssets: 150000,
+    },
   },
 ];
 

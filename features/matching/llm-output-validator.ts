@@ -12,6 +12,11 @@ import {
   type LlmUnresolvedItem,
   type ValidationResult,
 } from "./llm-contracts";
+import type {
+  PolicyCriterion,
+  PolicyEvidenceChunk,
+  ResidentFact,
+} from "./integration-contracts";
 
 const FORBIDDEN_DECISION_KEYS = new Set([
   "decision",
@@ -21,6 +26,9 @@ const FORBIDDEN_DECISION_KEYS = new Set([
   "status",
   "matched",
 ]);
+
+const FORBIDDEN_ALIGNMENT_DECISION_PATTERN =
+  /\b(?:matched|unmatched|eligible|ineligible)\b|(?:居民|申请人).{0,12}(?:符合政策|不符合政策|可以领取|不可领取|应当批准|不应批准)/i;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -68,6 +76,13 @@ function readStringArray(
   const items = value.map((item, index) =>
     readNonEmptyString(item, `${path}[${index}]`, errors),
   );
+  const seen = new Set<string>();
+  for (const [index, item] of items.entries()) {
+    if (item !== "" && seen.has(item)) {
+      errors.push(`${path}[${index}] 与前项重复`);
+    }
+    seen.add(item);
+  }
   if (requireItem && items.length === 0) {
     errors.push(`${path} 至少需要一项`);
   }
@@ -291,6 +306,14 @@ function parseFieldMapping(
   ) {
     errors.push(`${path}.confidence 必须是 0 到 1 之间的数字`);
   }
+  const rationale = readNonEmptyString(
+    value.rationale,
+    `${path}.rationale`,
+    errors,
+  );
+  if (FORBIDDEN_ALIGNMENT_DECISION_PATTERN.test(rationale)) {
+    errors.push(`${path}.rationale 包含居民资格结论`);
+  }
   return {
     criterionId: readNonEmptyString(
       value.criterionId,
@@ -299,7 +322,7 @@ function parseFieldMapping(
     ),
     factKey,
     confidence: typeof value.confidence === "number" ? value.confidence : 0,
-    rationale: readNonEmptyString(value.rationale, `${path}.rationale`, errors),
+    rationale,
   };
 }
 
@@ -339,4 +362,162 @@ export function validateFieldAlignmentOutput(
       unresolved,
     },
   };
+}
+
+function visitRuleConditions(
+  node: LlmRuleNode,
+  path: string,
+  visitor: (condition: LlmConditionNode, path: string) => void,
+) {
+  if (node.type === "condition") {
+    visitor(node, path);
+    return;
+  }
+  if (node.type === "allOf" || node.type === "anyOf") {
+    node.items.forEach((item, index) =>
+      visitRuleConditions(item, `${path}.items[${index}]`, visitor),
+    );
+    return;
+  }
+  if (node.type === "not") {
+    visitRuleConditions(node.item, `${path}.item`, visitor);
+    if (node.unless) {
+      visitRuleConditions(node.unless, `${path}.unless`, visitor);
+    }
+  }
+}
+
+export function validatePolicyExtractionForEvidence(
+  value: unknown,
+  expectedPolicyId: string,
+  evidence: PolicyEvidenceChunk[],
+): ValidationResult<LlmPolicyExtraction> {
+  const structural = validatePolicyExtraction(value);
+  if (!structural.ok) {
+    return structural;
+  }
+
+  const errors: string[] = [];
+  if (structural.value.policyId !== expectedPolicyId) {
+    errors.push(`$.policyId 必须与请求政策 ${expectedPolicyId} 一致`);
+  }
+
+  const evidenceById = new Map<string, PolicyEvidenceChunk>();
+  for (const [index, chunk] of evidence.entries()) {
+    if (chunk.policyId !== expectedPolicyId) {
+      errors.push(
+        `evidence[${index}] 属于政策 ${chunk.policyId}，不能用于 ${expectedPolicyId}`,
+      );
+    }
+    if (evidenceById.has(chunk.chunkId)) {
+      errors.push(`evidence[${index}].chunkId 重复：${chunk.chunkId}`);
+    }
+    evidenceById.set(chunk.chunkId, chunk);
+  }
+
+  visitRuleConditions(structural.value.rule, "$.rule", (condition, path) => {
+    const citedChunks: PolicyEvidenceChunk[] = [];
+    for (const [index, chunkId] of condition.sourceChunkIds.entries()) {
+      const chunk = evidenceById.get(chunkId);
+      if (!chunk) {
+        errors.push(
+          `${path}.sourceChunkIds[${index}] 不在本次 allowedChunkIds 中`,
+        );
+        continue;
+      }
+      citedChunks.push(chunk);
+    }
+
+    if (!citedChunks.some((chunk) => chunk.text.includes(condition.sourceText))) {
+      errors.push(`${path}.sourceText 不是被引用政策片段中的连续逐字原文`);
+    }
+    if (
+      condition.expected.kind === "reference" &&
+      !condition.sourceText.includes(condition.expected.reference)
+    ) {
+      errors.push(`${path}.expected.reference 必须逐字出现在 sourceText 中`);
+    }
+    if (
+      condition.expected.kind === "literal" &&
+      (typeof condition.expected.value === "string" ||
+        typeof condition.expected.value === "number") &&
+      !condition.sourceText.includes(String(condition.expected.value))
+    ) {
+      errors.push(`${path}.expected.value 必须逐字出现在 sourceText 中`);
+    }
+  });
+
+  for (const [itemIndex, item] of structural.value.unresolved.entries()) {
+    for (const [chunkIndex, chunkId] of item.relatedChunkIds.entries()) {
+      if (!evidenceById.has(chunkId)) {
+        errors.push(
+          `$.unresolved[${itemIndex}].relatedChunkIds[${chunkIndex}] 不在本次 allowedChunkIds 中`,
+        );
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    return { ok: false, errors };
+  }
+  return structural;
+}
+
+export function validateFieldAlignmentOutputForInputs(
+  value: unknown,
+  criteria: PolicyCriterion[],
+  facts: ResidentFact[],
+): ValidationResult<LlmFieldAlignmentOutput> {
+  const structural = validateFieldAlignmentOutput(value);
+  if (!structural.ok) {
+    return structural;
+  }
+
+  const errors: string[] = [];
+  const criterionIds = new Set<string>();
+  for (const [index, criterion] of criteria.entries()) {
+    if (criterionIds.has(criterion.id)) {
+      errors.push(`criteria[${index}].id 重复：${criterion.id}`);
+    }
+    criterionIds.add(criterion.id);
+  }
+  const factKeys = new Set(facts.map((fact) => fact.key));
+  const mappedCriterionIds = new Set<string>();
+
+  for (const [index, mapping] of structural.value.mappings.entries()) {
+    if (!criterionIds.has(mapping.criterionId)) {
+      errors.push(
+        `$.mappings[${index}].criterionId 不在本次 allowedCriterionIds 中`,
+      );
+    }
+    if (mappedCriterionIds.has(mapping.criterionId)) {
+      errors.push(`$.mappings[${index}].criterionId 重复`);
+    }
+    mappedCriterionIds.add(mapping.criterionId);
+
+    if (mapping.factKey !== null && !factKeys.has(mapping.factKey)) {
+      errors.push(`$.mappings[${index}].factKey 不在本次 allowedFactKeys 中`);
+    }
+    if (
+      mapping.factKey === null &&
+      !structural.value.unresolved.some((item) =>
+        item.includes(mapping.criterionId),
+      )
+    ) {
+      errors.push(
+        `$.mappings[${index}] 未映射时必须在 unresolved 中说明 criterionId`,
+      );
+    }
+  }
+
+  for (const criterionId of criterionIds) {
+    if (!mappedCriterionIds.has(criterionId)) {
+      errors.push(`$.mappings 缺少 criterionId：${criterionId}`);
+    }
+  }
+
+  if (errors.length > 0) {
+    return { ok: false, errors };
+  }
+  return structural;
 }

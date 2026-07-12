@@ -80,6 +80,27 @@ async function loadActiveChunks() {
   return activeChunksPromise;
 }
 
+export async function getActivePolicyChunksByIds(chunkIds: string[]) {
+  if (chunkIds.length === 0) return [];
+
+  const requestedIds = new Set(chunkIds);
+  const chunks = await loadActiveChunks();
+  const chunksById = new Map(
+    chunks
+      .filter(
+        (chunk) =>
+      requestedIds.has(chunk.chunkId) &&
+      chunk.status === "active" &&
+      chunk.verificationStatus === "human_verified",
+      )
+      .map((chunk) => [chunk.chunkId, chunk]),
+  );
+  return chunkIds.flatMap((chunkId) => {
+    const chunk = chunksById.get(chunkId);
+    return chunk ? [chunk] : [];
+  });
+}
+
 export async function searchPolicyClauses(query: string, limit = 6) {
   const trimmedQuery = query.trim();
   if (!trimmedQuery) return [];
@@ -100,6 +121,7 @@ export async function searchPolicyClauses(query: string, limit = 6) {
       chunkId: chunk.chunkId,
       policyName: chunk.policyName,
       section: chunk.section,
+      clauseNumber: chunk.clauseNumber,
       text: chunk.text,
       officialUrl: chunk.officialUrl,
       region: chunk.region,

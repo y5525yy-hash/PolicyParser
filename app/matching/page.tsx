@@ -2,8 +2,19 @@ import Link from "next/link";
 
 import { DEMO_IDS, MATCH_STATUS_LABELS } from "@/shared/demo-constants";
 import type { MatchResult } from "@/shared/types";
-import { demoPolicies, demoResidents } from "@/features/matching/match-fixtures";
-import { matchResidentsByPolicy } from "@/features/matching/matching-service";
+import { getMockPolicy } from "@/features/policy/mock-policies";
+import { formatPolicyEvidenceText } from "@/features/policy/policy-evidence-format";
+import { mockResidents } from "@/features/resident/mock-residents";
+import { residentDirectoryRecords } from "@/features/resident/resident-directory-data";
+import {
+  getPolicyEvidenceForDisplay,
+  getPolicyResidentFactDisplay,
+} from "@/features/matching/integrated-providers";
+import type { ResidentFactDisplayItem } from "@/features/matching/integration-contracts";
+import {
+  getMatchingRuntimeInfo,
+  matchResidentsByPolicy,
+} from "@/features/matching/matching-service";
 
 interface MatchingPageProps {
   searchParams: Promise<{ policyId?: string }>;
@@ -13,13 +24,20 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
   const { policyId: requestedPolicyId } = await searchParams;
   const policyId =
     requestedPolicyId?.trim() || DEMO_IDS.policies.elderlyAllowance;
-  const policy = demoPolicies.find((item) => item.id === policyId);
+  const policy = getMockPolicy(policyId);
+  const runtimeInfo = getMatchingRuntimeInfo();
 
   let results: MatchResult[] = [];
+  let residentFactDisplay: Record<string, ResidentFactDisplayItem[]> = {};
+  let policyEvidence = await getPolicyEvidenceForDisplay(policyId);
   let loadError: string | null = null;
   try {
-    results = await matchResidentsByPolicy(policyId);
+    [results, residentFactDisplay] = await Promise.all([
+      matchResidentsByPolicy(policyId),
+      getPolicyResidentFactDisplay(policyId),
+    ]);
   } catch (error) {
+    policyEvidence = [];
     loadError =
       error instanceof Error ? error.message : "居民匹配结果加载失败，请稍后重试。";
   }
@@ -32,14 +50,46 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
         <p>
           根据已录入的居民信息进行初步匹配，结果仅供代办员核查参考，最终资格以经办部门审核为准。
         </p>
+        <p>
+          匹配方式：
+          {runtimeInfo.llmEnabled
+            ? `${runtimeInfo.model} 辅助核验政策字段与居民字段的语义对应，确定性规则脚本负责资格计算；模型异常时自动安全回退。`
+            : "本地字段词典完成语义对应，确定性规则脚本负责资格计算。"}
+        </p>
       </div>
 
       {loadError ? (
         <p>{loadError}</p>
       ) : (
-        <div className="card-grid">
+        <>
+          {policyEvidence.length > 0 ? (
+            <section className="policy-card">
+              <h2>本次匹配使用的政策依据</h2>
+              <ul>
+                {policyEvidence.map((chunk) => (
+                  <li key={chunk.chunkId}>
+                    <p>{formatPolicyEvidenceText(chunk.text)}</p>
+                    <p>
+                      片段：{chunk.chunkId} ·{" "}
+                      <a href={chunk.sourceUrl} target="_blank" rel="noreferrer">
+                        查看官方出处
+                      </a>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          <p>
+            共核查 {results.length} 名居民，建议联系或补充核实{" "}
+            {results.filter((result) => result.status !== "unmatched").length} 人；明确不符合者不进入走访名单。
+          </p>
+          <div className="card-grid">
           {results.map((result) => {
-            const resident = demoResidents.find((item) => item.id === result.residentId);
+            const resident = mockResidents.find((item) => item.id === result.residentId);
+            const directoryRecord = residentDirectoryRecords.find(
+              (record) => record.resident.id === result.residentId,
+            );
             return (
               <article className="policy-card" key={result.residentId}>
                 <div>
@@ -48,8 +98,29 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
                   {resident?.labels && resident.labels.length > 0 ? (
                     <p>{resident.labels.join(" · ")}</p>
                   ) : null}
+                  {directoryRecord ? (
+                    <p>
+                      {directoryRecord.metadata.administrativeVillage} ·{" "}
+                      {directoryRecord.metadata.gridName} ·{" "}
+                      {directoryRecord.metadata.villageGroup}
+                    </p>
+                  ) : null}
                 </div>
                 <dl className="card-meta">
+                  <div>
+                    <dt>本次用于匹配的居民数据</dt>
+                    <dd>
+                      <ul>
+                        {(residentFactDisplay[result.residentId] ?? []).map(
+                          (item) => (
+                            <li key={item.label}>
+                              {item.label}：{item.value}
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    </dd>
+                  </div>
                   <div>
                     <dt>匹配原因</dt>
                     <dd>
@@ -82,7 +153,8 @@ export default async function MatchingPage({ searchParams }: MatchingPageProps) 
               </article>
             );
           })}
-        </div>
+          </div>
+        </>
       )}
     </section>
   );

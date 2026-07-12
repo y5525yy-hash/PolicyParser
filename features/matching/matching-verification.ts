@@ -2,9 +2,13 @@ import { alignCriterionToFacts } from "./field-aligner";
 import type {
   FactValueType,
   PolicyCriterion,
+  PolicyRuleNode,
   ResidentFact,
 } from "./integration-contracts";
-import { evaluateCriteriaForFacts } from "./matching-kernel";
+import {
+  evaluateCriteriaForFacts,
+  evaluatePolicyRuleForFacts,
+} from "./matching-kernel";
 import { extractCriteriaFromEvidence } from "./policy-criterion-extractor";
 
 interface VerificationCase {
@@ -159,6 +163,46 @@ export async function runMatchingKernelVerification(): Promise<VerificationCase[
     createFact("current_address", "当前居住地址", "西红门镇", "string"),
   ]);
 
+  const trueCriterion = createCriterion({
+    id: "logic-true",
+    concept: "logic_true",
+  });
+  const falseCriterion = createCriterion({
+    id: "logic-false",
+    concept: "logic_false",
+  });
+  const missingCriterion = createCriterion({
+    id: "logic-missing",
+    concept: "logic_missing",
+  });
+  const logicFacts = [
+    createFact("logic_true", "逻辑真值", true, "boolean"),
+    createFact("logic_false", "逻辑假值", false, "boolean"),
+  ];
+  const anyOfRule: PolicyRuleNode = {
+    type: "anyOf",
+    nodes: [
+      { type: "criterion", criterion: trueCriterion },
+      { type: "criterion", criterion: missingCriterion },
+    ],
+  };
+  const allOfRule: PolicyRuleNode = {
+    type: "allOf",
+    nodes: [
+      { type: "criterion", criterion: falseCriterion },
+      { type: "criterion", criterion: missingCriterion },
+    ],
+  };
+  const notRule: PolicyRuleNode = {
+    type: "not",
+    node: { type: "criterion", criterion: falseCriterion },
+  };
+  const [anyOfResult, allOfResult, notResult] = await Promise.all([
+    evaluatePolicyRuleForFacts(anyOfRule, logicFacts),
+    evaluatePolicyRuleForFacts(allOfRule, logicFacts),
+    evaluatePolicyRuleForFacts(notRule, logicFacts),
+  ]);
+
   return [
     {
       name: "张奶奶保持高度匹配基线",
@@ -221,6 +265,18 @@ export async function runMatchingKernelVerification(): Promise<VerificationCase[
     {
       name: "低置信度字段不会被强制映射",
       passed: lowConfidenceAlignment.factKey === null,
+    },
+    {
+      name: "anyOf 有一个分支满足即可成为候选",
+      passed: anyOfResult.decision === "candidate",
+    },
+    {
+      name: "allOf 有明确失败条件时不会被未知字段覆盖",
+      passed: allOfResult.decision === "not-candidate",
+    },
+    {
+      name: "not 可以确定性反转排除条件",
+      passed: notResult.decision === "candidate",
     },
   ];
 }

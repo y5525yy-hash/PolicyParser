@@ -5,6 +5,7 @@ import type {
   FieldAligner,
   KernelMatchEvaluation,
   PolicyCriterion,
+  PolicyRuleNode,
   ResidentFact,
 } from "./integration-contracts";
 
@@ -103,10 +104,26 @@ function normalizeComparableValue(
 function compareValues(
   criterion: PolicyCriterion,
   actualValue: FactValue,
+  expectedValue: PolicyCriterion["expectedValue"] = criterion.expectedValue,
 ): boolean | null {
+  if (criterion.operator === "exists") {
+    return actualValue === null ? null : Boolean(expectedValue);
+  }
+
+  if (criterion.operator === "in") {
+    if (!Array.isArray(expectedValue) || actualValue === null) {
+      return null;
+    }
+    return expectedValue.includes(String(actualValue).trim());
+  }
+
+  if (Array.isArray(expectedValue)) {
+    return null;
+  }
+
   const actual = normalizeComparableValue(actualValue, criterion.valueType);
   const expected = normalizeComparableValue(
-    criterion.expectedValue,
+    expectedValue,
     criterion.valueType,
   );
   if (actual === null || expected === null) {
@@ -118,15 +135,62 @@ function compareValues(
       return actual === expected;
     case "notEquals":
       return actual !== expected;
+    case "greaterThan":
+      return typeof actual === "number" && typeof expected === "number"
+        ? actual > expected
+        : null;
     case "greaterThanOrEqual":
       return typeof actual === "number" && typeof expected === "number"
         ? actual >= expected
+        : null;
+    case "lessThan":
+      return typeof actual === "number" && typeof expected === "number"
+        ? actual < expected
         : null;
     case "lessThanOrEqual":
       return typeof actual === "number" && typeof expected === "number"
         ? actual <= expected
         : null;
+    case "contains":
+      return typeof actual === "string" && typeof expected === "string"
+        ? actual.includes(expected)
+        : null;
   }
+}
+
+function numericFactValue(facts: ResidentFact[], key: string) {
+  const value = facts.find((fact) => fact.key === key)?.value;
+  if (typeof value === "number") return value;
+  if (typeof value === "string" && value.trim() !== "") {
+    const numericValue = Number(value);
+    return Number.isFinite(numericValue) ? numericValue : null;
+  }
+  return null;
+}
+
+function resolveExpectedValue(
+  criterion: PolicyCriterion,
+  facts: ResidentFact[],
+): PolicyCriterion["expectedValue"] | null {
+  if (
+    criterion.concept === "householdNetAssets" &&
+    typeof criterion.expectedValue === "string" &&
+    criterion.expectedValue.includes("3人及以下57万元")
+  ) {
+    const familyPopulation = numericFactValue(facts, "family_population");
+    if (familyPopulation === null) return null;
+    return familyPopulation <= 3 ? 570000 : 760000;
+  }
+  if (
+    criterion.concept === "householdAnnualIncome" &&
+    typeof criterion.expectedValue === "string" &&
+    criterion.expectedValue.includes("3口及以下10万元")
+  ) {
+    const familyPopulation = numericFactValue(facts, "family_population");
+    if (familyPopulation === null) return null;
+    return familyPopulation <= 3 ? 100000 : 130000;
+  }
+  return criterion.expectedValue;
 }
 
 async function evaluateCriterion(
@@ -149,7 +213,28 @@ async function evaluateCriterion(
   }
 
   const actualValue = resolveActualValue(criterion, fact, asOfDate);
-  const comparison = compareValues(criterion, actualValue);
+  if (actualValue === null) {
+    return {
+      criterionId: criterion.id,
+      state: "unknown",
+      alignment,
+      actualValue,
+      reason: `${criterion.missingFieldLabel}信息缺失`,
+      evidence: criterion.evidence,
+    };
+  }
+  const expectedValue = resolveExpectedValue(criterion, facts);
+  if (expectedValue === null) {
+    return {
+      criterionId: criterion.id,
+      state: "unknown",
+      alignment,
+      actualValue,
+      reason: `${criterion.missingFieldLabel}适用标准需要核实`,
+      evidence: criterion.evidence,
+    };
+  }
+  const comparison = compareValues(criterion, actualValue, expectedValue);
   if (comparison === null) {
     return {
       criterionId: criterion.id,
@@ -247,4 +332,163 @@ export async function evaluateCriteriaForFacts(
     ),
     criteria: evaluations,
   };
+}
+
+function mergeCriteria(evaluations: KernelMatchEvaluation[]) {
+  return evaluations.flatMap((evaluation) => evaluation.criteria);
+}
+
+async function evaluateRuleNode(
+  node: PolicyRuleNode,
+  facts: ResidentFact[],
+  options: MatchingKernelOptions,
+): Promise<KernelMatchEvaluation> {
+  if (node.type === "criterion") {
+    const asOfDate = options.asOfDate ?? new Date();
+    const fieldAligner = options.fieldAligner ?? {
+      async alignField(
+        criterion: PolicyCriterion,
+        residentFacts: ResidentFact[],
+      ) {
+        return alignCriterionToFacts(criterion, residentFacts);
+      },
+    };
+    const evaluation = await evaluateCriterion(
+      node.criterion,
+      facts,
+      asOfDate,
+      fieldAligner,
+    );
+    if (evaluation.state === "satisfied") {
+      return {
+        decision: "candidate",
+        reasons: [evaluation.reason],
+        missingFields: [],
+        criteria: [evaluation],
+      };
+    }
+    if (evaluation.state === "failed") {
+      return {
+        decision: "not-candidate",
+        reasons: [evaluation.reason],
+        missingFields: [],
+        criteria: [evaluation],
+      };
+    }
+    return {
+      decision: "needs-verification",
+      reasons: [evaluation.reason],
+      missingFields: [node.criterion.missingFieldLabel],
+      criteria: [evaluation],
+    };
+  }
+
+  if (node.type === "not") {
+    const evaluation = await evaluateRuleNode(node.node, facts, options);
+    if (evaluation.decision === "needs-verification") {
+      return {
+        ...evaluation,
+        reasons: ["政策排除情形仍需核实"],
+      };
+    }
+    return {
+      decision:
+        evaluation.decision === "candidate" ? "not-candidate" : "candidate",
+      reasons: [
+        evaluation.decision === "candidate"
+          ? "存在政策规定的排除情形"
+          : "未发现政策规定的排除情形",
+      ],
+      missingFields: [],
+      criteria: evaluation.criteria,
+    };
+  }
+
+  const childEvaluations = await Promise.all(
+    node.nodes.map((child) => evaluateRuleNode(child, facts, options)),
+  );
+  if (childEvaluations.length === 0) {
+    return {
+      decision: "needs-verification",
+      reasons: ["政策条件结构为空，需要人工核实"],
+      missingFields: [],
+      criteria: [],
+    };
+  }
+
+  if (node.type === "allOf") {
+    const failed = childEvaluations.filter(
+      (evaluation) => evaluation.decision === "not-candidate",
+    );
+    if (failed.length > 0) {
+      return {
+        decision: "not-candidate",
+        reasons: unique(failed.flatMap((evaluation) => evaluation.reasons)),
+        missingFields: [],
+        criteria: mergeCriteria(childEvaluations),
+      };
+    }
+    const unknown = childEvaluations.filter(
+      (evaluation) => evaluation.decision === "needs-verification",
+    );
+    if (unknown.length > 0) {
+      return {
+        decision: "needs-verification",
+        reasons: unique(unknown.flatMap((evaluation) => evaluation.reasons)),
+        missingFields: unique(
+          unknown.flatMap((evaluation) => evaluation.missingFields),
+        ),
+        criteria: mergeCriteria(childEvaluations),
+      };
+    }
+    return {
+      decision: "candidate",
+      reasons: unique(
+        childEvaluations.flatMap((evaluation) => evaluation.reasons),
+      ),
+      missingFields: [],
+      criteria: mergeCriteria(childEvaluations),
+    };
+  }
+
+  const matched = childEvaluations.filter(
+    (evaluation) => evaluation.decision === "candidate",
+  );
+  if (matched.length > 0) {
+    return {
+      decision: "candidate",
+      reasons: unique(matched.flatMap((evaluation) => evaluation.reasons)),
+      missingFields: [],
+      criteria: mergeCriteria(childEvaluations),
+    };
+  }
+  const unknown = childEvaluations.filter(
+    (evaluation) => evaluation.decision === "needs-verification",
+  );
+  if (unknown.length > 0) {
+    return {
+      decision: "needs-verification",
+      reasons: ["至少一个资格分支仍需补充信息后核实"],
+      missingFields: unique(
+        unknown.flatMap((evaluation) => evaluation.missingFields),
+      ),
+      criteria: mergeCriteria(childEvaluations),
+    };
+  }
+  return {
+    decision: "not-candidate",
+    reasons: unique(
+      childEvaluations.flatMap((evaluation) => evaluation.reasons),
+    ),
+    missingFields: [],
+    criteria: mergeCriteria(childEvaluations),
+  };
+}
+
+export async function evaluatePolicyRuleForFacts(
+  rule: PolicyRuleNode,
+  facts: ResidentFact[],
+  options: MatchingKernelOptions = {},
+) {
+  return await evaluateRuleNode(rule, facts, options);
 }

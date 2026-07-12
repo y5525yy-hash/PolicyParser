@@ -134,6 +134,7 @@ export interface PolicyRetrievalResult {
   chunkId: string;
   policyName: string;
   section: string;
+  clauseNumber?: string;
   text: string;
   officialUrl: string;
   region: string;

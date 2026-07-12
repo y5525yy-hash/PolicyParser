@@ -1,9 +1,9 @@
 import { mockPolicies } from "@/features/policy/mock-policies";
-import { mockResidentMatches } from "@/features/resident/mock-matches";
 import {
   residentDirectoryRecords,
   type ResidentDirectoryRecord,
 } from "@/features/resident/resident-directory-data";
+import type { MatchResult } from "@/shared/types";
 
 export interface SimilarResident {
   reason: string;
@@ -12,6 +12,7 @@ export interface SimilarResident {
 
 export function getSimilarResidents(
   residentId: string,
+  matches: MatchResult[],
   limit = 4,
 ): SimilarResident[] {
   const currentRecord = residentDirectoryRecords.find(
@@ -19,14 +20,14 @@ export function getSimilarResidents(
   );
   if (!currentRecord) return [];
 
-  const currentMatches = mockResidentMatches.filter(
+  const currentMatches = matches.filter(
     (match) => match.residentId === residentId && match.status !== "unmatched",
   );
 
   return residentDirectoryRecords
     .filter(({ resident }) => resident.id !== residentId)
     .map((record) => {
-      const candidateMatches = mockResidentMatches.filter(
+      const candidateMatches = matches.filter(
         (match) =>
           match.residentId === record.resident.id && match.status !== "unmatched",
       );
@@ -67,4 +68,3 @@ export function getSimilarResidents(
     .slice(0, limit)
     .map(({ reason, record }) => ({ reason, record }));
 }
-

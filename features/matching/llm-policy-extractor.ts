@@ -10,7 +10,7 @@ import type {
   LlmPolicyExtraction,
   LlmRuleNode,
 } from "./llm-contracts";
-import { validatePolicyExtraction } from "./llm-output-validator";
+import { validatePolicyExtractionForEvidence } from "./llm-output-validator";
 import { buildPolicyExtractionRequest } from "./llm-prompts";
 import { patternPolicyCriterionExtractor } from "./policy-criterion-extractor";
 
@@ -70,10 +70,12 @@ function toPolicyCriteria(
     if (condition.expected.kind !== "literal") {
       throw new Error("动态参考标准不能直接编译为确定性条件");
     }
-    const chunkId = condition.sourceChunkIds[0] ?? "";
-    const chunk = evidenceById.get(chunkId);
-    if (!chunk) {
-      throw new Error(`模型引用了不存在的政策片段：${chunkId}`);
+    const chunkId = condition.sourceChunkIds.find((candidateId) =>
+      evidenceById.get(candidateId)?.text.includes(condition.sourceText),
+    );
+    const chunk = chunkId ? evidenceById.get(chunkId) : undefined;
+    if (!chunkId || !chunk) {
+      throw new Error("模型引文无法追溯到被引用的政策片段");
     }
     return {
       id: `${chunkId}:${condition.field}:${index}`,
@@ -120,16 +122,17 @@ export function createLlmPolicyCriterionExtractor(
         const rawOutput = await options.client.generateJson(
           buildPolicyExtractionRequest(policyId, evidence),
         );
-        const validation = validatePolicyExtraction(rawOutput);
+        const validation = validatePolicyExtractionForEvidence(
+          rawOutput,
+          policyId,
+          evidence,
+        );
         if (validation.ok === false) {
           return await runFallback(
             `LLM 输出校验失败：${validation.errors.join("；")}`,
             policyId,
             evidence,
           );
-        }
-        if (validation.value.policyId !== policyId) {
-          return await runFallback("LLM 返回了错误的 policyId", policyId, evidence);
         }
         const criteria = toPolicyCriteria(validation.value, evidence);
         if (!criteria || criteria.length === 0) {

@@ -5,14 +5,22 @@ export type FactValueType = "string" | "number" | "boolean" | "date";
 export type CriterionOperator =
   | "equals"
   | "notEquals"
+  | "greaterThan"
   | "greaterThanOrEqual"
-  | "lessThanOrEqual";
+  | "lessThan"
+  | "lessThanOrEqual"
+  | "contains"
+  | "in"
+  | "exists";
+
+export type CriterionExpectedValue = Exclude<FactValue, null> | string[];
 
 export interface PolicyEvidenceChunk {
   policyId: string;
   chunkId: string;
   text: string;
   sectionTitle?: string;
+  clauseNumber?: string;
   sourceUrl: string;
 }
 
@@ -37,7 +45,7 @@ export interface PolicyCriterion {
   concept: string;
   label: string;
   operator: CriterionOperator;
-  expectedValue: Exclude<FactValue, null>;
+  expectedValue: CriterionExpectedValue;
   valueType: FactValueType;
   required: boolean;
   fieldAliases: string[];
@@ -45,6 +53,44 @@ export interface PolicyCriterion {
   satisfiedReason?: string;
   failedReason?: string;
   evidence: CriterionEvidence;
+}
+
+export interface PolicyRuleCriterionNode {
+  type: "criterion";
+  criterion: PolicyCriterion;
+}
+
+export interface PolicyRuleGroupNode {
+  type: "allOf" | "anyOf";
+  nodes: PolicyRuleNode[];
+}
+
+export interface PolicyRuleNotNode {
+  type: "not";
+  node: PolicyRuleNode;
+}
+
+export type PolicyRuleNode =
+  | PolicyRuleCriterionNode
+  | PolicyRuleGroupNode
+  | PolicyRuleNotNode;
+
+export interface PolicyRuleScenario {
+  id: string;
+  label: string;
+  sourceText: string;
+  root: PolicyRuleNode;
+}
+
+export interface PolicyRuleSet {
+  policyId: string;
+  scenarios: PolicyRuleScenario[];
+  followUpFields: string[];
+}
+
+export interface ResidentFactDisplayItem {
+  label: string;
+  value: string;
 }
 
 export type FieldAlignmentMethod =
