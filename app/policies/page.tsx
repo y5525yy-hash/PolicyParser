@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { formatPolicyEvidenceText } from "@/features/policy/policy-evidence-format";
+
 import { mockPolicies } from "@/features/policy/mock-policies";
 import { searchPolicyClauses } from "@/features/policy/knowledge-base/retrieval";
 import {
@@ -65,18 +67,18 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
               {activeCategory ? <input name="category" type="hidden" value={activeCategory} /> : null}
               <div className="policy-match-composer">
                 <label htmlFor="policy-query">
-                  <span>政策找人：根据政策匹配符合办理条件的居民</span>
-                  <span>人找政策：为每个居民展示匹配的政策生成权益画像</span>
+                  <span>先检索政策名称、对象或资格条件</span>
+                  <span>进入政策详情后，可继续查找可能符合或需要核实的居民</span>
                 </label>
                 <input
                   defaultValue={query}
                   id="policy-query"
                   name="q"
-                  placeholder="例如：80 周岁的王奶奶，可以申请哪些政策？"
+                  placeholder="例如：高龄津贴、低收入家庭、养老保险"
                   type="search"
                 />
                 <div className="policy-match-actions">
-                  <button type="submit">开始匹配</button>
+                  <button type="submit">搜索政策依据</button>
                   {query ? (
                     <Link href={activeCategory ? `/policies?category=${activeCategory}` : "/policies"}>
                       清除
@@ -89,15 +91,15 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
 
           <div className="policy-capabilities" aria-label="核心能力">
             <div>
-              <strong>01&nbsp; AI 政策问答</strong>
-              <span>把政策条文转成清晰解释</span>
+              <strong>01&nbsp; 政策条件检索</strong>
+              <span>按对象、待遇和资格条件定位政策</span>
             </div>
             <div>
               <strong>02&nbsp; 政策原文检索</strong>
               <span>快速定位条件、标准与限制</span>
             </div>
             <div>
-              <strong>03&nbsp; 智能匹配</strong>
+              <strong>03&nbsp; 辅助匹配</strong>
               <span>发现可能匹配居民和待核实信息</span>
             </div>
           </div>
@@ -121,7 +123,7 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
                   <span>{result.section}</span>
                 </div>
                 <h3>{result.policyName}</h3>
-                <blockquote>{result.text}</blockquote>
+                <blockquote>{formatPolicyEvidenceText(result.text)}</blockquote>
                 <p>片段 ID：{result.chunkId}</p>
                 <div className="retrieval-actions">
                   <Link href={`/policies/${result.policyId}`}>查看政策详情</Link>

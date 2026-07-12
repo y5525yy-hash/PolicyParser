@@ -217,6 +217,24 @@ export function integratedResidentToFacts(resident: Resident): ResidentFact[] {
       policyFacts.householdNetAssets,
       "number",
     );
+    pushFact(
+      facts,
+      resident.id,
+      "familyStatus",
+      "家庭特殊身份",
+      normalizedResidentValue(policyFacts.familyStatus),
+      "string",
+      ["家庭类别", "特殊家庭身份"],
+    );
+    pushFact(
+      facts,
+      resident.id,
+      "disabilityCertificate",
+      "是否持有符合条件的残疾人证",
+      normalizedResidentValue(policyFacts.disabilityCertificate),
+      "boolean",
+      ["残疾人证", "残疾证持有情况"],
+    );
   }
   return facts;
 }

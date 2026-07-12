@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import {
   residentDirectoryRecords,
 } from "@/features/resident/resident-directory-data";
-import { matchPoliciesByResident } from "@/features/resident/resident-data";
+import { matchAllResidentsAndPolicies } from "@/features/matching/matching-service";
 import { ResidentProfileWorkspace } from "@/features/resident/resident-profile-workspace";
 import { getSimilarResidents } from "@/features/resident/similar-residents";
 
@@ -26,8 +26,9 @@ export default async function ResidentDetailPage({
     notFound();
   }
 
-  const matches = await matchPoliciesByResident(id);
-  const similarResidents = getSimilarResidents(id);
+  const allMatches = await matchAllResidentsAndPolicies();
+  const matches = allMatches.filter((match) => match.residentId === id);
+  const similarResidents = getSimilarResidents(id, allMatches);
   const backHref = from?.startsWith("/residents") ? from : "/residents";
   const previousRecord = previous
     ? residentDirectoryRecords.find(({ resident }) => resident.id === previous)
@@ -46,4 +47,3 @@ export default async function ResidentDetailPage({
     />
   );
 }
-

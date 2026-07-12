@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "verify:matching": "node features/matching/scripts/verify-matching.cjs",
-    "verify:llm": "node features/matching/scripts/verify-llm.cjs"
+    "verify:llm": "node features/matching/scripts/verify-llm.cjs",
+    "verify:synthetic": "node features/matching/scripts/verify-synthetic-residents.cjs"
   },
   "dependencies": {
     "next": "16.2.10",

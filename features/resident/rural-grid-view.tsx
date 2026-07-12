@@ -1,17 +1,19 @@
 import Link from "next/link";
 
-import { mockResidentMatches } from "@/features/resident/mock-matches";
 import type { ResidentDirectoryRecord } from "@/features/resident/resident-directory-data";
 import styles from "@/features/resident/resident-directory.module.css";
+import type { MatchResult } from "@/shared/types";
 
 interface RuralGridViewProps {
   currentListUrl: string;
+  matches: MatchResult[];
   records: ResidentDirectoryRecord[];
   saveScrollPosition: () => void;
 }
 
 export function RuralGridView({
   currentListUrl,
+  matches,
   records,
   saveScrollPosition,
 }: RuralGridViewProps) {
@@ -88,7 +90,7 @@ export function RuralGridView({
                     ),
                   );
                   const pendingCount = gridRecords.filter(({ resident }) =>
-                    mockResidentMatches.some(
+                    matches.some(
                       (match) =>
                         match.residentId === resident.id &&
                         match.status === "pending",

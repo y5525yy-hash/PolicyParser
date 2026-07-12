@@ -1,0 +1,137 @@
+.mobileHome {
+  display: none;
+}
+
+.desktopRedirect {
+  min-height: 40vh;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  :global(body.mobile-home-route) {
+    min-height: 100svh;
+    background:
+      radial-gradient(circle at 100% 0, rgba(20, 184, 166, 0.16), transparent 18rem),
+      var(--background);
+  }
+
+  :global(body.mobile-home-route .site-header),
+  :global(body.mobile-home-route .skip-link),
+  :global(body.mobile-home-route aside[aria-label="快捷导航"]) {
+    display: none;
+  }
+
+  :global(body.mobile-home-route .page-shell) {
+    width: 100%;
+    padding: 0;
+  }
+
+  .desktopRedirect {
+    display: none;
+  }
+
+  .mobileHome {
+    min-height: 100svh;
+    padding: max(30px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    padding: 12px 4px 26px;
+  }
+
+  .eyebrow {
+    margin: 0 0 10px;
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 10vw, 2.75rem);
+    letter-spacing: -0.045em;
+  }
+
+  .header > p:last-child {
+    margin: 12px 0 0;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .entryGrid {
+    display: grid;
+    gap: 12px;
+  }
+
+  .entryCard {
+    min-height: 112px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+  }
+
+  .entryCard:active {
+    transform: translateY(1px);
+  }
+
+  .entryCard:focus-visible {
+    outline: 3px solid rgba(23, 107, 77, 0.35);
+    outline-offset: 3px;
+  }
+
+  .entryIndex {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--accent);
+    color: var(--primary-dark);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .entryContent {
+    min-width: 0;
+    display: grid;
+    gap: 6px;
+  }
+
+  .entryContent strong {
+    font-size: 1.05rem;
+  }
+
+  .entryContent > span {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .entryArrow {
+    color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .notice {
+    margin: auto 4px 0;
+    padding-top: 24px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+}

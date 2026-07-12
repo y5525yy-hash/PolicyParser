@@ -2,6 +2,7 @@ import {
   ResidentDirectoryQuery,
   ResidentDirectoryTable,
 } from "@/features/resident/resident-directory-table";
+import { matchAllResidentsAndPolicies } from "@/features/matching/matching-service";
 import styles from "@/features/resident/resident-directory.module.css";
 
 interface ResidentsPageProps {
@@ -52,10 +53,14 @@ export default async function ResidentsPage({ searchParams }: ResidentsPageProps
     page: Number.isFinite(parsedPage) && parsedPage > 0 ? parsedPage : 1,
     expanded: getParam(params, "expanded").split(",").filter(Boolean),
   };
+  const matchResults = await matchAllResidentsAndPolicies();
 
   return (
     <section className={styles.directoryPage}>
-      <ResidentDirectoryTable initialQuery={initialQuery} />
+      <ResidentDirectoryTable
+        initialQuery={initialQuery}
+        matchResults={matchResults}
+      />
     </section>
   );
 }

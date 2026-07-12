@@ -1,6 +1,7 @@
 import type { Resident } from "@/shared/types";
 
 import { mockResidents } from "@/features/resident/mock-residents";
+import { syntheticResidentMetadataSeeds } from "@/features/resident/synthetic-residents";
 
 export type ResidentGender = "女" | "男";
 
@@ -14,6 +15,8 @@ export interface ResidentPolicyFacts {
   householdMonthlyIncomePerCapitaPrevious12Months: number | null;
   householdHasHousingInBeijing: boolean | null;
   householdNetAssets: number | null;
+  familyStatus?: string | null;
+  disabilityCertificate?: boolean | null;
 }
 
 export interface ResidentDirectoryMetadata {
@@ -43,7 +46,7 @@ export interface ResidentDirectoryRecord {
   metadata: ResidentDirectoryMetadata;
 }
 
-const directoryMetadata: ResidentDirectoryMetadata[] = [
+const baseDirectoryMetadata: ResidentDirectoryMetadata[] = [
   {
     residentId: "resident-001",
     gender: "女",
@@ -292,6 +295,11 @@ const directoryMetadata: ResidentDirectoryMetadata[] = [
       householdNetAssets: 150000,
     },
   },
+];
+
+const directoryMetadata: ResidentDirectoryMetadata[] = [
+  ...baseDirectoryMetadata,
+  ...syntheticResidentMetadataSeeds,
 ];
 
 export const residentDirectoryRecords = mockResidents.flatMap<ResidentDirectoryRecord>(

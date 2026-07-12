@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
+import { MobileHome } from "@/components/mobile/mobile-home";
 
 export default function HomePage() {
-  redirect("/policies");
+  return <MobileHome />;
 }
-
