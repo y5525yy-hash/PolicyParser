@@ -1,0 +1,33 @@
+{
+  "policyId": "policy-017",
+  "documentIds": ["bj-2015-public-rental-subsidy"],
+  "sourceChunkIds": ["chunk-ba4f06bf240a1e47", "chunk-f6d20b88ccd96860", "chunk-03c18cbaf88d29c1", "chunk-ccc0719aa2d56087", "chunk-a5ed1b51e18c6616", "chunk-0997d1595690b304", "chunk-e321be6094231030", "chunk-cf8f0a4e73a7f5cd", "chunk-a9d8417d07d2f873", "chunk-2c279b142d7a5426", "chunk-7cbd9a6b20a268a0", "chunk-fedfca9a3d535b2c", "chunk-4cf936d68bbe7727", "chunk-f11a0897bb044adb", "chunk-f6b44128ea280430", "chunk-c5d04289de0f6b27", "chunk-354e8ec536c265c3", "chunk-3f6c2ba84c19b5b7"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "大兴区等列明地区承租公租房的城镇户籍家庭，需同时满足收入、无其他住房、资产和公开配租四项条件。",
+      "sourceChunkIds": ["chunk-ba4f06bf240a1e47", "chunk-f6d20b88ccd96860", "chunk-03c18cbaf88d29c1", "chunk-ccc0719aa2d56087", "chunk-a5ed1b51e18c6616"],
+      "conditions": [
+        {"type": "condition", "field": "householdMonthlyIncomePerCapitaPrevious12Months", "operator": "less_than_or_equal", "value": 2400, "unit": "元/月", "sourceText": "申请当月前12个月家庭人均月收入不高于2400元", "sourceChunkIds": ["chunk-f6d20b88ccd96860"]},
+        {"type": "condition", "field": "hasOtherHousingBeyondRentedPublicHousing", "operator": "equals", "value": false, "sourceText": "除承租的公租房外，无其他住房", "sourceChunkIds": ["chunk-03c18cbaf88d29c1"]},
+        {"type": "condition", "field": "householdNetAssets", "operator": "less_than_or_equal", "value": "3人及以下57万元；4人及以上76万元", "unit": "万元", "sourceText": "3人及以下家庭总资产净值57万元及以下；4人及以上家庭总资产净值76万元及以下", "sourceChunkIds": ["chunk-ccc0719aa2d56087"]},
+        {"type": "condition", "field": "publicHousingAllocationMethod", "operator": "equals", "value": "市或区住房保障管理部门公开配租", "sourceText": "所承租的公租房是通过市、区县住房保障管理部门公开配租方式获得", "sourceChunkIds": ["chunk-a5ed1b51e18c6616"]}
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "大兴区等地区符合四项条件的城镇户籍公租房承租家庭", "text": "城六区及门头沟、通州、顺义、大兴、房山、昌平的城镇户籍公租房承租家庭，需同时满足收入、住房、资产和公开配租条件。", "sourceChunkIds": ["chunk-ba4f06bf240a1e47"]}],
+  "benefits": [{"title": "按租金、补贴比例和面积计算", "text": "补贴金额等于公租房租金标准乘补贴比例乘补贴面积，补贴面积上限60平方米；补贴比例按家庭类型和收入分档，低保或分散供养特困家庭95%、城市低收入家庭90%，其他收入档为70%、50%、25%或10%。", "sourceChunkIds": ["chunk-0997d1595690b304", "chunk-e321be6094231030", "chunk-cf8f0a4e73a7f5cd", "chunk-a9d8417d07d2f873", "chunk-2c279b142d7a5426", "chunk-7cbd9a6b20a268a0", "chunk-fedfca9a3d535b2c", "chunk-4cf936d68bbe7727"]}],
+  "materials": [],
+  "procedures": [{"title": "向街道乡镇住房保障部门申请", "text": "符合重度残疾、家庭成员患大病、全体成员均60岁以上且无子女等提高补贴条件的家庭，由街道乡镇初审、区住房保障管理部门复审后提高一档。一般申请审核材料和发放流程需结合配套办理文件。", "sourceChunkIds": ["chunk-f11a0897bb044adb", "chunk-f6b44128ea280430", "chunk-c5d04289de0f6b27", "chunk-354e8ec536c265c3"]}],
+  "restrictions": [
+    {"title": "四项申请条件必须同时满足", "text": "收入、无其他住房、家庭资产和公开配租条件缺一不可。", "sourceChunkIds": ["chunk-ba4f06bf240a1e47"]},
+    {"title": "廉租住房待遇衔接", "text": "已取得廉租住房实物配租或租金补贴资格的家庭可继续申请，但符合本通知条件时需按规定取消原资格后再按本通知核定，避免待遇重复。", "sourceChunkIds": ["chunk-3f6c2ba84c19b5b7"]},
+    {"title": "标准需核对当前口径", "text": "本文件官方页面标注现行有效，但收入分档和资产数值属于2015年标准，实际办理前应核对北京市及大兴区当前执行口径。", "sourceChunkIds": ["chunk-f6d20b88ccd96860", "chunk-ccc0719aa2d56087"]}
+  ],
+  "unresolvedQuestions": ["家庭当前12个月人均收入和总资产净值", "除所承租公租房外是否存在其他住房", "公租房是否通过住房保障管理部门公开配租", "2015年收入、资产和补贴比例是否已有当前调整文件", "配套申请材料、审核和发放流程"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "humanVerified": "在大兴区申请公租房租金补贴，家庭必须同时通过四道条件：前12个月人均收入、没有其他住房、家庭资产不超限、现在承租的公租房来自公开配租。补贴按租金、比例和面积计算，低保、低收入等家庭比例更高，重度残疾、大病或全体老人无子女家庭还可能提高一档。文件中的收入和资产是2015年数值，办理时必须再核对当前标准。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

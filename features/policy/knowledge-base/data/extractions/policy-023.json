@@ -1,0 +1,170 @@
+{
+  "policyId": "policy-023",
+  "documentIds": ["bj-2022-serious-disease-medical-assistance"],
+  "sourceChunkIds": [
+    "chunk-09d077e6236a7f51",
+    "chunk-f0ef6acad5774389",
+    "chunk-a63d2a5077e1c75f",
+    "chunk-e8183b012e381bbb",
+    "chunk-e6245998331ff44b",
+    "chunk-08c70aa1e4c6b2fe",
+    "chunk-63c9b0c625637e86",
+    "chunk-0d7c43485c63bde1",
+    "chunk-9b99fc59e1e9cd13",
+    "chunk-4d7a49bd0ee6cd08",
+    "chunk-a6c0ee73473d0390",
+    "chunk-e362659f269cde73",
+    "chunk-b58cb4911f47bc94",
+    "chunk-d2afb50e4efa80ff",
+    "chunk-e8571395ce6c021a",
+    "chunk-5d7ce19a2105ac31",
+    "chunk-07e3d3ae59b23565",
+    "chunk-cf83795a6f0feaf6",
+    "chunk-4adc22d9fef7b545"
+  ],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "anyOf",
+      "sourceText": "本市医疗救助对象包括经民政部门认定的社会救助对象，以及符合另行认定条件的因病致贫家庭重病患者。",
+      "sourceChunkIds": ["chunk-09d077e6236a7f51", "chunk-08c70aa1e4c6b2fe"],
+      "conditions": [
+        {
+          "type": "anyOf",
+          "sourceText": "社会救助对象包括特困供养等四类人员。",
+          "sourceChunkIds": ["chunk-f0ef6acad5774389", "chunk-a63d2a5077e1c75f", "chunk-e8183b012e381bbb", "chunk-e6245998331ff44b"],
+          "conditions": [
+            {
+              "type": "condition",
+              "field": "socialAssistanceIdentity",
+              "operator": "in",
+              "value": ["特困供养人员", "因公（病）致残返城知青"],
+              "sourceText": "特困供养人员、民政部门管理的因公（病）致残返城知青",
+              "sourceChunkIds": ["chunk-f0ef6acad5774389"]
+            },
+            {
+              "type": "condition",
+              "field": "socialAssistanceIdentity",
+              "operator": "equals",
+              "value": "享受原工资40%救济的60年代初精减退职老职工",
+              "sourceText": "民政部门管理的享受原工资40%救济的60年代初精减退职老职工",
+              "sourceChunkIds": ["chunk-a63d2a5077e1c75f"]
+            },
+            {
+              "type": "condition",
+              "field": "socialAssistanceIdentity",
+              "operator": "in",
+              "value": ["最低生活保障对象", "生活困难补助人员"],
+              "sourceText": "最低生活保障对象以及生活困难补助人员",
+              "sourceChunkIds": ["chunk-e8183b012e381bbb"]
+            },
+            {
+              "type": "condition",
+              "field": "socialAssistanceIdentity",
+              "operator": "equals",
+              "value": "城乡低收入家庭救助人员",
+              "sourceText": "城乡低收入家庭救助人员",
+              "sourceChunkIds": ["chunk-e6245998331ff44b"]
+            }
+          ]
+        },
+        {
+          "type": "allOf",
+          "sourceText": "因病致贫家庭重病患者需为不符合社会救助对象认定条件、因高额医疗费用导致基本生活严重困难的本市户籍人员及共同生活家庭成员，具体认定办法另行明确。",
+          "sourceChunkIds": ["chunk-08c70aa1e4c6b2fe", "chunk-0d7c43485c63bde1"],
+          "conditions": [
+            {
+              "type": "condition",
+              "field": "hukou",
+              "operator": "equals",
+              "value": "北京市",
+              "sourceText": "本市户籍人员及其共同生活的家庭成员",
+              "sourceChunkIds": ["chunk-08c70aa1e4c6b2fe"]
+            },
+            {
+              "type": "condition",
+              "field": "recognizedSocialAssistanceObject",
+              "operator": "equals",
+              "value": false,
+              "sourceText": "不符合本市社会救助对象认定条件",
+              "sourceChunkIds": ["chunk-08c70aa1e4c6b2fe"]
+            },
+            {
+              "type": "condition",
+              "field": "highMedicalExpenseCausesBasicLivingDifficulty",
+              "operator": "equals",
+              "value": true,
+              "sourceText": "经过基本医疗保险、大病保险以及商业保险报销赔付和各种救助后，家庭负担的政策范围内医疗费用超过家庭承受能力，基本生活出现严重困难",
+              "sourceChunkIds": ["chunk-08c70aa1e4c6b2fe"]
+            },
+            {
+              "type": "condition",
+              "field": "illnessPovertyRecognitionSatisfied",
+              "operator": "equals",
+              "value": true,
+              "sourceText": "综合考虑家庭经济状况、医疗费用支出、医疗保险支付等情况，具体认定办法另行明确",
+              "sourceChunkIds": ["chunk-0d7c43485c63bde1"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [
+    {
+      "title": "社会救助对象和因病致贫家庭重病患者",
+      "text": "覆盖特困供养、低保、低收入等经民政部门认定的社会救助对象，以及经各类保险和救助后仍因高额医疗费用导致基本生活严重困难、符合另行认定条件的本市户籍家庭。",
+      "sourceChunkIds": ["chunk-09d077e6236a7f51", "chunk-08c70aa1e4c6b2fe"]
+    }
+  ],
+  "benefits": [
+    {
+      "title": "社会救助对象门诊救助",
+      "text": "医疗救助不设起付标准。特困供养人员、因公（病）致残返城知青政策范围内个人负担部分救助100%，不设年度上限；享受原工资40%救济的精减退职老职工救助85%，不设年度上限；其他社会救助对象救助80%，年度上限8000元。",
+      "sourceChunkIds": ["chunk-9b99fc59e1e9cd13", "chunk-4d7a49bd0ee6cd08", "chunk-a6c0ee73473d0390", "chunk-e362659f269cde73"]
+    },
+    {
+      "title": "社会救助对象住院救助",
+      "text": "特困供养人员、因公（病）致残返城知青政策范围内个人负担部分救助100%，不设年度上限；享受原工资40%救济的精减退职老职工救助80%，不设年度上限；其他社会救助对象救助85%，年度上限16万元。",
+      "sourceChunkIds": ["chunk-b58cb4911f47bc94", "chunk-d2afb50e4efa80ff", "chunk-e8571395ce6c021a"]
+    },
+    {
+      "title": "因病致贫家庭重病患者救助",
+      "text": "扣除基本医保、大病保险、商业保险和各种救助后，政策范围内个人负担部分按3万元（含）以下30%、3万元以上至5万元（含）以下40%、5万元以上50%分段救助，同一自然年度只能申请一次，年度上限15万元。",
+      "sourceChunkIds": ["chunk-5d7ce19a2105ac31"]
+    }
+  ],
+  "materials": [],
+  "procedures": [
+    {
+      "title": "一站式结算或事后申请",
+      "text": "社会救助对象在基本医保定点医疗机构治疗后按标准实行一站式直接结算；特殊原因不能直接结算的，个人先垫付后向户籍所在区医疗保障部门申请报销。",
+      "sourceChunkIds": ["chunk-cf83795a6f0feaf6"]
+    }
+  ],
+  "restrictions": [
+    {
+      "title": "多重身份不得重复享受",
+      "text": "同时符合多重救助身份的，按就高不就低原则救助，不得重复享受医疗救助待遇。",
+      "sourceChunkIds": ["chunk-08c70aa1e4c6b2fe"]
+    },
+    {
+      "title": "转诊和费用范围限制",
+      "text": "未按规定转诊的救助对象，其医疗费用原则上不纳入医疗救助范围；费用项目应符合基本医疗保险支付范围，倾斜救助也应避免过度保障。",
+      "sourceChunkIds": ["chunk-4adc22d9fef7b545", "chunk-07e3d3ae59b23565"]
+    }
+  ],
+  "unresolvedQuestions": [
+    "申请人具体属于哪一类经民政部门认定的社会救助对象",
+    "因病致贫家庭重病患者应结合policy-024的具体认定办法核对家庭成员、收入和财产条件",
+    "社会救助对象申请所需材料和区级倾斜救助标准需按当前经办口径核对",
+    "是否按规定转诊以及医疗费用是否属于基本医保支付范围"
+  ],
+  "plainLanguage": {
+    "officialInterpretationSourceIds": ["https://ybj.beijing.gov.cn/zwgk/2024zcjd/202406/t20240619_3720542.html"],
+    "humanVerified": "这项制度覆盖两大类人：一类是已经由民政部门认定的特困、低保、低收入等社会救助对象；另一类是没有这些救助身份，但因医疗费用过高导致家庭基本生活严重困难的北京户籍家庭。不同身份对应不同门诊、住院救助比例，多重身份只能按较高标准享受一次。因病致贫家庭的具体家庭成员、收入和财产条件应继续按照policy-024核对。"
+  },
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

@@ -1,0 +1,36 @@
+{
+  "policyId": "policy-008",
+  "documentIds": ["bj-2020-temporary-assistance"],
+  "sourceChunkIds": ["chunk-c0df96a82dbd588c", "chunk-8c4480bbeafdd888", "chunk-baa545a21e818ef2", "chunk-1585d62dd2dc269f", "chunk-d3602a9733f8fcbf"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "anyOf",
+      "sourceText": "临时救助对象分为急难型和支出型。",
+      "sourceChunkIds": ["chunk-c0df96a82dbd588c", "chunk-8c4480bbeafdd888"],
+      "conditions": [
+        {"type": "condition", "field": "emergencyHardship", "operator": "exists", "value": true, "sourceText": "因意外、重大疾病或申请其他救助期间基本生活出现严重困难等急难情形", "sourceChunkIds": ["chunk-c0df96a82dbd588c"]},
+        {
+          "type": "allOf",
+          "sourceText": "本市户籍家庭扣除必要支出后月人均收入低于低收入家庭认定标准，且财产状况符合规定。",
+          "sourceChunkIds": ["chunk-8c4480bbeafdd888"],
+          "conditions": [
+            {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市", "sourceText": "本市户籍家庭", "sourceChunkIds": ["chunk-8c4480bbeafdd888"]},
+            {"type": "condition", "field": "incomeAfterNecessaryExpenses", "operator": "less_than", "value": "本市当年低收入家庭认定标准", "sourceText": "扣除生活必需支出后月人均收入低于本市当年低收入家庭认定标准", "sourceChunkIds": ["chunk-8c4480bbeafdd888"]},
+            {"type": "condition", "field": "familyPropertyStatus", "operator": "equals", "value": "符合低收入家庭财产认定标准", "sourceText": "家庭财产状况符合本市低收入家庭财产认定标准", "sourceChunkIds": ["chunk-8c4480bbeafdd888"]}
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "突发困难家庭或个人", "text": "因意外、重大疾病等陷入急难的家庭个人，以及扣除必要支出后收入和财产符合规定的本市户籍家庭。", "sourceChunkIds": ["chunk-c0df96a82dbd588c", "chunk-8c4480bbeafdd888"]}],
+  "benefits": [{"title": "分类分档救助", "text": "急难型一般不超过每人3个月当年低保标准；支出型按必要支出和家庭类别分档计算。", "sourceChunkIds": ["chunk-baa545a21e818ef2"]}],
+  "materials": [{"title": "急难或支出证明", "text": "急难型需身份证明和意外事件材料；支出型还需户口簿、医疗教育等必要支出及责任赔偿材料。", "sourceChunkIds": ["chunk-d3602a9733f8fcbf", "chunk-1585d62dd2dc269f"]}],
+  "procedures": [{"title": "通过村居向乡镇街道申请", "text": "可以通过村居委会向户籍地、居住证所在地或事件发生地乡镇街道提出申请。", "sourceChunkIds": ["chunk-d3602a9733f8fcbf", "chunk-1585d62dd2dc269f"]}],
+  "restrictions": [{"title": "支出认定限制", "text": "购房购车、高档消费、部分非定点医疗和非普惠教育等支出不得认定为生活必需支出。", "sourceChunkIds": ["chunk-8c4480bbeafdd888"]}],
+  "unresolvedQuestions": ["困难是否属于急难型或支出型", "是否已经获得保险、赔偿或其他专项救助"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "humanVerified": "遇到火灾、事故、重大疾病等突然困难时可以申请急难救助；因医疗、教育等必要支出造成长期困难的家庭，还要同时核查扣除支出后的收入和家庭财产。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

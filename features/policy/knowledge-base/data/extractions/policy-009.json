@@ -1,0 +1,17 @@
+{
+  "policyId": "policy-009",
+  "documentIds": ["bj-2017-special-hardship-support"],
+  "sourceChunkIds": ["chunk-ab137a873ee607ed", "chunk-7bf8a4c3f6ea38d0", "chunk-286e4e3fc507aa3d", "chunk-474d2d4ec2b58ef9", "chunk-403cdca09af4384a", "chunk-18db8bb75ba348ef", "chunk-0650e154c8b7ff60", "chunk-539a95e1812b09e5", "chunk-e66c5903b4d7526f", "chunk-6c85c81772a5899d"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [{"type":"allOf","sourceText":"具有本市户籍的老年人、残疾人以及未满16周岁的未成年人，必须同时无劳动能力、无生活来源且无法定赡养、抚养、扶养义务人或者其义务人无履行义务能力。","sourceChunkIds":["chunk-ab137a873ee607ed","chunk-7bf8a4c3f6ea38d0","chunk-286e4e3fc507aa3d"],"conditions":[{"type":"condition","field":"hukou","operator":"equals","value":"北京市","sourceText":"具有本市户籍","sourceChunkIds":["chunk-ab137a873ee607ed"]},{"type":"condition","field":"populationIdentity","operator":"in","value":["老年人","残疾人","未满16周岁的未成年人"],"sourceText":"老年人、残疾人以及未满16周岁的未成年人","sourceChunkIds":["chunk-ab137a873ee607ed"]},{"type":"condition","field":"hasLaborCapacity","operator":"equals","value":false,"sourceText":"无劳动能力","sourceChunkIds":["chunk-ab137a873ee607ed"]},{"type":"condition","field":"hasLivingSource","operator":"equals","value":false,"sourceText":"无生活来源","sourceChunkIds":["chunk-ab137a873ee607ed","chunk-7bf8a4c3f6ea38d0"]},{"type":"condition","field":"hasCapableLegalSupportObligor","operator":"equals","value":false,"sourceText":"无法定赡养、抚养、扶养义务人，或者其法定义务人无履行义务能力","sourceChunkIds":["chunk-ab137a873ee607ed","chunk-286e4e3fc507aa3d"]}]}],
+  "applicablePopulation": [{"title":"北京市特困人员","text":"北京户籍老年人、残疾人和未满16周岁未成年人，且三项核心困难条件必须同时成立。","sourceChunkIds":["chunk-ab137a873ee607ed"]}],
+  "benefits": [{"title":"综合救助供养","text":"包括基本生活、生活照料、疾病治疗、丧葬、住房和教育救助；基本生活标准不低于本市低保标准1.5倍，护理按自理能力分档。","sourceChunkIds":["chunk-0650e154c8b7ff60","chunk-539a95e1812b09e5"]}],
+  "materials": [{"title":"申请材料","text":"申请表、家庭经济状况登记及授权书、申请人及法定义务人身份证和户口簿、收入证明及其他证明材料。","sourceChunkIds":["chunk-474d2d4ec2b58ef9"]}],
+  "procedures": [{"title":"户籍地申请审核审批","text":"向户籍所在地街道乡镇申请，街道乡镇在15个工作日内审核并公示，区民政部门收到材料后8个工作日内审批，审批后进行生活自理能力评估。","sourceChunkIds":["chunk-474d2d4ec2b58ef9","chunk-403cdca09af4384a","chunk-18db8bb75ba348ef"]}],
+  "restrictions": [{"title":"待遇衔接和终止","text":"纳入特困供养后不再适用低保；纳入孤儿基本生活保障的不再适用特困供养；相关残疾人补贴不得重复。条件变化或死亡时按程序终止。","sourceChunkIds":["chunk-e66c5903b4d7526f","chunk-6c85c81772a5899d"]}],
+  "unresolvedQuestions": ["当前年度各区基本生活及护理具体金额", "劳动能力、收入财产和法定义务人履行能力的最新认定结果"],
+  "plainLanguage": {"officialInterpretationSourceIds":["https://www.beijing.gov.cn/zhengce/zcjd/201905/t20190523_77928.html"],"humanVerified":"特困供养不是只看收入低。申请人要有北京户籍，属于老人、残疾人或未满16周岁儿童，并且必须同时满足没有劳动能力、没有稳定生活来源、没有能够履行义务的法定赡养抚养扶养人。认定后可获得生活、照料、医疗等综合保障，但与低保、孤儿保障和部分残疾人补贴不能重复。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

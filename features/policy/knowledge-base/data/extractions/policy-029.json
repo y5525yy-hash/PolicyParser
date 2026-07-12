@@ -1,0 +1,41 @@
+{
+  "policyId": "policy-029",
+  "documentIds": ["bj-2007-disabled-self-employment-insurance"],
+  "sourceChunkIds": ["chunk-05d95beea5c25f22"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "具有本市城镇户籍、持残疾人证、处于法定劳动年龄，并属于个体经营、集贸市场经营或社区便民服务三类就业方式之一。",
+      "sourceChunkIds": ["chunk-05d95beea5c25f22"],
+      "conditions": [
+        {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市城镇户籍", "sourceText": "具有本市城镇户籍", "sourceChunkIds": ["chunk-05d95beea5c25f22"]},
+        {"type": "condition", "field": "hasDisabilityCertificate", "operator": "equals", "value": true, "sourceText": "持有《中华人民共和国残疾人证》", "sourceChunkIds": ["chunk-05d95beea5c25f22"]},
+        {"type": "condition", "field": "withinStatutoryWorkingAge", "operator": "equals", "value": true, "sourceText": "在法定劳动年龄内", "sourceChunkIds": ["chunk-05d95beea5c25f22"]},
+        {
+          "type": "anyOf",
+          "sourceText": "从事个体经营、在集贸市场个体经营、或由街道乡镇社区安排从事便民服务。",
+          "sourceChunkIds": ["chunk-05d95beea5c25f22"],
+          "conditions": [
+            {"type": "condition", "field": "employmentForm", "operator": "equals", "value": "持个体工商户营业执照从事个体经营", "sourceText": "从事个体经营并领取了《个体工商户营业执照》", "sourceChunkIds": ["chunk-05d95beea5c25f22"]},
+            {"type": "condition", "field": "employmentForm", "operator": "equals", "value": "集贸市场个体经营", "sourceText": "在集贸市场从事个体经营", "sourceChunkIds": ["chunk-05d95beea5c25f22"]},
+            {"type": "condition", "field": "employmentForm", "operator": "equals", "value": "社区便民服务", "sourceText": "由街道、乡镇或社区安排，在社区内从事便民服务", "sourceChunkIds": ["chunk-05d95beea5c25f22"]}
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "城镇个体就业残疾人", "text": "北京城镇户籍、持残疾人证、处于法定劳动年龄，并从事政策列明的个体经营、集贸市场经营或社区便民服务的残疾人。", "sourceChunkIds": ["chunk-05d95beea5c25f22"]}],
+  "benefits": [{"title": "养老、失业和医疗保险补贴", "text": "政策按缴费基数和比例分别补贴基本养老保险、失业保险和基本医疗保险；本市社会保险缴费标准调整时按新标准执行，实际金额需按当前缴费口径计算。", "sourceChunkIds": ["chunk-05d95beea5c25f22"]}],
+  "materials": [{"title": "申请证明材料", "text": "身份证、户口簿、残疾人证原件及复印件；营业执照、集贸市场经营证明或灵活就业证明；社会保险缴费证明；申请审批表。", "sourceChunkIds": ["chunk-05d95beea5c25f22"]}],
+  "procedures": [{"title": "户籍地残联申请，先缴后补", "text": "向户口所在地街道乡镇残联申请，经审核后由区县残联审批；个人先缴纳社会保险费，再凭缴费票据和证明申领，实行一年一补。", "sourceChunkIds": ["chunk-05d95beea5c25f22"]}],
+  "restrictions": [
+    {"title": "不得与其他社保补贴同期重复", "text": "享受劳动保障部门社会保险补贴期间，不能重复享受本办法补贴；停止享受前项政策后，符合条件的可继续申请本办法补贴。", "sourceChunkIds": ["chunk-05d95beea5c25f22"]},
+    {"title": "停止补贴情形", "text": "实现其他形式就业、停止个体就业或自谋职业、享受其他社保补贴、未及时足额缴费、超过法定劳动年龄或达到退休条件、弄虚作假等情形会停止补贴。", "sourceChunkIds": ["chunk-05d95beea5c25f22"]}
+  ],
+  "unresolvedQuestions": ["残疾人证是否当前有效", "是否仍在法定劳动年龄内", "当前是否正在享受其他社会保险补贴", "当前社会保险缴费基数、比例和实际补贴金额", "早期政策在当前经办系统中的申请表和办理渠道是否更新"],
+  "plainLanguage": {"officialInterpretationSourceIds": [], "humanVerified": "这项政策面向北京城镇户籍、持残疾人证且仍在劳动年龄内的个体就业残疾人。就业形式必须属于政策列明范围，申请时要提供经营或就业证明并先缴纳社保，再按年度申领补贴。正在享受其他社会保险补贴时不能重复领取，达到退休条件、停止经营或未按时缴费等情况会停止补贴。由于文件较早，具体缴费基数、金额和当前办理表单需要向残联或经办窗口再次核对。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

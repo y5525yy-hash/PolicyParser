@@ -1,0 +1,35 @@
+{
+  "policyId": "policy-003",
+  "documentIds": ["bj-2019-elderly-subsidy"],
+  "sourceChunkIds": ["chunk-24366230c30061a7", "chunk-5a42cefe4d902a84", "chunk-0ce442ea02d8d81d", "chunk-7d5018f81e6fe59b", "chunk-b99ea36e2a884f9d", "chunk-c1de8f033d801764"],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "具有本市户口，且属于重度失能或持有政策规定残疾证的老年人。",
+      "sourceChunkIds": ["chunk-24366230c30061a7", "chunk-5a42cefe4d902a84"],
+      "conditions": [
+        {"type": "condition", "field": "hukou", "operator": "equals", "value": "北京市", "sourceText": "具有本市户口", "sourceChunkIds": ["chunk-24366230c30061a7"]},
+        {
+          "type": "anyOf",
+          "sourceText": "重度失能或持有相应残疾证",
+          "sourceChunkIds": ["chunk-0ce442ea02d8d81d", "chunk-7d5018f81e6fe59b", "chunk-b99ea36e2a884f9d"],
+          "conditions": [
+            {"type": "condition", "field": "disabilityStatus", "operator": "equals", "value": "能力综合评估为重度失能", "sourceText": "经能力综合评估为重度失能", "sourceChunkIds": ["chunk-0ce442ea02d8d81d"]},
+            {"type": "condition", "field": "disabilityCertificate", "operator": "exists", "value": true, "sourceText": "持有政策规定类别和等级的残疾证", "sourceChunkIds": ["chunk-0ce442ea02d8d81d", "chunk-7d5018f81e6fe59b", "chunk-b99ea36e2a884f9d"]}
+          ]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [{"title": "失能或持证老年人", "text": "北京户籍、重度失能或持有规定类别和等级残疾证的老年人。", "sourceChunkIds": ["chunk-24366230c30061a7", "chunk-5a42cefe4d902a84"]}],
+  "benefits": [{"title": "护理补贴档位", "text": "按失能评估、残疾类别和等级分为每月600元、400元或200元。", "sourceChunkIds": ["chunk-0ce442ea02d8d81d", "chunk-7d5018f81e6fe59b", "chunk-b99ea36e2a884f9d"]}],
+  "materials": [{"title": "评估和身份材料", "text": "需核验身份、户籍、老年人能力综合评估或残疾证信息。", "sourceChunkIds": ["chunk-5a42cefe4d902a84"]}],
+  "procedures": [{"title": "先评估后申请", "text": "申请失能护理补贴的老年人需先进行老年人能力综合评估。", "sourceChunkIds": ["chunk-0ce442ea02d8d81d"]}],
+  "restrictions": [{"title": "待遇衔接", "text": "与残疾人对应护理补贴不得重复享受，应按规定选择。", "sourceChunkIds": ["chunk-c1de8f033d801764"]}],
+  "unresolvedQuestions": ["是否已完成老年人能力综合评估", "是否领取同类型护理待遇"],
+  "plainLanguage": {"officialInterpretationSourceIds": ["https://www.beijing.gov.cn/zhengce/zcjd/201910/t20191028_454234.html"], "humanVerified": "北京户籍的重度失能老人或持有规定残疾证的老人，可以按评估结果和残疾等级申请护理补贴，但不能重复领取同类型护理待遇。"},
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}

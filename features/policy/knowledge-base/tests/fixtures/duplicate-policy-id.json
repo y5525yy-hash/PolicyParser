@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "documents": [],
+  "policies": [
+    {
+      "policyId": "policy-001",
+      "documentIds": [],
+      "name": "政策一",
+      "region": "北京市",
+      "tags": [],
+      "status": "active",
+      "verificationStatus": "human_verified"
+    },
+    {
+      "policyId": "policy-001",
+      "documentIds": [],
+      "name": "政策二",
+      "region": "北京市",
+      "tags": [],
+      "status": "active",
+      "verificationStatus": "human_verified"
+    }
+  ]
+}

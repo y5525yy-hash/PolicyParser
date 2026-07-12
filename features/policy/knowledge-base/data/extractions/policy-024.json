@@ -1,0 +1,147 @@
+{
+  "policyId": "policy-024",
+  "documentIds": ["bj-2023-illness-poverty-medical-assistance"],
+  "sourceChunkIds": [
+    "chunk-2f19e655f1c30f9f",
+    "chunk-4740454e48d6e56e",
+    "chunk-4cc19d542161d8ec",
+    "chunk-ffd9677b9bc2e124",
+    "chunk-b1d67f359c47c940",
+    "chunk-da9ed66c51aa85fd",
+    "chunk-ccb58a39ff50669c",
+    "chunk-19486e19fa28d59f",
+    "chunk-abbe1ab426eec449",
+    "chunk-9635c5b368aeeeb5",
+    "chunk-f3d75bf1e2bd31ad",
+    "chunk-fd96008468db63ab",
+    "chunk-b94cc610655cfe18",
+    "chunk-cabe09feab299128",
+    "chunk-d2e46873251d9c1c"
+  ],
+  "extractionMethod": "manual",
+  "verificationStatus": "human_verified",
+  "eligibility": [
+    {
+      "type": "allOf",
+      "sourceText": "具有本市户籍，未享受城乡居民最低生活保障或低收入等社会救助，并同时符合家庭成员、收支水平、家庭财产认定条件。",
+      "sourceChunkIds": ["chunk-2f19e655f1c30f9f", "chunk-4740454e48d6e56e"],
+      "conditions": [
+        {
+          "type": "condition",
+          "field": "hukou",
+          "operator": "equals",
+          "value": "北京市",
+          "sourceText": "具有本市户籍",
+          "sourceChunkIds": ["chunk-2f19e655f1c30f9f"]
+        },
+        {
+          "type": "condition",
+          "field": "receivesMinimumLivingOrLowIncomeAssistance",
+          "operator": "equals",
+          "value": false,
+          "sourceText": "未享受城乡居民最低生活保障或低收入等社会救助",
+          "sourceChunkIds": ["chunk-2f19e655f1c30f9f"]
+        },
+        {
+          "type": "condition",
+          "field": "highMedicalExpenseCausesBasicLivingDifficulty",
+          "operator": "equals",
+          "value": true,
+          "sourceText": "在经过基本医疗保险、大病保险以及商业保险报销赔付和各种救助后，家庭负担的合规医疗费用超过家庭承受能力，基本生活出现严重困难",
+          "sourceChunkIds": ["chunk-2f19e655f1c30f9f"]
+        },
+        {
+          "type": "condition",
+          "field": "householdMemberDefinitionSatisfied",
+          "operator": "equals",
+          "value": true,
+          "sourceText": "家庭成员指共同生活的家庭成员，包括配偶、父母和未成年子女、已成年但不能独立生活的子女以及其他长期共同居住的人员",
+          "sourceChunkIds": ["chunk-4cc19d542161d8ec"]
+        },
+        {
+          "type": "condition",
+          "field": "incomeAfterMedicalExpense",
+          "operator": "less_than_or_equal",
+          "value": "本市同年职工最低工资标准",
+          "unit": "家庭月人均收入",
+          "sourceText": "申请家庭总收入在扣除家庭成员因罹患疾病发生的个人负担的合规医疗费用后，家庭月人均收入不超过本市同年职工最低工资标准",
+          "sourceChunkIds": ["chunk-ffd9677b9bc2e124"]
+        },
+        {
+          "type": "condition",
+          "field": "emergencyMonetaryPropertyPerCapita",
+          "operator": "less_than_or_equal",
+          "value": "24个月当年城乡低收入家庭认定标准之和",
+          "unit": "人均货币财产",
+          "sourceText": "家庭拥有应急之用的货币财产总额，人均应不超过24个月当年城乡低收入家庭认定标准之和",
+          "sourceChunkIds": ["chunk-da9ed66c51aa85fd"]
+        },
+        {
+          "type": "condition",
+          "field": "disqualifyingPropertySituation",
+          "operator": "equals",
+          "value": false,
+          "sourceText": "不存在政策列明的不符合救助条件的机动车、大型农机具、多套住房或非住宅类房屋等情形；政策规定的例外除外",
+          "sourceChunkIds": ["chunk-ccb58a39ff50669c"]
+        }
+      ]
+    }
+  ],
+  "applicablePopulation": [
+    {
+      "title": "因高额医疗费用导致基本生活严重困难的北京户籍家庭",
+      "text": "本市户籍、未享受低保或低收入等社会救助，在医保定点医疗机构就医并经各类保险和救助后仍承担较高合规医疗费用，同时满足家庭成员、收入和财产认定条件的家庭。",
+      "sourceChunkIds": ["chunk-2f19e655f1c30f9f", "chunk-4740454e48d6e56e"]
+    }
+  ],
+  "benefits": [
+    {
+      "title": "按合规医疗费用分段救助",
+      "text": "扣除基本医保、大病保险、商业保险和各种救助后，家庭负担的合规医疗费用按3万元（含）以下30%、3万元以上至5万元（含）以下40%、5万元以上50%分段救助，全年封顶15万元，同一自然年度只能申请一次。",
+      "sourceChunkIds": ["chunk-19486e19fa28d59f"]
+    }
+  ],
+  "materials": [
+    {
+      "title": "申请和经济状况材料",
+      "text": "户口簿及身份证复印件；经济状况和医疗费用支出登记表、声明书、授权书；年度收入及财产说明。",
+      "sourceChunkIds": ["chunk-abbe1ab426eec449", "chunk-9635c5b368aeeeb5", "chunk-f3d75bf1e2bd31ad", "chunk-fd96008468db63ab"]
+    },
+    {
+      "title": "医疗费用和保险材料",
+      "text": "参加商业保险的提交费用结算分割单；外埠医保或未能实时结算的本市参保人员提交相关医疗费用票据；医保部门要求的其他证明材料。",
+      "sourceChunkIds": ["chunk-b94cc610655cfe18", "chunk-cabe09feab299128", "chunk-d2e46873251d9c1c"]
+    }
+  ],
+  "procedures": [
+    {
+      "title": "向户籍所在地街道或乡镇申请",
+      "text": "由家庭成员向户籍所在地街道（乡镇）提出书面申请，具体由市（便）民服务中心办理；申请困难的，可委托村（居）民委员会代为提交。",
+      "sourceChunkIds": ["chunk-abbe1ab426eec449"]
+    }
+  ],
+  "restrictions": [
+    {
+      "title": "收入和财产必须同时符合",
+      "text": "申请家庭必须同时满足家庭成员、收支水平和家庭财产认定条件；机动车、多套住房、非住宅类房屋等否定条件及其例外必须逐项核对。",
+      "sourceChunkIds": ["chunk-4740454e48d6e56e", "chunk-ccb58a39ff50669c"]
+    },
+    {
+      "title": "不得隐瞒或虚报",
+      "text": "故意瞒报、虚报家庭收入和财产骗取救助资金的，应退回资金并记入诚信记录；构成犯罪的依法追究刑事责任。",
+      "sourceChunkIds": ["chunk-d2d0c87c3978025b"]
+    }
+  ],
+  "unresolvedQuestions": [
+    "申请家庭当前是否已享受低保或低收入等社会救助",
+    "上一自然年度家庭收入、合规医疗费用和商业保险赔付金额",
+    "申请前6个月家庭货币财产、住房、车辆及其他实物财产情况",
+    "所在区对唯一就医车辆等特殊情形的具体放宽办法"
+  ],
+  "plainLanguage": {
+    "officialInterpretationSourceIds": ["https://ybj.beijing.gov.cn/zwgk/2024zcjd/202406/t20240619_3721390.html"],
+    "humanVerified": "这项救助面向没有享受低保、低收入救助，但因看病支出过高而导致基本生活严重困难的北京户籍家庭。不是只看医疗票据，还要同时核对共同生活家庭成员、扣除合规医疗费用后的收入和家庭财产；车辆、住房等否定条件也要逐项核实，最终由医保部门审批。"
+  },
+  "extractedAt": "2026-07-11",
+  "verifiedAt": "2026-07-11"
+}
