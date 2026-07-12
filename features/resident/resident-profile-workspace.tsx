@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { AddCaseTaskButton } from "@/features/case-task/add-case-task-button";
 import { mockPolicies } from "@/features/policy/mock-policies";
+import { OnsiteSupplementForm } from "@/features/resident/onsite-supplement-form";
 import type { ResidentDirectoryRecord } from "@/features/resident/resident-directory-data";
 import styles from "@/features/resident/resident-profile.module.css";
 import type { SimilarResident } from "@/features/resident/similar-residents";
@@ -152,6 +153,8 @@ export function ResidentProfileWorkspace({
             )}
           </section>
 
+          <OnsiteSupplementForm residentId={resident.id} />
+
           <div className={styles.policyStack}>
             {activeMatches.map(({ match, policy }) => {
               const materialsExpanded = expandedMaterials.includes(policy.id);
@@ -195,7 +198,7 @@ export function ResidentProfileWorkspace({
                       </div>
                     ) : null}
                     <div className={styles.cardActions}>
-                      <button className={styles.actionButton} onClick={() => toggleMaterials(policy.id)} type="button">
+                      <button className={`${styles.actionButton} ${styles.materialAction}`} onClick={() => toggleMaterials(policy.id)} type="button">
                         {materialsExpanded ? "收起材料" : "展开材料"}
                       </button>
                       <button className={styles.actionButton} onClick={() => setDrawer({ type: "policy", policyId: policy.id })} type="button">
@@ -285,4 +288,3 @@ export function ResidentProfileWorkspace({
     </section>
   );
 }
-

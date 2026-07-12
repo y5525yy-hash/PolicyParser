@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { formatPolicyEvidenceText } from "@/features/policy/policy-evidence-format";
+
 import { mockPolicies } from "@/features/policy/mock-policies";
 import { searchPolicyClauses } from "@/features/policy/knowledge-base/retrieval";
 import {
@@ -88,7 +90,7 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
                   <span>{result.section}</span>
                 </div>
                 <h3>{result.policyName}</h3>
-                <blockquote>{result.text}</blockquote>
+                <blockquote>{formatPolicyEvidenceText(result.text)}</blockquote>
                 <p>片段 ID：{result.chunkId}</p>
                 <div className="retrieval-actions">
                   <Link href={`/policies/${result.policyId}`}>查看政策详情</Link>

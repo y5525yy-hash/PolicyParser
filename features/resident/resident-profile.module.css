@@ -588,3 +588,110 @@
   }
 }
 
+.onsiteSupplement {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .profileWorkspace {
+    width: calc(100vw - 16px);
+    grid-template-rows: auto minmax(0, 1fr);
+    margin-top: -20px;
+  }
+
+  .topbar {
+    min-height: 48px;
+    padding: 11px 12px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .topbarLeft {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .topbarRight {
+    display: none;
+  }
+
+  .rightPanel,
+  .materialSummary,
+  .materialDetails,
+  .materialAction,
+  .unmatchedSection {
+    display: none;
+  }
+
+  .onsiteSupplement {
+    padding: 18px;
+    display: grid;
+    gap: 16px;
+    border: 1px solid #bfd8ca;
+    border-radius: 18px;
+    background: #f4faf6;
+  }
+
+  .onsiteSupplement span {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .onsiteSupplement h2 {
+    margin: 6px 0;
+    font-size: 1.05rem;
+  }
+
+  .onsiteSupplement p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .onsiteForm {
+    display: grid;
+    gap: 12px;
+  }
+
+  .onsiteForm label {
+    display: grid;
+    gap: 6px;
+    color: var(--foreground);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .onsiteForm input,
+  .onsiteForm select,
+  .onsiteForm textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #bfd8ca;
+    border-radius: 12px;
+    background: white;
+    color: var(--foreground);
+    font: inherit;
+    font-weight: 500;
+  }
+
+  .onsiteForm textarea {
+    resize: vertical;
+  }
+
+  .onsiteForm button {
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    font-weight: 800;
+  }
+
+  .onsiteForm small {
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+}

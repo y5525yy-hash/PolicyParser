@@ -5,7 +5,6 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 
 import { mockPolicies } from "@/features/policy/mock-policies";
-import { mockResidentMatches } from "@/features/resident/mock-matches";
 import {
   politicalStatusOptions,
   residentDirectoryRecords,
@@ -15,6 +14,7 @@ import {
 import styles from "@/features/resident/resident-directory.module.css";
 import { RuralGridView } from "@/features/resident/rural-grid-view";
 import { MATCH_STATUS_LABELS } from "@/shared/demo-constants";
+import type { MatchResult } from "@/shared/types";
 
 type AgeFilter = "all" | "under-60" | "60-79" | "80-plus" | "unknown";
 type MatchFilter = "all" | "matched" | "pending" | "none";
@@ -43,6 +43,7 @@ export interface ResidentDirectoryQuery {
 
 interface ResidentDirectoryTableProps {
   initialQuery: ResidentDirectoryQuery;
+  matchResults: MatchResult[];
 }
 
 const pageSize = 4;
@@ -117,6 +118,7 @@ function matchesFocus(
 
 export function ResidentDirectoryTable({
   initialQuery,
+  matchResults,
 }: ResidentDirectoryTableProps) {
   const [query, setQuery] = useState(initialQuery);
   const [searchInput, setSearchInput] = useState(initialQuery.search);
@@ -139,7 +141,7 @@ export function ResidentDirectoryTable({
     const normalizedSearch = query.search.trim().toLocaleLowerCase("zh-CN");
 
     return residentDirectoryRecords.filter(({ resident, metadata }) => {
-      const residentMatches = mockResidentMatches.filter(
+      const residentMatches = matchResults.filter(
         (match) => match.residentId === resident.id && match.status !== "unmatched",
       );
       const matchesSearch =
@@ -170,7 +172,7 @@ export function ResidentDirectoryTable({
         matchesStatus
       );
     });
-  }, [query]);
+  }, [matchResults, query]);
 
   const pageCount = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
   const currentPage = Math.min(query.page, pageCount);
@@ -421,6 +423,7 @@ export function ResidentDirectoryTable({
       {query.view === "grid" ? (
         <RuralGridView
           currentListUrl={currentListUrl}
+          matches={matchResults}
           records={filteredRecords}
           saveScrollPosition={saveScrollPosition}
         />
@@ -452,7 +455,7 @@ export function ResidentDirectoryTable({
             ) : (
               pageRecords.map(({ resident, metadata }) => {
                 const isExpanded = query.expanded.includes(resident.id);
-                const matches = mockResidentMatches.filter(
+                const matches = matchResults.filter(
                   (match) =>
                     match.residentId === resident.id &&
                     match.status !== "unmatched",
