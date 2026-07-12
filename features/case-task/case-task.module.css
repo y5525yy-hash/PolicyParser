@@ -1,25 +1,25 @@
 .casePage {
+  --background: #f4f8fa;
+  --surface: #ffffff;
+  --text: #102a2e;
+  --muted: #52676b;
+  --text-muted: #7a8b8e;
+  --border: #d5e3e2;
+  --primary: #087f8c;
+  --primary-dark: #066a75;
+  --primary-deep: #04545d;
+  --accent: #e6f4f3;
+  --warning: #b76e00;
+  --shadow: 0 4px 12px rgba(15, 31, 51, 0.08);
   --font-size-xs: 12px;
   --font-size-sm: 13px;
   --font-size-lg: 20px;
   --line-height-base: 1.55;
-  --radius-sm: 4px;
+  --radius-sm: 8px;
   --control-height: 36px;
   width: min(1200px, calc(100vw - 32px));
   margin-left: calc((100% - min(1200px, calc(100vw - 32px))) / 2);
-  color: #111111;
-}
-
-.casePage * {
-  color: #111111 !important;
-}
-
-.casePage :where(a, button, select, p, span, strong, li, td) {
-  font-weight: 400 !important;
-}
-
-.casePage :where(h1, h2, h3, th) {
-  font-weight: 700 !important;
+  color: var(--text);
 }
 
 .button {
@@ -318,4 +318,130 @@
   .summaryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/* Homepage visual tokens applied to the case ledger. */
+.button {
+  border-color: var(--primary-dark);
+  border-radius: var(--radius-sm);
+  background: var(--primary-dark);
+  color: white;
+}
+
+.button:hover {
+  background: var(--primary-deep);
+}
+
+.feedback,
+.heading > p,
+.summaryGrid span,
+.statusTabs button,
+.subText,
+.empty,
+.emptyRow {
+  color: var(--muted);
+}
+
+.feedback a,
+.residentLink,
+.policyLink {
+  color: var(--primary-dark);
+}
+
+.heading {
+  margin-bottom: 16px;
+  padding: 24px;
+  border-color: var(--border);
+  border-left-color: var(--primary);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.heading h1 {
+  color: var(--text);
+}
+
+.eyebrow,
+.summaryGrid strong {
+  color: var(--primary-dark);
+}
+
+.notice,
+.statusLabel[data-status="todo"],
+.statusLabel[data-status="collecting"] {
+  border-color: rgba(183, 110, 0, 0.28);
+  background: rgba(183, 110, 0, 0.08);
+  color: var(--warning);
+}
+
+.notice {
+  border-left-color: var(--warning);
+  border-radius: var(--radius-sm);
+}
+
+.ledger {
+  border-color: var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.summaryGrid,
+.statusTabs {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.summaryGrid div,
+.taskTable td {
+  border-color: var(--border);
+}
+
+.statusTabs button:hover,
+.statusTabs .statusTabActive {
+  color: var(--primary-dark);
+}
+
+.statusTabs .statusTabActive {
+  border-bottom-color: var(--primary);
+}
+
+.taskTable th {
+  border-color: var(--border);
+  background: var(--accent);
+  color: var(--text);
+}
+
+.taskTable td {
+  color: var(--text);
+}
+
+.taskTable tbody tr:hover td {
+  background: var(--background);
+}
+
+.statusControl select {
+  border-color: var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.statusControl select:focus {
+  border-color: var(--primary);
+  outline-color: rgba(8, 127, 140, 0.2);
+}
+
+.statusLabel,
+.statusLabel[data-status="completed"] {
+  border-color: var(--border);
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.empty {
+  border-color: var(--border);
+  border-radius: 12px;
+  background: var(--surface);
 }
