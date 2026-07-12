@@ -197,6 +197,84 @@ When an exact amount, date, material, or official URL is uncertain, label it for
 - Do not edit generated `.next/`, `next-env.d.ts`, or `*.tsbuildinfo` files as feature work.
 - Do not add inline comments unless they explain a non-obvious constraint.
 
+## UI visual optimization phase — hard requirements
+
+The current phase is limited to UI visual optimization. Every agent must follow all of these requirements:
+
+1. Do not modify business logic, APIs, databases, routes, or existing behavior.
+2. Do not delete existing components, controls, feature buttons, or functionality.
+3. Prefer changes to CSS, Tailwind classes, layout, spacing, typography, colors, and presentational components.
+4. Work on only one page per task or iteration.
+5. Before editing, tell the user exactly which files will be modified.
+6. After editing, run the project, check the browser console for errors, and verify that the page's existing functions still work.
+7. If the requested result requires a large-scale refactor, stop and ask for approval before making the change.
+
+These requirements are mandatory even when a broader visual redesign would be possible.
+
+## Policy homepage final visual standard
+
+The current visual source of truth is the manually adjusted Figma frame `首页-最终版`, node `52:2`:
+
+`https://www.figma.com/design/LFju2LeTMMmQCtilcZ4pQa?node-id=52-2`
+
+When chat history, an older Figma frame, captured HTML, or existing CSS differs from node `52:2`, follow the latest contents of node `52:2`. Re-read the node before implementing later visual changes because the user may adjust it manually.
+
+### Color tokens
+
+Use this cool blue-green palette across later pages. Do not reintroduce the previous warm beige or dark green theme.
+
+```css
+--background: #f4f8fa;
+--surface: #ffffff;
+--text: #102a2e;
+--muted: #52676b;
+--text-muted: #7a8b8e;
+--border: #d5e3e2;
+--primary: #087f8c;
+--primary-dark: #066a75;
+--primary-deep: #04545d;
+--accent: #e6f4f3;
+--highlight: #14b8a6;
+--warning: #b76e00;
+```
+
+- Page backgrounds use `--background`.
+- Primary matching buttons and strong category badges use `--primary`; policy-card “查看详情” buttons use the deeper `--primary-dark` for stronger contrast.
+- Selected navigation, capability strips, secondary badges, and skeletons use `--accent`.
+- Cards use `--surface` with `--border`; avoid colored card backgrounds unless they communicate state.
+- Error states use `--warning` only for the border, heading, or essential status text.
+- Do not use decorative gradients on product pages.
+
+### Typography
+
+- Font stack: `"Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif`.
+- Display heading: 48px / 56px, weight 800.
+- Section heading: 24px / 32px, weight 700.
+- Card title: 20–24px / 28–32px, weight 700.
+- Body: 16px / 24px, weight 400.
+- Label: 14px / 20px, weight 600.
+- Caption: 12px / 18px, weight 400.
+- Use strong size and weight hierarchy; do not depend on color alone.
+
+### Layout and surfaces
+
+- Use an 8px spacing system: 8, 16, 24, 32, 40, 48, and 64px.
+- Desktop content width is 1152px inside a 1280px reference canvas with 64px side margins.
+- Standard radii: 8px for controls, 12px for cards and grouped content, 16px for the primary assistant panel.
+- Standard card shadow: `0 4px 12px rgba(15, 31, 51, 0.08)`.
+- Raised assistant shadow: `0 10px 28px -4px rgba(15, 31, 51, 0.12)`.
+- Use large areas of open background. Do not place every text block inside a card.
+- Avoid large illustrations, decorative photography, complex motion, and implementation-heavy effects.
+
+### Homepage structure and states
+
+- Preserve the hierarchy: brand/navigation → two-column hero → proof points → primary matching/search panel → three-capability strip → category sidebar and policy results → disclaimer.
+- Keep the primary action visually dominant.
+- Preserve existing search, clear, category, policy detail, and official-source behavior even when visible wording changes.
+- Empty, loading, and error states replace only the policy result area beneath its heading. The search panel, navigation, and category sidebar must remain in place.
+- Empty states may use the existing clear-filter action. Loading states contain no new action. Error states instruct the user to refresh or retry without inventing a new workflow.
+- If Figma shows a navigation label without an implemented route, render it as disabled text; do not create a route or business feature without explicit approval.
+
 ## 11. Required validation
 
 Before every commit, run the most relevant checks:
