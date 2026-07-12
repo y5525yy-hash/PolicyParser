@@ -1,27 +1,28 @@
 .directoryPage {
+  --background: #f4f8fa;
+  --surface: #ffffff;
+  --text: #102a2e;
+  --muted: #52676b;
+  --text-muted: #7a8b8e;
+  --border: #d5e3e2;
+  --primary: #087f8c;
+  --primary-dark: #066a75;
+  --primary-deep: #04545d;
+  --accent: #e6f4f3;
+  --highlight: #14b8a6;
+  --warning: #b76e00;
+  --shadow: 0 4px 12px rgba(15, 31, 51, 0.08);
   --font-size-xs: 12px;
   --font-size-sm: 13px;
   --font-size-base: 14px;
   --font-size-lg: 20px;
   --line-height-base: 1.55;
-  --radius-md: 6px;
+  --radius-md: 12px;
   --control-height: 36px;
   width: min(1200px, calc(100vw - 32px));
   margin-left: 50%;
   transform: translateX(-50%);
-  color: #111111;
-}
-
-.directoryPage * {
-  color: #111111 !important;
-}
-
-.directoryPage :where(a, button, input, select, label, p, span, strong, li, td) {
-  font-weight: 400 !important;
-}
-
-.directoryPage :where(h1, h2, h3, th) {
-  font-weight: 700 !important;
+  color: var(--text);
 }
 
 .viewTabs,
@@ -821,4 +822,195 @@ th.actionColumn {
   .expandedPanel {
     grid-template-columns: 1fr;
   }
+}
+
+/* Homepage visual tokens applied to the resident directory. */
+.viewBar,
+.toolbar,
+.gridView,
+.pagination {
+  border-color: var(--border);
+  background: var(--background);
+}
+
+.viewTab,
+.segmentLabel,
+.inlineFilter label,
+.filterField label,
+.resultBar,
+.pageIndicator,
+.gridSummary span,
+.villageHeading > span,
+.gridMetrics,
+.groupHeading > span:last-child,
+.subText,
+.verificationItem,
+.detailList,
+.expandedSection p {
+  color: var(--muted);
+}
+
+.viewTabActive {
+  border-bottom-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.segmentTab:hover,
+.segmentTabActive,
+.secondaryButton:hover,
+.pageButton:hover:not(:disabled) {
+  border-color: var(--border);
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.pageHeader {
+  margin-bottom: 16px;
+  padding: 24px;
+  border-color: var(--border);
+  border-left-color: var(--primary);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.pageHeader h1 {
+  color: var(--text);
+}
+
+.pageHeader p:last-child,
+.headerStat span {
+  color: var(--muted);
+}
+
+.eyebrow,
+.headerStat strong,
+.gridSummary strong,
+.levelMark,
+.villageHeading h3,
+.gridNode summary strong,
+.groupHeading strong,
+.resultBar strong,
+.expandedSection h3 {
+  color: var(--primary-dark);
+}
+
+.headerStat {
+  border-color: var(--border);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+}
+
+.workspace,
+.gridSummary,
+.villageNode,
+.groupNode,
+.resultBar,
+.tableFrame,
+.residentColumn,
+.actionColumn,
+.expandedPanel {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.workspace {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+
+.searchInput,
+.select,
+.secondaryButton,
+.pageButton {
+  border-color: var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.searchInput:focus,
+.select:focus {
+  border-color: var(--primary);
+  outline-color: rgba(8, 127, 140, 0.2);
+}
+
+.primaryButton {
+  border-color: var(--primary-dark);
+  border-radius: 8px;
+  background: var(--primary-dark);
+  color: white;
+}
+
+.primaryButton:hover {
+  background: var(--primary-deep);
+}
+
+.villageHeading,
+.gridNode,
+.table tbody tr:hover > .residentColumn,
+.table tbody tr:hover > .actionColumn,
+.table tbody tr:hover > td,
+.expandedMainRow > td,
+.expandedMainRow > .residentColumn,
+.expandedMainRow > .actionColumn,
+.expandedCell {
+  background: var(--background) !important;
+}
+
+.gridNode {
+  border-left-color: var(--primary);
+}
+
+.table th,
+th.residentColumn,
+th.actionColumn {
+  border-color: var(--border);
+  background: var(--accent);
+  color: var(--text);
+}
+
+.table td,
+.householdRow,
+.groupHeading,
+.expandedPolicy,
+.gridSummary div {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.residentName,
+.householdRow a,
+.policyLink,
+.textButton,
+.actionLink {
+  color: var(--primary-dark);
+}
+
+.tag,
+.statusMatched {
+  border-color: var(--border);
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.householdTag,
+.statusNeutral {
+  border-color: var(--border);
+  background: var(--background);
+  color: var(--muted);
+}
+
+.statusPending {
+  border-color: rgba(183, 110, 0, 0.28);
+  background: rgba(183, 110, 0, 0.08);
+  color: var(--warning);
+}
+
+.verificationItem strong {
+  color: var(--warning);
+}
+
+.expandedPanel {
+  border-left-color: var(--primary);
 }
