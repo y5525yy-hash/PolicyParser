@@ -11,6 +11,39 @@ npm run dev
 
 打开 `http://localhost:3000/policies`。
 
+## 交付前验证
+
+```bash
+npm run lint
+./node_modules/.bin/tsc --noEmit --incremental false
+npm run verify:matching
+npm run verify:llm
+npm run build
+```
+
+`verify:llm` 会使用真实的字段语义对齐 Prompt 调用模型，并检查模型只能从请求提供的 `criterionId` 和 `factKey` 白名单中返回映射。居民字段值不会发送给模型，最终资格仍由确定性规则脚本计算。
+
+## Vercel 展示部署
+
+```bash
+npx vercel@latest login
+npx vercel@latest whoami
+npx vercel@latest --yes --scope <个人用户名>
+```
+
+必须显式使用 `whoami` 返回的个人用户名作为 `--scope`，不要依赖 CLI 当前团队设置。
+
+在 Vercel 项目中配置以下服务端环境变量后重新部署：
+
+```text
+OPENAI_COMPATIBLE_API_KEY
+OPENAI_COMPATIBLE_BASE_URL=https://api.openai-next.com/v1
+OPENAI_COMPATIBLE_MODEL=gpt-5.6-terra
+OPENAI_COMPATIBLE_TIMEOUT_MS=20000
+```
+
+不得给这些变量添加 `NEXT_PUBLIC_` 前缀。`.vercelignore` 会阻止 `.env.local`、本地手册和开发产物被 Vercel CLI 上传。
+
 ## 分支规则
 
 - `main`: 稳定演示版本
@@ -20,4 +53,3 @@ npm run dev
 - `feature/matching`: C 的匹配引擎
 
 所有功能 PR 的目标分支均为 `dev`。最终演示通过后再由 A 将 `dev` 合入 `main`。
-

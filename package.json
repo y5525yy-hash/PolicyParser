@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "verify:matching": "node features/matching/scripts/verify-matching.cjs",
+    "verify:llm": "node features/matching/scripts/verify-llm.cjs"
   },
   "dependencies": {
     "next": "16.2.10",

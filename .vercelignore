@@ -1,0 +1,13 @@
+.git/
+.next/
+.vercel/
+node_modules/
+.env*
+
+CLAUDE.md
+C模块_AI开发执行与验收手册.md
+C模块_AI开发执行与验收手册_合并修订版.md
+黑客松三人并行开发执行手册.pdf
+
+.playwright-cli/
+output/

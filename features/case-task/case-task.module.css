@@ -1,0 +1,147 @@
+.button {
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.button:hover {
+  background: var(--primary-dark);
+}
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.feedback {
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.feedback a {
+  margin-left: 8px;
+  color: var(--primary);
+  text-underline-offset: 4px;
+}
+
+.heading {
+  max-width: 760px;
+  margin-bottom: 30px;
+}
+
+.heading h1 {
+  margin: 8px 0 12px;
+  font-size: clamp(2.1rem, 5vw, 3.8rem);
+  letter-spacing: -0.04em;
+}
+
+.heading p:last-child {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notice {
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  border-left: 4px solid #d49b35;
+  background: #fff9ed;
+  color: #6e5527;
+  line-height: 1.7;
+}
+
+.ledger {
+  display: grid;
+  gap: 16px;
+}
+
+.task {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(220px, 1.2fr) minmax(180px, 0.8fr);
+  gap: 20px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.task h2 {
+  margin: 6px 0 8px;
+  font-size: 1.2rem;
+}
+
+.meta,
+.materials {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.meta {
+  margin: 4px 0;
+}
+
+.materials h3,
+.statusControl label {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.materials ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.statusControl select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+}
+
+.statusLabel {
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: var(--primary-dark);
+  background: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.empty {
+  padding: 40px;
+  border: 1px dashed var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 820px) {
+  .task {
+    grid-template-columns: 1fr;
+  }
+}
+
