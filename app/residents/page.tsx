@@ -2,7 +2,6 @@ import {
   ResidentDirectoryQuery,
   ResidentDirectoryTable,
 } from "@/features/resident/resident-directory-table";
-import { residentDirectoryRecords } from "@/features/resident/resident-directory-data";
 import { matchAllResidentsAndPolicies } from "@/features/matching/matching-service";
 import styles from "@/features/resident/resident-directory.module.css";
 
@@ -58,20 +57,6 @@ export default async function ResidentsPage({ searchParams }: ResidentsPageProps
 
   return (
     <section className={styles.directoryPage}>
-      <header className={styles.pageHeader}>
-        <div>
-          <p className={styles.eyebrow}>乡村网格人员管理</p>
-          <h1>人员管理</h1>
-          <p>
-            通过人员档案与乡村网格双视图开展多维查询、重点人群摸排和政策匹配跟进。
-          </p>
-        </div>
-        <div className={styles.headerStat}>
-          <strong>{residentDirectoryRecords.length}</strong>
-          <span>名模拟居民</span>
-        </div>
-      </header>
-
       <ResidentDirectoryTable
         initialQuery={initialQuery}
         matchResults={matchResults}

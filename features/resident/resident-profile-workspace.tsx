@@ -76,7 +76,6 @@ export function ResidentProfileWorkspace({
           <Link className={styles.backLink} href={backHref}>
             ← 返回居民列表
           </Link>
-          <span className={styles.pageTitle}>居民详情及权益画像</span>
         </div>
         <div className={styles.topbarRight}>
           <span className={styles.safetyNotice}>敏感信息默认脱敏展示</span>
@@ -263,7 +262,7 @@ export function ResidentProfileWorkspace({
             </header>
 
             {drawer.type === "record" ? (
-              <>
+              <div className={styles.drawerGrid}>
                 <section className={styles.drawerSection}><h3>基本信息</h3><p>{metadata.gender}，{resident.age} 岁，{metadata.politicalStatus}，{metadata.administrativeVillage}{metadata.villageGroup}。</p></section>
                 <section className={styles.drawerSection}><h3>家庭与居住</h3><p>{metadata.familySummary}；家庭人口 {metadata.familyPopulation} 人；户籍状态为 {metadata.householdTags.join("、")}。</p></section>
                 <section className={styles.drawerSection}><h3>工作情况</h3><p>{metadata.workUnit}（{metadata.workUnitCategory}）。</p></section>
@@ -272,7 +271,7 @@ export function ResidentProfileWorkspace({
                 <section className={styles.drawerSection}><h3>已享受政策</h3><p>{metadata.enjoyedPolicies.length > 0 ? metadata.enjoyedPolicies.join("、") : "暂无登记"}</p></section>
                 <section className={styles.drawerSection}><h3>档案治理信息</h3><p>来源：{metadata.recordSource}；更新时间：{metadata.updatedAt}；人工核实：{metadata.verificationStatus}。</p></section>
                 <section className={styles.drawerSection}><h3>隐私信息</h3><p>电话：{metadata.maskedPhone}。身份证号和详细地址默认不在画像页面展示。</p></section>
-              </>
+              </div>
             ) : openPolicy ? (
               <>
                 <section className={styles.drawerSection}><h3>政策文件</h3><p>{openPolicy.policy.originalName}</p><p>生效日期：{openPolicy.policy.effectiveDate}；更新日期：{openPolicy.policy.updatedAt}</p></section>

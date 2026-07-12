@@ -49,18 +49,18 @@ interface ResidentDirectoryTableProps {
 const pageSize = 4;
 
 const focusTabs: Array<{ value: FocusFilter; label: string }> = [
-  { value: "all", label: "全部人员" },
-  { value: "elderly", label: "高龄老人" },
-  { value: "living-alone", label: "独居人员" },
-  { value: "difficult", label: "困难家庭" },
-  { value: "disability", label: "失能 / 残疾" },
+  { value: "all", label: "全部" },
+  { value: "elderly", label: "高龄" },
+  { value: "living-alone", label: "独居" },
+  { value: "difficult", label: "困难" },
+  { value: "disability", label: "残疾" },
 ];
 
 const matchTabs: Array<{ value: MatchFilter; label: string }> = [
-  { value: "all", label: "全部状态" },
+  { value: "all", label: "全部" },
   { value: "matched", label: "高度匹配" },
   { value: "pending", label: "待核实" },
-  { value: "none", label: "暂无潜在匹配" },
+  { value: "none", label: "暂无匹配" },
 ];
 
 function buildListUrl(query: ResidentDirectoryQuery) {
@@ -122,8 +122,20 @@ export function ResidentDirectoryTable({
 }: ResidentDirectoryTableProps) {
   const [query, setQuery] = useState(initialQuery);
   const [searchInput, setSearchInput] = useState(initialQuery.search);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(
+    initialQuery.gender !== "all" ||
+      initialQuery.political !== "" ||
+      initialQuery.workUnit !== "",
+  );
   const initialListUrl = useMemo(() => buildListUrl(initialQuery), [initialQuery]);
   const currentListUrl = buildListUrl(query);
+  const activeFilterCount = [
+    query.gender !== "all",
+    query.age !== "all",
+    query.political !== "",
+    query.workUnit !== "",
+    query.grid !== "",
+  ].filter(Boolean).length;
 
   useEffect(() => {
     const savedPosition = window.sessionStorage.getItem(
@@ -242,30 +254,45 @@ export function ResidentDirectoryTable({
 
   return (
     <div className={styles.workspace}>
-      <div aria-label="人员管理视图" className={styles.viewTabs} role="tablist">
-        <button
-          aria-selected={query.view === "list"}
-          className={`${styles.viewTab} ${query.view === "list" ? styles.viewTabActive : ""}`}
-          onClick={() => updateQuery({ view: "list" }, false)}
-          role="tab"
-          type="button"
-        >
-          人员档案列表
-        </button>
-        <button
-          aria-selected={query.view === "grid"}
-          className={`${styles.viewTab} ${query.view === "grid" ? styles.viewTabActive : ""}`}
-          onClick={() => updateQuery({ view: "grid" }, false)}
-          role="tab"
-          type="button"
-        >
-          乡村网格视图
-        </button>
+      <div className={styles.viewBar}>
+        <div aria-label="人员管理视图" className={styles.viewTabs} role="tablist">
+          <button
+            aria-selected={query.view === "list"}
+            className={`${styles.viewTab} ${query.view === "list" ? styles.viewTabActive : ""}`}
+            onClick={() => updateQuery({ view: "list" }, false)}
+            role="tab"
+            type="button"
+          >
+            人员档案列表
+          </button>
+          <button
+            aria-selected={query.view === "grid"}
+            className={`${styles.viewTab} ${query.view === "grid" ? styles.viewTabActive : ""}`}
+            onClick={() => updateQuery({ view: "grid" }, false)}
+            role="tab"
+            type="button"
+          >
+            乡村网格视图
+          </button>
+        </div>
+
+        <form className={styles.searchForm} onSubmit={handleSearch}>
+          <input
+            aria-label="按居民姓名搜索"
+            className={styles.searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
+            placeholder="搜索居民姓名"
+            type="search"
+            value={searchInput}
+          />
+          <button className={styles.primaryButton} type="submit">搜索</button>
+        </form>
       </div>
 
-      <div className={styles.segmentArea}>
+      <div className={styles.toolbar}>
+        <div className={styles.filterStrip}>
         <div className={styles.segmentRow}>
-          <span className={styles.segmentLabel}>重点人群</span>
+          <span className={styles.segmentLabel}>人群</span>
           <div aria-label="重点人群" className={styles.segmentTabs} role="tablist">
             {focusTabs.map((tab) => (
               <button
@@ -282,7 +309,7 @@ export function ResidentDirectoryTable({
           </div>
         </div>
         <div className={styles.segmentRow}>
-          <span className={styles.segmentLabel}>政策匹配</span>
+          <span className={styles.segmentLabel}>匹配</span>
           <div aria-label="政策匹配" className={styles.segmentTabs} role="tablist">
             {matchTabs.map((tab) => (
               <button
@@ -298,24 +325,57 @@ export function ResidentDirectoryTable({
             ))}
           </div>
         </div>
-      </div>
+          <div className={styles.inlineFilter}>
+              <label htmlFor="age-filter">年龄</label>
+              <select
+                className={`${styles.select} ${styles.ageSelect}`}
+                id="age-filter"
+                onChange={(event) =>
+                  updateQuery({ age: event.target.value as AgeFilter })
+                }
+                value={query.age}
+              >
+                <option value="all">全部年龄</option>
+                <option value="under-60">60 岁以下</option>
+                <option value="60-79">60–79 岁</option>
+                <option value="80-plus">80 岁及以上</option>
+                <option value="unknown">年龄待核实</option>
+              </select>
+          </div>
 
-      <div className={styles.toolbar}>
-        <form className={styles.searchForm} onSubmit={handleSearch}>
-          <input
-            aria-label="按居民姓名搜索"
-            className={styles.searchInput}
-            onChange={(event) => setSearchInput(event.target.value)}
-            placeholder="输入居民姓名"
-            type="search"
-            value={searchInput}
-          />
-          <button className={styles.primaryButton} type="submit">
-            搜索
+          <div className={styles.inlineFilter}>
+              <label htmlFor="grid-filter">网格</label>
+              <select
+                className={`${styles.select} ${styles.gridSelect}`}
+                id="grid-filter"
+                onChange={(event) => updateQuery({ grid: event.target.value })}
+                value={query.grid}
+              >
+                <option value="">全部乡村网格</option>
+                {ruralGridOptions.map((grid) => (
+                  <option key={grid} value={grid}>{grid}</option>
+                ))}
+              </select>
+          </div>
+
+          <button
+            aria-expanded={showAdvancedFilters}
+            className={`${styles.secondaryButton} ${styles.compactButton}`}
+            onClick={() => setShowAdvancedFilters((current) => !current)}
+            type="button"
+          >
+            更多{activeFilterCount > 0 ? ` ${activeFilterCount}` : ""}
           </button>
-        </form>
+          <button
+            className={`${styles.secondaryButton} ${styles.clearButton}`}
+            onClick={clearFilters}
+            type="button"
+          >
+            清空
+          </button>
+        </div>
 
-        <div className={styles.filters}>
+        {showAdvancedFilters ? <div className={styles.filters}>
           <div className={styles.filterField}>
             <label htmlFor="gender-filter">性别</label>
             <select
@@ -329,24 +389,6 @@ export function ResidentDirectoryTable({
               <option value="all">全部性别</option>
               <option value="女">女</option>
               <option value="男">男</option>
-            </select>
-          </div>
-
-          <div className={styles.filterField}>
-            <label htmlFor="age-filter">年龄</label>
-            <select
-              className={styles.select}
-              id="age-filter"
-              onChange={(event) =>
-                updateQuery({ age: event.target.value as AgeFilter })
-              }
-              value={query.age}
-            >
-              <option value="all">全部年龄</option>
-              <option value="under-60">60 岁以下</option>
-              <option value="60-79">60–79 岁</option>
-              <option value="80-plus">80 岁及以上</option>
-              <option value="unknown">年龄待核实</option>
             </select>
           </div>
 
@@ -385,32 +427,7 @@ export function ResidentDirectoryTable({
               ))}
             </select>
           </div>
-
-          <div className={styles.filterField}>
-            <label htmlFor="grid-filter">乡村网格</label>
-            <select
-              className={styles.select}
-              id="grid-filter"
-              onChange={(event) => updateQuery({ grid: event.target.value })}
-              value={query.grid}
-            >
-              <option value="">全部乡村网格</option>
-              {ruralGridOptions.map((grid) => (
-                <option key={grid} value={grid}>
-                  {grid}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            className={styles.secondaryButton}
-            onClick={clearFilters}
-            type="button"
-          >
-            清空筛选
-          </button>
-        </div>
+        </div> : null}
       </div>
 
       <div className={styles.resultBar}>
@@ -433,22 +450,19 @@ export function ResidentDirectoryTable({
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>居民</th>
+              <th className={styles.residentColumn}>居民</th>
               <th>村组</th>
               <th>户籍与人户状态</th>
-              <th>家庭情况</th>
               <th>重点标签</th>
-              <th>当前已享受政策</th>
               <th>匹配到的政策</th>
-              <th>待核实信息</th>
               <th>更新时间</th>
-              <th>操作</th>
+              <th className={styles.actionColumn}>操作</th>
             </tr>
           </thead>
           <tbody>
             {pageRecords.length === 0 ? (
               <tr>
-                <td className={styles.emptyState} colSpan={10}>
+                <td className={styles.emptyState} colSpan={7}>
                   暂无符合当前条件的居民，请调整搜索或筛选条件。
                 </td>
               </tr>
@@ -479,7 +493,7 @@ export function ResidentDirectoryTable({
                     <tr
                       className={isExpanded ? styles.expandedMainRow : undefined}
                     >
-                      <td>
+                      <td className={styles.residentColumn}>
                         <Link
                           className={styles.residentName}
                           href={detailUrl}
@@ -502,7 +516,6 @@ export function ResidentDirectoryTable({
                           ))}
                         </div>
                       </td>
-                      <td>{metadata.familySummary}</td>
                       <td>
                         <div className={styles.tagList}>
                           {displayTags.map((tag) => (
@@ -516,17 +529,6 @@ export function ResidentDirectoryTable({
                             </span>
                           ) : null}
                         </div>
-                      </td>
-                      <td>
-                        {metadata.enjoyedPolicies.length > 0 ? (
-                          <ul className={styles.plainList}>
-                            {metadata.enjoyedPolicies.map((policy) => (
-                              <li key={policy}>{policy}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <span className={styles.subText}>暂无登记</span>
-                        )}
                       </td>
                       <td>
                         {displayedPolicies.length > 0 ? (
@@ -567,36 +569,8 @@ export function ResidentDirectoryTable({
                           <span className={styles.statusNeutral}>暂无潜在匹配</span>
                         )}
                       </td>
-                      <td>
-                        {policyMatches.some(
-                          ({ match }) => match.missingFields.length > 0,
-                        ) ? (
-                          <ul className={styles.verificationList}>
-                            {policyMatches
-                              .flatMap(({ match, policy }) =>
-                                match.missingFields.map((field) => ({
-                                  key: `${policy.id}-${field}`,
-                                  policyName: policy.name,
-                                  field,
-                                })),
-                              )
-                              .slice(0, isExpanded ? undefined : 2)
-                              .map((item) => (
-                                <li
-                                  className={styles.verificationItem}
-                                  key={item.key}
-                                >
-                                  <strong>{item.policyName}：</strong>
-                                  {item.field}
-                                </li>
-                              ))}
-                          </ul>
-                        ) : (
-                          <span className={styles.subText}>暂无待核实项</span>
-                        )}
-                      </td>
                       <td>{metadata.updatedAt}</td>
-                      <td>
+                      <td className={styles.actionColumn}>
                         <div className={styles.actions}>
                           <Link
                             className={styles.actionLink}
@@ -619,7 +593,7 @@ export function ResidentDirectoryTable({
 
                     {isExpanded ? (
                       <tr key={`${resident.id}-expanded`}>
-                        <td className={styles.expandedCell} colSpan={10}>
+                        <td className={styles.expandedCell} colSpan={7}>
                           <div className={styles.expandedPanel}>
                             <section className={styles.expandedSection}>
                               <h3>居民档案摘要</h3>
