@@ -58,15 +58,6 @@ export function RuralGridView({
         </div>
       </div>
 
-      <div className={styles.hierarchyHeader}>
-        <div>
-          <span className={styles.levelMark}>乡镇</span>
-          <h2>西红门镇乡村网格</h2>
-          <p>按照“乡镇—行政村/社区—责任网格—村民小组—户”管理居民档案。</p>
-        </div>
-        <span className={styles.totalBadge}>{records.length} 户</span>
-      </div>
-
       <div className={styles.villageTree}>
         {villages.map((village) => {
           const villageRecords = records.filter(
@@ -166,4 +157,3 @@ export function RuralGridView({
     </section>
   );
 }
-

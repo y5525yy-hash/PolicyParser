@@ -1,0 +1,337 @@
+.siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(15, 31, 51, 0.05);
+}
+
+.navigationShell {
+  width: min(1152px, calc(100% - 32px));
+  min-height: 72px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(300px, 1fr) auto auto;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.brandArea {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brandMark {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.brandWordmark {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.topNavigation {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 4px;
+}
+
+.topNavigation a {
+  min-width: 96px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.topNavigation a:hover {
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.topNavigation .active {
+  border-bottom-color: var(--primary);
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.navigationPlaceholder {
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.matchingAction {
+  align-self: center;
+  min-height: 36px;
+  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid var(--primary-dark);
+  border-radius: 8px;
+  background: var(--primary-dark);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+}
+
+.matchingAction:hover,
+.matchingActionActive {
+  background: var(--primary-deep);
+}
+
+.matchingAction span {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.userSummary {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.userIdentity {
+  display: flex;
+  flex-direction: column;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.userIdentity span {
+  font-size: 12px;
+}
+
+.userIdentity strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.floatingNavigation {
+  position: fixed;
+  top: 50%;
+  right: 12px;
+  z-index: 30;
+  width: 92px;
+  transform: translateY(-42%);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  color: var(--text);
+  box-shadow: var(--shadow-raised);
+  overflow: visible;
+  transition: width 160ms ease;
+}
+
+.floatingTitle {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.floatingToggle {
+  position: absolute;
+  top: 7px;
+  left: -23px;
+  width: 23px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+  background: var(--surface);
+  color: var(--primary-dark);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.floatingNavigation nav {
+  display: grid;
+}
+
+.floatingNavigation nav a {
+  min-height: 62px;
+  padding: 7px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.floatingNavigation nav a:last-child {
+  border-bottom: 0;
+}
+
+.floatingNavigation nav a:hover {
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.floatingNavigation nav .active {
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.floatingNavigation nav a span {
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+}
+
+.floatingNavigation nav a em {
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.collapsed {
+  width: 42px;
+}
+
+.collapsed .floatingTitle,
+.collapsed nav a em {
+  display: none;
+}
+
+.collapsed nav a {
+  min-height: 45px;
+  padding: 5px;
+}
+
+.siteHeader a:focus-visible,
+.floatingNavigation a:focus-visible,
+.floatingNavigation button:focus-visible {
+  outline: 3px solid rgba(8, 127, 140, 0.28);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1080px) {
+  .navigationShell {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 12px;
+  }
+
+  .brandArea,
+  .topNavigation,
+  .userSummary {
+    justify-content: center;
+  }
+
+  .matchingAction,
+  .userSummary {
+    margin: 0 auto 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  .navigationShell {
+    width: min(100% - 24px, 1200px);
+  }
+
+  .topNavigation {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .topNavigation a {
+    min-width: auto;
+    padding: 0 14px;
+    white-space: nowrap;
+  }
+
+  .floatingNavigation {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+    transform: none;
+  }
+
+  .floatingTitle,
+  .floatingToggle,
+  .floatingNavigation nav a em {
+    display: none;
+  }
+
+  .floatingNavigation nav {
+    display: flex;
+  }
+
+  .floatingNavigation nav a,
+  .collapsed nav a {
+    min-width: 44px;
+    min-height: 42px;
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+  }
+}
