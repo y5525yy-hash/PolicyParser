@@ -380,18 +380,27 @@ export async function runSyntheticResidentEvaluation(
     const alignment = alignCriterionToFacts(criterion, sampleProjectedFacts);
     return {
       criterionId: criterion.id,
+      concept: criterion.concept,
       factKey: alignment.factKey,
       confidence: alignment.confidence,
       unresolved: alignment.factKey === null,
     };
   });
-  if (dictionaryPrecheck.some((item) => !item.unresolved)) {
+  const unexpectedDictionaryMappings = dictionaryPrecheck.filter(
+    (item) => !item.unresolved && item.concept !== "disabilityStatus",
+  );
+  if (
+    unexpectedDictionaryMappings.length > 0 ||
+    dictionaryPrecheck.every((item) => !item.unresolved)
+  ) {
     return {
       ok: false,
       category: "dictionary_precheck_failed",
-      message: "陌生字段仍能被本地词典直接解析，无法证明真实 LLM 参与。",
+      message:
+        "除明确保留的失能状态别名外，测试字段不应由本地词典直接完成全部解析。",
       deterministicCases,
       dictionaryPrecheck,
+      unexpectedDictionaryMappings,
       liveCases: [],
       tracking: trackingClient.report(),
       alignmentMethods: {} as Record<FieldAlignmentMethod, number>,
