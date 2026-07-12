@@ -107,7 +107,14 @@ function compareValues(
   expectedValue: PolicyCriterion["expectedValue"] = criterion.expectedValue,
 ): boolean | null {
   if (criterion.operator === "exists") {
-    return actualValue === null ? null : Boolean(expectedValue);
+    if (actualValue === null) return null;
+    const actualExists =
+      typeof actualValue === "boolean"
+        ? actualValue
+        : typeof actualValue === "string"
+          ? actualValue.trim().length > 0
+          : true;
+    return actualExists === Boolean(expectedValue);
   }
 
   if (criterion.operator === "in") {

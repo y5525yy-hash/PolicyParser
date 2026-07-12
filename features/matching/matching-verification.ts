@@ -113,6 +113,23 @@ export async function runMatchingKernelVerification(): Promise<VerificationCase[
       ),
     ],
   );
+  const existsCriterion = createCriterion({
+    id: "exists-boolean",
+    concept: "credential_present",
+    operator: "exists",
+    expectedValue: true,
+    valueType: "boolean",
+  });
+  const [existsTrueResult, existsFalseResult] = await Promise.all([
+    evaluateCriteriaForFacts(
+      [existsCriterion],
+      [createFact("credential_present", "是否持证", true, "boolean")],
+    ),
+    evaluateCriteriaForFacts(
+      [existsCriterion],
+      [createFact("credential_present", "是否持证", false, "boolean")],
+    ),
+  ]);
 
   const ageCriterion = createCriterion({
     id: "derived-age",
@@ -235,6 +252,14 @@ export async function runMatchingKernelVerification(): Promise<VerificationCase[
     {
       name: "notEquals 支持 boolean 条件",
       passed: notEqualsResult.decision === "candidate",
+    },
+    {
+      name: "exists 对 boolean true 判定为存在",
+      passed: existsTrueResult.decision === "candidate",
+    },
+    {
+      name: "exists 对 boolean false 判定为不满足",
+      passed: existsFalseResult.decision === "not-candidate",
     },
     {
       name: "出生日期可以派生边界年龄",

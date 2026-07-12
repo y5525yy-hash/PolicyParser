@@ -24,7 +24,7 @@ const {
 
 const SCHEMA_VERSION = "matching-verification-v1";
 const EXPECTED_POLICY_COUNT = 31;
-const EXPECTED_RESIDENT_COUNT = 8;
+const EXPECTED_RESIDENT_COUNT = 13;
 const ALLOWED_STATUSES = new Set(["matched", "pending", "unmatched"]);
 const CAMEL_CASE_PATTERN = /[a-z][A-Za-z0-9]*[A-Z][A-Za-z0-9]*/;
 
@@ -124,7 +124,7 @@ async function run() {
     }
 
     assert(
-      `政策 ${policy.id} 返回8名居民`,
+      `政策 ${policy.id} 返回${EXPECTED_RESIDENT_COUNT}名居民`,
       results.length === EXPECTED_RESIDENT_COUNT,
       { actual: results.length, expected: EXPECTED_RESIDENT_COUNT },
     );
@@ -182,7 +182,7 @@ async function run() {
   }
 
   assert(
-    "完成31项政策乘8名居民的248次正向验证",
+    `完成${EXPECTED_POLICY_COUNT}项政策乘${EXPECTED_RESIDENT_COUNT}名居民的正向验证`,
     allResults.length === EXPECTED_POLICY_COUNT * EXPECTED_RESIDENT_COUNT,
     {
       actual: allResults.length,
@@ -190,7 +190,7 @@ async function run() {
     },
   );
   assert(
-    "248项正向结果均具有唯一政策居民组合",
+    "正向结果均具有唯一政策居民组合",
     resultMatrix.size === EXPECTED_POLICY_COUNT * EXPECTED_RESIDENT_COUNT,
     {
       actual: resultMatrix.size,

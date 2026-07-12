@@ -1,7 +1,8 @@
 import { DEMO_IDS } from "@/shared/demo-constants";
 import type { Resident } from "@/shared/types";
+import { syntheticResidents } from "@/features/resident/synthetic-residents";
 
-export const mockResidents = [
+const baseResidents = [
   {
     id: DEMO_IDS.residents.zhangNainai,
     name: "张奶奶",
@@ -91,3 +92,5 @@ export const mockResidents = [
     labels: ["人户分离", "异地参保", "信息待完善"],
   },
 ] satisfies Resident[];
+
+export const mockResidents = [...baseResidents, ...syntheticResidents];

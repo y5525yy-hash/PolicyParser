@@ -205,19 +205,19 @@ async function run() {
 
   const criteria = [
     {
-      id: "criterion-age",
+      id: "criterion-student-status",
       policyId: "verification-policy",
-      concept: "age",
-      label: "年龄",
-      operator: "greaterThanOrEqual",
-      expectedValue: 80,
-      valueType: "number",
+      concept: "isStudent",
+      label: "是否为在校学生",
+      operator: "equals",
+      expectedValue: false,
+      valueType: "boolean",
       required: true,
-      fieldAliases: ["age", "年龄", "周岁"],
-      missingFieldLabel: "年龄",
+      fieldAliases: ["是否为在校学生", "在校状态", "学籍状态"],
+      missingFieldLabel: "在校学生身份",
       evidence: {
         chunkId: "verification-chunk",
-        quote: "年满80周岁",
+        quote: "不含在校学生",
         sourceUrl: "https://example.invalid/policy",
       },
     },
@@ -225,19 +225,27 @@ async function run() {
   const facts = [
     {
       residentId: "verification-resident",
-      key: "resident_age",
-      label: "居民年龄",
-      value: 82,
-      valueType: "number",
-      aliases: ["age", "年龄"],
+      key: "学籍在册标志",
+      label: "当前是否保留在校学籍",
+      value: false,
+      valueType: "boolean",
+      aliases: ["在读状态标志", "学籍有效状态"],
     },
     {
       residentId: "verification-resident",
-      key: "low_income_status",
-      label: "低收入状态",
-      value: "低保",
-      valueType: "string",
-      aliases: ["低保状态"],
+      key: "非在校生标志",
+      label: "当前是否属于非在校学生",
+      value: true,
+      valueType: "boolean",
+      aliases: ["离校状态标志", "不在校标志"],
+    },
+    {
+      residentId: "verification-resident",
+      key: "学生资助对象标志",
+      label: "是否属于学生资助范围",
+      value: false,
+      valueType: "boolean",
+      aliases: ["教育资助身份"],
     },
   ];
   const client = createOpenAiChatCompletionsJsonClient({ timeoutMs });
@@ -280,11 +288,11 @@ async function run() {
   }
 
   const mapping = validation.value.mappings.find(
-    (item) => item.criterionId === "criterion-age",
+    (item) => item.criterionId === "criterion-student-status",
   );
   const exactShape =
     validation.value.schemaVersion === FIELD_ALIGNMENT_SCHEMA_VERSION &&
-    mapping?.factKey === "resident_age" &&
+    mapping?.factKey === "学籍在册标志" &&
     mapping.confidence >= 0.75;
 
   if (!exactShape) {
@@ -292,7 +300,8 @@ async function run() {
       {
         ok: false,
         category: "schema_validation_error",
-        message: "模型输出通过基础校验，但没有完成约定的年龄字段语义对齐。",
+        message:
+          "模型输出通过基础校验，但没有区分在校字段与语义相反的非在校字段。",
         validatedOutput: validation.value,
       },
       5,
@@ -304,7 +313,7 @@ async function run() {
     ok: true,
     category: "success",
     message:
-      "gpt-5.6-terra 已通过真实字段对齐 Prompt 调用，并通过防幻觉输入白名单校验。",
+      "gpt-5.6-terra 已完成中文规范字段的相似语义与否定方向识别，并通过防幻觉输入白名单校验。",
     validation: {
       schemaVersion: validation.value.schemaVersion,
       criterionId: mapping.criterionId,
