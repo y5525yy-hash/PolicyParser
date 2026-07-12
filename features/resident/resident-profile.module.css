@@ -1,4 +1,16 @@
 .profileWorkspace {
+  --background: #f4f8fa;
+  --surface: #ffffff;
+  --text: #102a2e;
+  --muted: #52676b;
+  --text-muted: #7a8b8e;
+  --border: #d5e3e2;
+  --primary: #087f8c;
+  --primary-dark: #066a75;
+  --primary-deep: #04545d;
+  --accent: #e6f4f3;
+  --warning: #b76e00;
+  --shadow: 0 4px 12px rgba(15, 31, 51, 0.08);
   --font-size-xs: 12px;
   --font-size-sm: 13px;
   --font-size-base: 14px;
@@ -7,7 +19,7 @@
   --line-height-tight: 1.35;
   --line-height-base: 1.55;
   --line-height-loose: 1.7;
-  --radius-sm: 4px;
+  --radius-sm: 8px;
   --control-height: 36px;
   width: min(1200px, calc(100vw - 32px));
   height: calc(100vh - 106px);
@@ -15,24 +27,11 @@
   margin: -16px 0 0 calc((100% - min(1200px, calc(100vw - 32px))) / 2);
   display: grid;
   grid-template-rows: 48px minmax(0, 1fr);
-  border: 1px solid #d5dfe9;
-  background: #edf2f6;
-  color: #111111;
-  box-shadow: 0 4px 18px rgba(37, 67, 96, 0.08);
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--text);
+  box-shadow: var(--shadow);
   overflow: hidden;
-}
-
-.profileWorkspace * {
-  color: #111111 !important;
-}
-
-.profileWorkspace :where(a, button, p, span, strong, li, dt, dd) {
-  font-weight: 400 !important;
-}
-
-.profileWorkspace :where(h1, h2, h3),
-.policyTitle {
-  font-weight: 700 !important;
 }
 
 .topbar {
@@ -646,4 +645,162 @@
   .drawerGrid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Homepage visual tokens applied to the resident profile. */
+.topbar {
+  border-color: var(--border);
+  border-left-color: var(--primary);
+  background: var(--surface);
+}
+
+.backLink,
+.textLink,
+.policyTitle,
+.actionButton,
+.previousLink,
+.similarName {
+  color: var(--primary-dark);
+}
+
+.pageTitle,
+.identity h1,
+.sectionHeading,
+.rightPanel h2,
+.drawerHeader h2,
+.drawerSection h3 {
+  color: var(--text);
+}
+
+.safetyNotice,
+.identity p,
+.factRow dt,
+.metric span,
+.conditionBlock h3,
+.nextStep strong,
+.materialSummary strong,
+.conditionBlock ul,
+.materialDetails ul,
+.nextStep,
+.materialSummary,
+.unmatchedSection summary,
+.unmatchedList,
+.similarMeta,
+.drawerSection p,
+.drawerSection li {
+  color: var(--muted);
+}
+
+.leftPanel,
+.centerPanel,
+.rightPanel,
+.policyCard,
+.similarItem,
+.drawer,
+.drawerSection {
+  border-color: var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.leftPanel,
+.conditionBlock,
+.unmatchedSection,
+.closeButton {
+  background: var(--background);
+}
+
+.sectionHeading,
+.factRow,
+.policyCardHeader,
+.drawerHeader {
+  border-color: var(--border);
+}
+
+.tag,
+.statusMatched,
+.verificationVerified,
+.similarTag {
+  border-color: var(--border);
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+.recordButton {
+  border-color: var(--primary-dark);
+  border-radius: var(--radius-sm);
+  background: var(--primary-dark);
+  color: white;
+}
+
+.recordButton:hover {
+  background: var(--primary-deep);
+}
+
+.metric {
+  border-color: var(--border);
+  border-top-color: var(--primary);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.metric strong {
+  color: var(--primary-dark);
+}
+
+.pendingFocus,
+.statusPending,
+.verificationPartial,
+.fixedDisclaimer {
+  border-color: rgba(183, 110, 0, 0.28);
+  background: rgba(183, 110, 0, 0.08);
+  color: var(--warning);
+}
+
+.pendingFocus {
+  border-left-color: var(--warning);
+  border-radius: var(--radius-sm);
+}
+
+.pendingFocus strong,
+.pendingFocus ul,
+.similarReason {
+  color: var(--warning);
+}
+
+.verificationPending {
+  border-color: var(--border);
+  background: var(--background);
+  color: var(--muted);
+}
+
+.statusUnmatched {
+  border-color: var(--border);
+  background: var(--background);
+  color: var(--muted);
+}
+
+.policyCardHeader,
+.materialDetails,
+.previousLink {
+  border-color: var(--border);
+  background: var(--accent);
+}
+
+.materialDetails {
+  border-left-color: var(--primary);
+}
+
+.benefit,
+.factRow dd {
+  color: var(--text);
+}
+
+.fixedDisclaimer {
+  font-weight: 700;
+}
+
+.closeButton {
+  border-color: var(--border);
+  color: var(--muted);
 }
