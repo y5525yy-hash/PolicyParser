@@ -16,7 +16,8 @@ export function TopNavigation() {
     <header className="site-header">
       <div className="navigation-shell">
         <Link className="brand" href="/policies">
-          西红门民生政策助手
+          <span className="brand-mark" aria-hidden="true">政</span>
+          <span className="brand-wordmark">政解</span>
         </Link>
         <nav aria-label="主导航" className="top-navigation">
           {navigationItems.map((item) => {
@@ -33,6 +34,9 @@ export function TopNavigation() {
               </Link>
             );
           })}
+          <span aria-disabled="true" className="top-navigation-placeholder">
+            平台维护
+          </span>
         </nav>
       </div>
     </header>

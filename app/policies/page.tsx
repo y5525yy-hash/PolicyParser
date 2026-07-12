@@ -38,40 +38,73 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
   const activeCategoryName = activeCategoryDefinition?.name ?? "全部政策";
 
   return (
-    <section>
-      <div className="page-heading">
-        <p className="eyebrow">北京市大兴区 · 西红门镇便民服务</p>
-        <h1>西红门镇政策知识库</h1>
-        <p>按民生领域快速查找政策，用大白话查看适用对象、待遇标准、办理材料和官方出处。</p>
-      </div>
+    <section className="policy-home">
+      <section className="policy-hero" aria-labelledby="policy-hero-title">
+        <div className="policy-hero-shell">
+          <div className="policy-hero-main">
+            <div className="policy-hero-copy">
+              <h1 id="policy-hero-title">
+                <span>政策问题，直接问</span>
+                <span>匹配结果，有依据</span>
+              </h1>
+              <div className="policy-proof-points" aria-label="政策库概况">
+                <div>
+                  <strong>{mockPolicies.length} 项政策</strong>
+                  <span>持续核验</span>
+                </div>
+                <div>
+                  <strong>{policyCategories.length} 个主题分类</strong>
+                  <span>按政府口径</span>
+                </div>
+                <div>
+                  <strong>3 步完成</strong>
+                  <span>提问 · 查原文 · 匹配</span>
+                </div>
+              </div>
+            </div>
 
-      <div className="knowledge-summary" aria-label="政策库收录概况">
-        <div className="summary-number">
-          <strong>{mockPolicies.length}</strong>
-          <span>项已核验政策</span>
-        </div>
-        <div>
-          <strong>{policyCategories.length} 个政府主题分类</strong>
-          <p>分类沿用政府网站主题分类，覆盖民政救助、就业社保、医疗、住房、教育和司法援助等领域。</p>
-        </div>
-      </div>
+            <form className="policy-match-panel" method="get">
+              {activeCategory ? <input name="category" type="hidden" value={activeCategory} /> : null}
+              <div className="policy-match-composer">
+                <label htmlFor="policy-query">
+                  <span>政策找人：根据政策匹配符合办理条件的居民</span>
+                  <span>人找政策：为每个居民展示匹配的政策生成权益画像</span>
+                </label>
+                <input
+                  defaultValue={query}
+                  id="policy-query"
+                  name="q"
+                  placeholder="例如：80 周岁的王奶奶，可以申请哪些政策？"
+                  type="search"
+                />
+                <div className="policy-match-actions">
+                  <button type="submit">开始匹配</button>
+                  {query ? (
+                    <Link href={activeCategory ? `/policies?category=${activeCategory}` : "/policies"}>
+                      清除
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
+            </form>
+          </div>
 
-      <form className="policy-search" method="get">
-        {activeCategory ? <input name="category" type="hidden" value={activeCategory} /> : null}
-        <label htmlFor="policy-query">搜索政策名称、对象或资格条件原文</label>
-        <div>
-          <input
-            defaultValue={query}
-            id="policy-query"
-            name="q"
-            placeholder="例如：本市户籍 家庭财产 医疗救助"
-            type="search"
-          />
-          <button type="submit">本地检索</button>
-          {query ? <Link href={activeCategory ? `/policies?category=${activeCategory}` : "/policies"}>清除</Link> : null}
+          <div className="policy-capabilities" aria-label="核心能力">
+            <div>
+              <strong>01&nbsp; AI 政策问答</strong>
+              <span>把政策条文转成清晰解释</span>
+            </div>
+            <div>
+              <strong>02&nbsp; 政策原文检索</strong>
+              <span>快速定位条件、标准与限制</span>
+            </div>
+            <div>
+              <strong>03&nbsp; 智能匹配</strong>
+              <span>发现可能匹配居民和待核实信息</span>
+            </div>
+          </div>
         </div>
-        <p>检索只读取本地已核验政策原文，不上传居民信息，也不自动认定申请资格。</p>
-      </form>
+      </section>
 
       {query && visibleRetrievalResults.length > 0 ? (
         <section className="retrieval-results" aria-label="政策原文检索结果">
@@ -102,7 +135,7 @@ export default async function PoliciesPage({ searchParams }: PoliciesPageProps) 
         </section>
       ) : null}
 
-      <div className="policy-browser">
+      <div className="policy-browser" aria-live="polite">
         <aside className="category-panel" aria-label="政策分类">
           <div className="category-panel-heading">
             <p className="eyebrow">官方主题分类</p>
